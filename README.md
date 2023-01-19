@@ -4,7 +4,7 @@
 ----
 
 ```yml
-optimism:
+external:
   target: dev
   outputs:
     dev:

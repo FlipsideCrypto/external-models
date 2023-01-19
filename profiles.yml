@@ -1,4 +1,4 @@
-optimism:
+external:
   target: prod
   outputs:
     dev:
