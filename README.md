@@ -14,7 +14,7 @@ optimism:
       user: <USERNAME>
       password: <PASSWORD>
       region: <REGION>
-      database: OPTIMISM_DEV
+      database: EXTERNAL_DEV
       warehouse: <WAREHOUSE>
       schema: silver
       threads: 12
@@ -27,7 +27,7 @@ optimism:
       user: <USERNAME>
       password: <PASSWORD>
       region: <REGION>
-      database: OPTIMISM
+      database: EXTERNAL
       warehouse: <WAREHOUSE>
       schema: silver
       threads: 12
@@ -93,5 +93,5 @@ dbt run --var '{"UPDATE_SNOWFLAKE_TAGS":False}' -s models/core/core__fact_blocks
 
 ```
 select *
-from table(optimism.information_schema.tag_references('optimism.core.fact_blocks', 'table'));
+from table(external.information_schema.tag_references('external.core.fact_blocks', 'table'));
 ```

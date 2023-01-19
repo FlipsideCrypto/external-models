@@ -13,7 +13,7 @@ optimism:
       schema: SILVER
       threads: 4
       client_session_keep_alive: False
-      query_tag: optimism_curator
+      query_tag: external_curator
     prod:
       type: snowflake
       account: "{{ env_var('ACCOUNT') }}"
@@ -26,4 +26,4 @@ optimism:
       schema: SILVER
       threads: 4
       client_session_keep_alive: False
-      query_tag: optimism_curator
+      query_tag: external_curator
