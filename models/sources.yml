@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: tokenflow_starknet_l1_data
+    database: tokenflow_starknet
+    schema: l1_data
+    tables:
+      - name: blocks
+      - name: contracts
+      - name: messages
+      - name: storage_diffs
+  - name: tokenflow_starknet_decoded
+    database: tokenflow_starknet
+    schema: decoded
+    tables:
+      - name: blocks
+      - name: events
+      - name: messages
+      - name: traces
+      - name: transactions
+  
