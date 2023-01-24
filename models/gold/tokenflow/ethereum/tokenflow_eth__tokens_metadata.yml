@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: tokenflow_eth__tokens_metadata
+    description: This table contains token metadata level data for the Ethereum blockchain, sourced from Token Flow. For more information on Ethereum, please see [The Ethereum Organization](https://ethereum.org/en/developers/docs/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: ADDRESS
+      - name: ALLOWANCES_SLOT
+      - name: BALANCES_SLOT
+      - name: CODE_HASH
+      - name: DECIMALS
+      - name: NAME
+      - name: STANDARD
+      - name: SYMBOL
