@@ -1,0 +1,12 @@
+version: 2
+models:
+  - name: tokenflow_starknet__l1_data_contracts
+    description: This table contains raw contract level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: ADDRESS
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: CLASS_HASH
+      - name: CONSTRUCTOR_ARGS
+      - name: LOAD_ID

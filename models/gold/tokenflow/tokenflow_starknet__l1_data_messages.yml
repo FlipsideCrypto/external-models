@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: tokenflow_starknet__l1_data_messages
+    description: This table contains raw message level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: FEE
+      - name: L1_ADDRESS
+      - name: L2_ADDRESS
+      - name: LOAD_ID
+      - name: NONCE
+      - name: PAYLOAD
+      - name: SELECTOR

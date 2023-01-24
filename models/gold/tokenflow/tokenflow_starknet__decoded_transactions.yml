@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: tokenflow_starknet__decoded_transactions
+    description: This table contains decoded transaction level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: ACTUAL_FEE
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: CLASS_HASH
+      - name: CONTRACT
+      - name: ENTRY_POINT_SELECTOR
+      - name: ENTRY_POINT_TYPE
+      - name: ERROR
+      - name: EXECUTION_RESOURCES
+      - name: FUNCTION
+      - name: INPUTS
+      - name: L1_MESSAGE_NONCE
+      - name: LOAD_ID
+      - name: MAX_FEE
+      - name: OUTPUTS
+      - name: SIGNATURE
+      - name: TIMESTAMP
+      - name: TX_HASH
+      - name: TX_INDEX
+      - name: TYPE

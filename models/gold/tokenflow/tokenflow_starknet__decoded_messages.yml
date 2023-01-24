@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: tokenflow_starknet__decoded_messages
+    description: This table contains decoded message level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: CLASS_HASH
+      - name: FROM_ADDRESS
+      - name: LOAD_ID
+      - name: MESSAGE_ID
+      - name: MESSAGE_ORDER
+      - name: PAYLOAD
+      - name: TIMESTAMP
+      - name: TO_ADDRESS
+      - name: TRACE_ID
+      - name: TX_HASH
