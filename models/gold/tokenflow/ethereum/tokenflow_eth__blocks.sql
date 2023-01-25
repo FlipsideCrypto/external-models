@@ -1,5 +1,6 @@
 {{ config(
     materialized = 'view',
+    tags = ['tokenflow'],
     meta={
         'database_tags':{
             'table': {
