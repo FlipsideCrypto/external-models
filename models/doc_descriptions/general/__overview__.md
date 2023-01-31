@@ -2,22 +2,6 @@
 
 # Welcome to the Flipside Crypto External Models Documentation!
 
-## **What is Flipside?**
-
-[Flipside Crypto](https://flipsidecrypto.xyz/earn) provides Community Enabled Crypto Analytics, allowing our users to create and share data insights on the crypto projects they care most about.
-
-**Flipside Crypto puts pre-modeled and labeled blockchain data in the hands of communities.**
-
-Through dashboard and visualization tools, as well as auto-generated API endpoints, data analysts can easily create queries that answer any question via a tool called [Velocity](https://app.flipsidecrypto.com/velocity?nav=Discover).
-
-**Community members earn bounties for answering questions with data.**
-
-Bounties provide incentive and direction, so crypto projects can quickly source the data insights they need in order to grow.
-
-**Flipside works directly with leading crypto projects to reward on-demand analytics through structured bounty programs.**
-
-Questions sourced directly from the community provide insight into what communities care about as well as analytics needed to drive ecosystem engagement and growth.
-
 ## **What does this documentation cover?**
 The documentation included here details the design of the External tables and views available via [Flipside Crypto.](https://flipsidecrypto.xyz/earn). For more information on how these models are built, please see [the github repository.](https://github.com/FlipsideCrypto/external-models)
 
