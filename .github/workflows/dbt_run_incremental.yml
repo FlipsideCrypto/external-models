@@ -4,8 +4,9 @@ run-name: dbt_run_scheduled
 on:
   workflow_dispatch:
   schedule:
-    # Runs "every 2 hours" (see https://crontab.guru)
-    - cron: '0 */2 * * *'
+    # Runs "at 08:00 UTC on Monday and Wednesday" (see https://crontab.guru)
+      # Update schedule for additional models, where applicable
+    - cron: '0 8 * * 1,3'
     
 env:
   DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
@@ -41,4 +42,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run --exclude tag:tokenflow
+          dbt run

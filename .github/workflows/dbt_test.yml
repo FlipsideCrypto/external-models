@@ -3,9 +3,11 @@ run-name: dbt_test
 
 on:
   workflow_dispatch:
-  schedule:
-    # Runs "at 8:00 UTC" (see https://crontab.guru)
-    - cron: '0 8 * * *'
+    branches:
+        - "main"
+  # schedule:
+  #   # Runs "at 8:00 UTC" (see https://crontab.guru)
+  #   - cron: '0 8 * * *'
     
 env:
   DBT_PROFILES_DIR: ${{ secrets.DBT_PROFILES_DIR }}
