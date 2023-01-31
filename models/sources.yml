@@ -18,4 +18,18 @@ sources:
       - name: messages
       - name: traces
       - name: transactions
+  - name: tokenflow_eth
+    database: flipside_prod_db
+    schema: tokenflow_eth
+    tables:
+      - name: blocks
+      - name: calls
+      - name: events
+      - name: state_diffs
+      - name: storage_diffs
+      - name: storage_reads
+      - name: tokens_allowance_diffs
+      - name: tokens_balance_diffs
+      - name: tokens_metadata
+      - name: transactions
   

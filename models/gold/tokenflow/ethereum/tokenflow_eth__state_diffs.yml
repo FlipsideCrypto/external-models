@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: tokenflow_eth__state_diffs
+    description: This table contains state level data for the Ethereum blockchain, sourced from Token Flow. For more information on Ethereum, please see [The Ethereum Organization](https://ethereum.org/en/developers/docs/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: ADDRESS
+      - name: BLOCK
+      - name: BLOCK_HASH
+      - name: CALL_ID
+      - name: CANONICAL
+      - name: CURR_VALUE
+      - name: LOAD_ID
+      - name: ORDER_INDEX
+      - name: PREV_VALUE
+      - name: REASON
+      - name: STATE_FIELD
+      - name: STATUS
+      - name: TIMESTAMP
+      - name: TX_HASH

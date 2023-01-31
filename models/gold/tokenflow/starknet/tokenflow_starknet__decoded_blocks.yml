@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: tokenflow_starknet__decoded_blocks
+    description: This table contains decoded block level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK_HASH
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: GAS_PRICE
+      - name: LOAD_ID
+      - name: PARENT_HASH
+      - name: SEQUENCER
+      - name: STATE_ROOT
+      - name: TIMESTAMP
+      - name: TX_COUNT
+        

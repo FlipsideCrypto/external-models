@@ -1,0 +1,24 @@
+version: 2
+models:
+  - name: tokenflow_starknet__decoded_traces
+    description: This table contains decoded trace level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK_NUMBER
+      - name: CALLER
+      - name: CHAIN_ID
+      - name: CLASS_HASH
+      - name: CONTRACT
+      - name: ENTRY_POINT_SELECTOR
+      - name: ENTRY_POINT_TYPE
+      - name: EXECUTION_RESOURCES
+      - name: FUNCTION
+      - name: INPUTS
+      - name: INVOCATION_TYPE
+      - name: LOAD_ID
+      - name: OUTPUTS
+      - name: TIMESTAMP
+      - name: TRACE_ID
+      - name: TRACE_PATH
+      - name: TRACE_TYPE
+      - name: TX_HASH

@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: tokenflow_eth__blocks
+    description: This table contains block level data for the Ethereum blockchain, sourced from Token Flow. For more information on Ethereum, please see [The Ethereum Organization](https://ethereum.org/en/developers/docs/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BASE_FEE_PER_GAS
+      - name: BLOCK
+      - name: BLOCK_HASH
+      - name: CANONICAL
+      - name: GAS_LIMIT
+      - name: GAS_USED
+      - name: LOAD_ID
+      - name: MINER
+      - name: PARENT_HASH
+      - name: TIMESTAMP
+      - name: TX_COUNT

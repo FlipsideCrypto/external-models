@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: tokenflow_starknet__decoded_events
+    description: This table contains decoded event level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK_NUMBER
+      - name: CHAIN_ID
+      - name: CLASS_HASH
+      - name: CONTRACT
+      - name: EVENT_ID
+      - name: EVENT_ORDER
+      - name: KEYS
+      - name: LOAD_ID
+      - name: NAME
+      - name: PARAMETERS
+      - name: TIMESTAMP
+      - name: TRACE_ID
+      - name: TX_HASH

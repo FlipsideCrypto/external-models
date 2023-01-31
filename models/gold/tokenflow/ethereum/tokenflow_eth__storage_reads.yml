@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: tokenflow_eth__storage_reads
+    description: This table contains storage level data for the Ethereum blockchain, sourced from Token Flow. For more information on Ethereum, please see [The Ethereum Organization](https://ethereum.org/en/developers/docs/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+      
+    columns:
+      - name: BLOCK
+      - name: BLOCK_HASH
+      - name: CALL_ID
+      - name: CANONICAL
+      - name: CONTRACT
+      - name: LOAD_ID
+      - name: LOCATION
+      - name: ORDER_INDEX
+      - name: STATUS
+      - name: TIMESTAMP
+      - name: TX_HASH
+      - name: VALUE
