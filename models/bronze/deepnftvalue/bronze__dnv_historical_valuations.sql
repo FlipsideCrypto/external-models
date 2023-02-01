@@ -1,31 +1,28 @@
 {{ config(
-    materialized = 'table'
+    materialized = 'incremental',
+    unique_key = 'api_url',
+    full_refresh = false
 ) }}
 
-WITH slugs AS (
+WITH requests AS (
 
     SELECT
-        collection_slug
+        api_url
     FROM
-        {{ ref('bronze__dnv_collection_slugs') }}
-),
-api_endpoint AS (
-    SELECT
-        'https://api.deepnftvalue.com/v1/valuations/hist/' AS api_endpoint
-),
-api_limits AS (
-    SELECT
-        '?limit=5&token_ids=10' AS api_limits
-),
-api_url AS (
-    SELECT
-        api_endpoint || collection_slug || api_limits AS api_url
-    FROM
-        slugs
-        CROSS JOIN api_endpoint
-        CROSS JOIN api_limits
-),
-api_key AS (
+        {{ ref('silver__dnv_historical_requests') }}
+
+{% if is_incremental() %}
+WHERE
+    api_url NOT IN (
+        SELECT
+            api_url
+        FROM
+            {{ this }}
+    )
+{% endif %}
+LIMIT
+    3
+), api_key AS (
     SELECT
         CONCAT(
             '{\'Authorization\': \'Token ',
@@ -42,7 +39,16 @@ api_key AS (
 )
 SELECT
     ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp,
-    SYSDATE() _inserted_timestamp
-FROM
+    SYSDATE() _inserted_timestamp,
     api_url
-    CROSS JOIN api_key
+FROM
+    requests
+    JOIN api_key
+    ON 1 = 1
+WHERE
+    EXISTS (
+        SELECT
+            1
+        FROM
+            requests
+    )

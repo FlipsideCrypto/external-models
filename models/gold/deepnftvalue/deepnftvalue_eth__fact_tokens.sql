@@ -3,11 +3,11 @@
 ) }}
 
 SELECT
+    collection_name,
+    contract_address AS collection_address,
     token_id,
     active_offer,
     attributes,
-    collection :contract :: STRING AS contract_address,
-    collection :name :: STRING AS collection_name,
     image,
     is_flagged,
     last_sale,
@@ -16,6 +16,6 @@ SELECT
     rarity_rank,
     top_bid,
     valuation,
-    _inserted_timestamp AS collected_timestamp
+    _inserted_timestamp AS updated_timestamp
 FROM
     {{ ref('silver__dnv_tokens') }}
