@@ -7,7 +7,10 @@ The documentation included here details the design of the External tables and vi
 
 ### **Quick Links to Table Documentation**
 
-**Token Flow: Ethereum**
+<Collapsible header="Token Flow: Ethereum">
+    <div>
+        <p>
+                        
 [Token Flow Documentation](https://docs.tokenflow.live/)
 
 - [tokenflow_eth__blocks](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.blocks)
@@ -17,6 +20,10 @@ The documentation included here details the design of the External tables and vi
 - [tokenflow_eth__storage_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_diffs)
 - [tokenflow_eth__storage_reads](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_reads)
 - [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)
+</p>
+    </div>
+</Collapsible>
+
 
 **Token Flow: Starknet**
 [Token Flow Documentation](https://docs.tokenflow.live/)
