@@ -3,11 +3,12 @@
 # Welcome to the Flipside Crypto External Models Documentation!
 
 ## **What does this documentation cover?**
-The documentation included here details the design of the External tables and views available via [Flipside Crypto.](https://flipsidecrypto.xyz/earn). For more information on how these models are built, please see [the github repository.](https://github.com/FlipsideCrypto/external-models)
+The documentation included here details the design of the External tables and views available via [Flipside Crypto](https://flipsidecrypto.xyz/earn). For more information on how these models are built, please see [the github repository.](https://github.com/FlipsideCrypto/external-models)
 
 ### **Quick Links to Table Documentation**
 
-**Token Flow: Ethereum**                        
+**Token Flow: Ethereum**
+
 [Token Flow Documentation](https://docs.tokenflow.live/)
 
 - [tokenflow_eth__blocks](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.blocks)
@@ -16,11 +17,12 @@ The documentation included here details the design of the External tables and vi
 - [tokenflow_eth__state_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.state_diffs)
 - [tokenflow_eth__storage_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_diffs)
 - [tokenflow_eth__storage_reads](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_reads)
-- [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)</p>
+- [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)
 
 
 
 **Token Flow: Starknet**
+
 [Token Flow Documentation](https://docs.tokenflow.live/)
 
 - [tokenflow_starknet__decoded_blocks](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_starknet_decoded.blocks)
@@ -46,7 +48,6 @@ The dimension tables are sourced from a variety of on-chain and off-chain source
 
 Convenience views (denoted ez_) are a combination of different fact and dimension tables. 
 
-A user-defined-function (UDF) is available to decode hex encoded values to integers in this database. You can call this UDF by using `external.public.udf_hex_to_int(FIELD::string)`.
 
 ## **Using dbt docs**
 ### Navigation
