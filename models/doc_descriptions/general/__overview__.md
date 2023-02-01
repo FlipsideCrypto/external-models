@@ -9,7 +9,7 @@ The documentation included here details the design of the External tables and vi
 
 <Collapsible header="Token Flow: Ethereum">
     <div>
-        <p>
+        <p>Ethereum data
                         
 [Token Flow Documentation](https://docs.tokenflow.live/)
 
@@ -19,8 +19,7 @@ The documentation included here details the design of the External tables and vi
 - [tokenflow_eth__state_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.state_diffs)
 - [tokenflow_eth__storage_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_diffs)
 - [tokenflow_eth__storage_reads](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_reads)
-- [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)
-</p>
+- [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)</p>
     </div>
 </Collapsible>
 
