@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'chain'
+    unique_key = 'chain',
+    tags = ['defillama']
 ) }}
 
 WITH chain_base AS (

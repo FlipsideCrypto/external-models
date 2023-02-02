@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'stablecoin_id'
+    unique_key = 'stablecoin_id',
+    tags = ['defillama']
 ) }}
 
 WITH stablecoin_base AS (

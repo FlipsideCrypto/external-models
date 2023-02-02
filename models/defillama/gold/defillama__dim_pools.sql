@@ -1,7 +1,8 @@
 {{ config(
     materialized = 'view',
     persist_docs ={ "relation": true,
-    "columns": true }
+    "columns": true },
+    tags = ['defillama']
 ) }}
 
 SELECT
@@ -22,7 +23,4 @@ SELECT
     exposure AS exposure_type,
     poolmeta AS pool_metadata
 FROM
-    {{ source(
-        'crosschain_dev_silver',
-        'defillama_api_pools_20221219_154038'
-    ) }}
+    {{ ref('silver__defillama_api_pools_20221219_154038') }}

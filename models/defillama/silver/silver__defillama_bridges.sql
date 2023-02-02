@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'bridge_id'
+    unique_key = 'bridge_id',
+    tags = ['defillama']
 ) }}
 
 WITH bridge_base AS (

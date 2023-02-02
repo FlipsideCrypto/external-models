@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'dex_slug'
+    unique_key = 'dex_slug',
+    tags = ['defillama']
 ) }}
 
 WITH base AS (
