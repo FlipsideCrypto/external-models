@@ -9,4 +9,4 @@ SELECT
     chain_id,
     chain,
     token_symbol
-FROM {{ ref('silver__defillama_chains') }}
+FROM {{ ref('bronze__defillama_chains') }}

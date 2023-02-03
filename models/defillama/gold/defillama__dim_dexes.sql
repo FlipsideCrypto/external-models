@@ -10,4 +10,4 @@ SELECT
     dex,
     category,
     chains 
-FROM {{ ref('silver__defillama_dexes') }}
+FROM {{ ref('bronze__defillama_dexes') }}

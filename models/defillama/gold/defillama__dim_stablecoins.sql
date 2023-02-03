@@ -13,4 +13,4 @@ SELECT
     peg_mechanism,
     price_source,
     chains
-FROM {{ ref('silver__defillama_stablecoins') }}
+FROM {{ ref('bronze__defillama_stablecoins') }}

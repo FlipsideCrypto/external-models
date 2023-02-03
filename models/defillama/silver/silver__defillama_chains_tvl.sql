@@ -8,7 +8,7 @@
 WITH chain_base AS (
 
 SELECT DISTINCT chain
-FROM {{ ref('silver__defillama_chains') }}
+FROM {{ ref('bronze__defillama_chains') }}
 ),
 
 tvl_base_1 AS (

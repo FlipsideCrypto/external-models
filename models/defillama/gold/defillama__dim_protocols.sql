@@ -17,4 +17,4 @@ SELECT
     category,
     num_audits,
     audit_note
-FROM {{ ref('silver__defillama_protocols') }}
+FROM {{ ref('bronze__defillama_protocols') }}

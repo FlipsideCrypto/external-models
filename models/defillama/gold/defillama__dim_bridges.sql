@@ -10,4 +10,4 @@ SELECT
     bridge,
     chains,
     destination_chain
-FROM {{ ref('silver__defillama_bridges') }}
+FROM {{ ref('bronze__defillama_bridges') }}

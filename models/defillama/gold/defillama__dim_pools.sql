@@ -23,4 +23,4 @@ SELECT
     exposure AS exposure_type,
     poolmeta AS pool_metadata
 FROM
-    {{ ref('silver__defillama_api_pools_20221219_154038') }}
+    {{ ref('bronze__defillama_api_pools_20221219_154038') }}
