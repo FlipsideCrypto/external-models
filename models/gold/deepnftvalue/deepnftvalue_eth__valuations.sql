@@ -11,4 +11,4 @@ SELECT
     price,
     _inserted_timestamp AS updated_timestamp
 FROM
-    {{ ref('silver__dnv_historical_valuations') }}
+    {{ ref('silver__dnv_valuations') }}

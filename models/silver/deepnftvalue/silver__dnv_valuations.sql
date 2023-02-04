@@ -3,7 +3,7 @@
     unique_key = '_id'
 ) }}
 
-WITH base AS (
+WITH historical_base AS (
 
     SELECT
         resp,
@@ -17,11 +17,43 @@ WHERE
         SELECT
             MAX(
                 _inserted_timestamp
-            )
+            ) :: DATE - 1
         FROM
             {{ this }}
     )
 {% endif %}
+),
+latest_base AS (
+    SELECT
+        resp,
+        _inserted_timestamp
+    FROM
+        {{ ref('bronze__dnv_latest_valuations') }}
+
+{% if is_incremental() %}
+WHERE
+    _inserted_timestamp >= (
+        SELECT
+            MAX(
+                _inserted_timestamp
+            ) :: DATE - 1
+        FROM
+            {{ this }}
+    )
+{% endif %}
+),
+all_data AS (
+    SELECT
+        resp,
+        _inserted_timestamp
+    FROM
+        historical_base
+    UNION ALL
+    SELECT
+        resp,
+        _inserted_timestamp
+    FROM
+        latest_base
 ),
 FINAL AS (
     SELECT
@@ -33,7 +65,7 @@ FINAL AS (
         VALUE :nft :token_id :: INTEGER AS token_id,
         VALUE :price :: FLOAT AS price
     FROM
-        base,
+        all_data,
         LATERAL FLATTEN(
             input => resp :data :results
         )
