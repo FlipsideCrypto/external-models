@@ -10,6 +10,7 @@ WITH tvl_base AS (
 {% for item in range(5) %}
 (
 SELECT
+    chain_id,
     chain,
     ethereum.streamline.udf_api(
         'GET',CONCAT('https://api.llama.fi/charts/',chain),{},{}
@@ -43,12 +44,13 @@ UNION ALL
 )
 
 SELECT
+    chain_id,
     chain,
     TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
     VALUE:totalLiquidityUSD::INTEGER AS tvl_usd,
     _inserted_timestamp,
      {{ dbt_utils.surrogate_key(
-        ['chain', 'timestamp']
+        ['chain_id', 'chain', 'timestamp']
     ) }} AS id
 FROM tvl_base,
     LATERAL FLATTEN (input=> read:data)

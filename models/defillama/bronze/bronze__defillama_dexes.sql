@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'dex_slug',
+    unique_key = 'dex_id',
     tags = ['defillama']
 ) }}
 
@@ -17,7 +17,7 @@ SELECT
 )
     
 SELECT
-    VALUE:module::STRING AS dex_slug,
+    VALUE:module::STRING AS dex_id,
     VALUE:name::STRING AS dex,
     VALUE:category::STRING AS category,
     VALUE:chains AS chains,
@@ -25,16 +25,16 @@ SELECT
 FROM base,
     LATERAL FLATTEN (input=> dex_read:data:protocols)
 {% if is_incremental() %}
-WHERE dex_slug NOT IN (
+WHERE dex_id NOT IN (
     SELECT
-        DISTINCT dex_slug
+        DISTINCT dex_id
     FROM
         {{ this }}
 )
 {% endif %}
 UNION
 SELECT
-    VALUE:module::STRING AS dex_slug,
+    VALUE:module::STRING AS dex_id,
     VALUE:name::STRING AS dex,
     VALUE:category::STRING AS category,
     VALUE:chains AS chains,
@@ -43,9 +43,9 @@ FROM base,
     LATERAL FLATTEN (input=> options_read:data:protocols)
 
 {% if is_incremental() %}
-WHERE dex_slug NOT IN (
+WHERE dex_id NOT IN (
     SELECT
-        DISTINCT dex_slug
+        DISTINCT dex_id
     FROM
         {{ this }}
 )

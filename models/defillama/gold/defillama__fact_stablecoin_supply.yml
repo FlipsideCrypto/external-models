@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: defillama__fact_stablecoin_supply
+    description: This table contains historical supply related data for the stablecoins listed on Defillama in `dim_stablecoins`.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: STABLECOIN_ID
+        description: Unique identifier of the stablecoin.
+      - name: STABLECOIN
+        description: The name of the stablecoin.
+      - name: SYMBOL
+        description: The symbol of the stablecoin.
+      - name: CIRCULATING_USD
+        description: The total amount of tokens in circulation, denominated in USD.
+      - name: MINTED
+        description: The total amount of tokens minted.
+      - name: UNRELEASED_USD
+        description: The total amount of tokens unreleased, denominated in USD.
+      - name: BRIDGED_TO
+        description: The total amount of tokens bridged.

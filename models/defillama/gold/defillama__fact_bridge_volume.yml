@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: defillama__fact_bridge_volume
+    description: This table contains historical deposit and withdraw transaction volume for the bridges listed on Defillama in `dim_bridges`.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: BRIDGE_ID
+        description: Unique identifier of the bridge.
+      - name: BRIDGE
+        description: Name of the bridge.
+      - name: DEPOSIT_TXS
+        description: Total number of deposit transactions to the bridge.
+      - name: DEPOSIT_USD
+        description: Total value of deposits to the bridge, denominated in USD.
+      - name: WITHDRAW_TXS
+        description: Total number of withdrawal transactions to the bridge.
+      - name: WITHDRAW_USD
+        description: Total value of withdrawals to the bridge, denominated in USD.

@@ -4,7 +4,7 @@ models:
     description: This table contains dimensional information about the decentralized exchanges (DEX) listed on Defillama.
 
     columns:
-      - name: DEX_SLUG
+      - name: dex_id
         description: Unique identifier of the dex.
       - name: DEX
         description: Name of the dex.

@@ -6,7 +6,7 @@
 ) }}
 
 SELECT
-    dex_slug,
+    dex_id,
     dex,
     category,
     chains 
