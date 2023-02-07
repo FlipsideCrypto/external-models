@@ -21,6 +21,7 @@ SELECT
         WHEN VALUE:destinationChain::STRING ilike 'false' OR VALUE:destinationChain::STRING = '-' THEN NULL 
         ELSE VALUE:destinationChain::STRING 
     END AS destination_chain,
+    ROW_NUMBER() OVER (ORDER BY bridge) AS row_num,
     _inserted_timestamp
 FROM bridge_base,
     LATERAL FLATTEN (input=> read:data:bridges)

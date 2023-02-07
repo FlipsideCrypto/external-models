@@ -21,6 +21,7 @@ SELECT
     VALUE:pegMechanism::STRING AS peg_mechanism,
     VALUE:priceSource::STRING AS price_source,
     VALUE:chains AS chains,
+    ROW_NUMBER() OVER (ORDER BY stablecoin) AS row_num,
     _inserted_timestamp
 FROM stablecoin_base,
     LATERAL FLATTEN (input=> read:data:peggedAssets)
