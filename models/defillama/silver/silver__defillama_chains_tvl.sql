@@ -19,6 +19,7 @@ SELECT
 FROM (
     SELECT 
         DISTINCT chain, 
+        chain_id,
         row_num
     FROM {{ ref('bronze__defillama_chains') }}
     WHERE row_num BETWEEN {{ item * 60 + 1 }} AND {{ (item + 1) * 60 }}
