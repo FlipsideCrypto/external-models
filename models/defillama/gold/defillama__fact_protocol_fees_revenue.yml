@@ -10,7 +10,7 @@ models:
         description: The name of the blockchain.
       - name: PROTOCOL
         description: The name of the protocol.
-      - name: DAILY_FEES
+      - name: FEES
         description: The total amount of fees earned by the protocol on a daily basis, denominated in USD.
-      - name: DAILY_REV
+      - name: REVENUE
         description: The total amount of revenue earned by the protocol on a daily basis, denominated in USD.

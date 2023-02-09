@@ -9,8 +9,8 @@ SELECT
     f.TIMESTAMP :: DATE AS DATE,
     f.chain,
     f.protocol,
-    COALESCE(daily_fees,0) AS daily_fees,
-    COALESCE(daily_rev,0) AS daily_rev
+    COALESCE(daily_fees,0) AS fees,
+    COALESCE(daily_rev,0) AS revenue
 FROM
     {{ ref('silver__defillama_protocol_fees') }} f
 LEFT JOIN

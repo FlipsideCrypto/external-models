@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: defillama__fact_options_volume
+    description: This table contains historical options volumes for the protocols listed on Defillama in `dim_protocols`, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: PROTOCOL
+        description: The name of the protocol.
+      - name: VOLUME_PREMIUM
+        description: The total premium volume driven by the protocol on a daily basis, denominated in USD.
+      - name: VOLUME_NOTIONAL
+        description: The total notional volume driven by the protocol on a daily basis, denominated in USD.
