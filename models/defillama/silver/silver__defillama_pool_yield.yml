@@ -1,25 +1,26 @@
 # version: 2
 # models:
-#   - name: silver__defillama_stablecoin_supply
+#   - name: silver__defillama_pool_yield
 #     tests:
 #       - dbt_utils.unique_combination_of_columns:
 #             combination_of_columns:
-#               - STABLECOIN_ID
-#               - TIMESTAMP
+#               - ID
     
 #     columns:
-#       - name: STABLECOIN_ID
+#       - name: POOL_ID
 #         tests:
 #           - not_null
-#       - name: STABLECOIN
+#       - name: PROTOCOL
 #       - name: SYMBOL
 #         tests:
 #           - not_null
 #       - name: TIMESTAMP
-#       - name: CIRCULATING_USD
-#       - name: MINTED
-#       - name: UNRELEASED_USD
-#       - name: BRIDGED_TO
+#       - name: TVL_USD
+#       - name: APY
+#       - name: APY_BASE
+#       - name: APY_REWARD
+#       - name: APY_BASE_7D
+#       - name: IL_7D
 #       - name: _INSERTED_TIMESTAMP
 #         tests:
 #           - not_null
