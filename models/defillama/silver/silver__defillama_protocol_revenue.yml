@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: silver__defillama_protocol_revenue
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - ID
+    
+    columns:
+      - name: CHAIN
+        tests:
+          - not_null
+      - name: TIMESTAMP
+      - name: PROTOCOL
+      - name: DAILY_REV
+      - name: REV_OBJECT
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+      - name: ID
+        tests:
+          - not_null
