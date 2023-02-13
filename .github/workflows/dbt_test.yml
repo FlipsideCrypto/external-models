@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     branches:
         - "main"
-  # schedule:
-  #   # Runs "at 8:00 UTC" (see https://crontab.guru)
-  #   - cron: '0 8 * * *'
+  schedule:
+    # Runs "at 9:00 UTC" (see https://crontab.guru)
+    - cron: '0 9 * * *'
     
 env:
   DBT_PROFILES_DIR: ${{ vars.DBT_PROFILES_DIR }}
