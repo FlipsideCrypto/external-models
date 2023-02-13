@@ -1,13 +1,11 @@
-name: dbt_test
-run-name: dbt_test
+name: dbt_run_scheduled_weekly
+run-name: dbt_run_scheduled_weekly
 
 on:
   workflow_dispatch:
-    branches:
-        - "main"
-  # schedule:
-  #   # Runs "at 8:00 UTC" (see https://crontab.guru)
-  #   - cron: '0 8 * * *'
+  schedule:
+    # Runs "at 08:00 UTC on Mondays" (see https://crontab.guru)
+    - cron: '0 8 * * 1'
     
 env:
   DBT_PROFILES_DIR: ${{ vars.DBT_PROFILES_DIR }}
@@ -43,7 +41,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt test
-  
-
-
+          dbt run --exclude tag:defillama
