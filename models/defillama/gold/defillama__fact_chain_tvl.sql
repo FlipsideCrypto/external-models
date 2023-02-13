@@ -7,7 +7,7 @@
 
 SELECT
     TIMESTAMP :: DATE AS DATE,
-    chain,id,
+    chain_id,
     chain,
     tvl_usd    
 FROM
