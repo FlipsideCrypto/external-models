@@ -3,7 +3,7 @@
 # Welcome to the Flipside Crypto External Models Documentation!
 
 ## **What does this documentation cover?**
-The documentation included here details the design of the External tables and views available via [Flipside Crypto](https://flipsidecrypto.xyz/earn). For more information on how these models are built, please see [the github repository.](https://github.com/FlipsideCrypto/external-models)
+The documentation included here details the design of the External tables and views available via [Flipside Crypto](https://flipsidecrypto.xyz/). The models in the External database leverage non-Flipside curated datasets and APIs. While Flipside has the ability to host these datasets, we do not have authority over the data quality or structure of the outputs. For more information on how these models are built, please see [the github repository.](https://github.com/FlipsideCrypto/external-models)
 
 ### **Quick Links to Table Documentation**
 
@@ -19,8 +19,6 @@ The documentation included here details the design of the External tables and vi
 - [tokenflow_eth__storage_reads](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_reads)
 - [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)
 
-
-
 **Token Flow: Starknet**
 
 [Token Flow Documentation](https://docs.tokenflow.live/)
@@ -35,10 +33,26 @@ The documentation included here details the design of the External tables and vi
 - [tokenflow_starknet__l1_data_messages](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_starknet_l1_data.messages)
 - [tokenflow_starknet__l1_data_storage_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_starknet_l1_data.storage_diffs)
 
+**DefiLlama**
+
+[DefiLlama Documentation](https://defillama.com/docs/api)
+
+- [defillama__dim_bridges](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_blocks)
+- [defillama__dim_chains](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_chains)
+- [defillama__dim_dexes](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_dexes)
+- [defillama__dim_pools](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_pools)
+- [defillama__dim_protocols](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_protocols)
+- [defillama__dim_stablecoins](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.dim_stablecoins)
+- [defillama__fact_bridge_volume](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_bridge_volume)
+- [defillama__fact_chain_tvl](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_chain_tvl)
+- [defillama__fact_dex_volume](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_dex_volume)
+- [defillama__fact_options_volume](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_options_volume)
+- [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_protocol_fees_revenue)
+
 
 ## **Data Model Overview**
 
-`EXTERNAL` is our blockchain-agonistic database for datasets derived from independently managed, external sources. While these models are built a few different ways, the primary method used is through calling internal functions that leverage curated datasets, such as Token Flow, to create accessible sql models for the analytics community. These models follow our standard approach, built using three layers of sql models: **bronze, silver, and gold (or core).** However, when the models are built externally (non-Flipside), the naming conventions may vary and models will be placed into schemas based on the source.
+`EXTERNAL` is our blockchain-agonistic database for datasets derived from independently managed, external sources. While these models are built a few different ways, the primary method used is through calling internal functions that leverage curated datasets, such as Token Flow or DefiLlama's API endpoints, to create accessible sql models for the analytics community. These models follow our standard approach, built using three layers of sql models: **bronze, silver, and gold (or core).** However, when the models are built externally (non-Flipside), the naming conventions may vary and models will be placed into schemas based on the source.
 
 - Bronze: Data is loaded in from the source as a view
 - Silver: All necessary parsing, filtering, de-duping, and other transformations are done here
@@ -70,11 +84,10 @@ Note that you can also right-click on models to interactively filter and explore
 
 
 ### **More information**
-- [Flipside](https://flipsidecrypto.xyz/earn)
+- [Flipside](https://flipsidecrypto.xyz/)
 - [Velocity](https://app.flipsidecrypto.com/velocity?nav=Discover)
 - [Tutorials](https://docs.flipsidecrypto.com/our-data/tutorials)
 - [Github](https://github.com/FlipsideCrypto/external-models)
-- [Query Editor Shortcuts](https://docs.flipsidecrypto.com/velocity/query-editor-shortcuts)
 - [What is dbt?](https://docs.getdbt.com/docs/introduction)
 
 

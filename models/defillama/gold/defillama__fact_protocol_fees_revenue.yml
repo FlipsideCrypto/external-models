@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: defillama__fact_protocol_fees_revenue
+    description: This table contains historical fees and revenue for the protocols listed on Defillama in `dim_protocols`, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: PROTOCOL
+        description: The name of the protocol.
+      - name: FEES
+        description: The total amount of fees earned by the protocol on a daily basis, denominated in USD.
+      - name: REVENUE
+        description: The total amount of revenue earned by the protocol on a daily basis, denominated in USD.

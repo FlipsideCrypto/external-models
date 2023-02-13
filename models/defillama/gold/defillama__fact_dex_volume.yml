@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: defillama__fact_dex_volume
+    description: This table contains historical decentralized exchange volumes for the protocols listed on Defillama in `dim_protocols`, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: PROTOCOL
+        description: The name of the protocol.
+      - name: VOLUME
+        description: The total volume driven by the protocol on a daily basis, denominated in USD.
