@@ -2,7 +2,14 @@
     materialized = 'view',
     persist_docs ={ "relation": true,
     "columns": true },
-    tags = ['defillama']
+    tags = ['defillama'],
+    meta={
+        'database_tags':{
+            'table': {
+                'PROTOCOL': 'DEFILLAMA'
+            }
+        }
+    }
 ) }}
 
 SELECT
