@@ -1,31 +1,30 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = '_id',
-    full_refresh = true
+    unique_key = 'api_url',
+    full_refresh = false
 ) }}
 
 WITH requests AS (
 
     SELECT
         api_url,
-        collection_slug,
-        _id
+        date_day
     FROM
-        {{ ref('silver__dnv_token_requests') }}
+        {{ ref('silver__dnv_historical_requests') }}
 
 {% if is_incremental() %}
 WHERE
-    _id NOT IN (
+    api_url NOT IN (
         SELECT
-            _id
+            api_url
         FROM
             {{ this }}
     )
 {% endif %}
 ORDER BY
-    collection_slug
+    date_day DESC
 LIMIT
-    4
+    3
 ), api_key AS (
     SELECT
         CONCAT(
@@ -44,8 +43,7 @@ LIMIT
 SELECT
     ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp,
     SYSDATE() _inserted_timestamp,
-    collection_slug,
-    _id
+    api_url
 FROM
     requests
     JOIN api_key

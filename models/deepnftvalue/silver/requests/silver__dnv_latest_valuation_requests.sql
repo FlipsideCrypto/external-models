@@ -55,6 +55,8 @@ SELECT
     CONCAT(
         collection_slug,
         '-',
+        offset,
+        '-',
         SYSDATE() :: DATE
     ) AS _id
 FROM

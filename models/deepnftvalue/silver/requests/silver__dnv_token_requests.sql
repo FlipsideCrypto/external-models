@@ -12,7 +12,7 @@ WITH slugs AS (
 ),
 offsets AS (
     SELECT
-        2500 AS limiter
+        2000 AS limiter
 ),
 generate_sequence AS (
     SELECT
