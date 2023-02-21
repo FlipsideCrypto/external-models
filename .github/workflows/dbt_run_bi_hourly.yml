@@ -1,5 +1,5 @@
-name: dbt_run_bi_hourly
-run-name: dbt_run_bi_hourly
+name: dbt_run_scheduled_bi_hourly
+run-name: dbt_run_scheduled_bi_hourly
 
 on:
   workflow_dispatch:
