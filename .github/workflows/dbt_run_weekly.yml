@@ -41,4 +41,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run --exclude tag:defillama
+          dbt run --exclude tag:defillama models/deepnftvalue
