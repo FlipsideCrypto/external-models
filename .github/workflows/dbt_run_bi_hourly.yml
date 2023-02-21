@@ -1,11 +1,11 @@
-name: dbt_run_scheduled_weekly
-run-name: dbt_run_scheduled_weekly
+name: dbt_run_scheduled_bi_hourly
+run-name: dbt_run_scheduled_bi_hourly
 
 on:
   workflow_dispatch:
   schedule:
-    # Runs "at 08:00 UTC on Mondays" (see https://crontab.guru)
-    - cron: '0 8 * * 1'
+    # Runs "every 2 hours" (see https://crontab.guru)
+    - cron: '0 1-23/2 * * *'
     
 env:
   DBT_PROFILES_DIR: ${{ vars.DBT_PROFILES_DIR }}
@@ -41,4 +41,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run --exclude tag:defillama models/deepnftvalue
+          dbt run -m models/deepnftvalue models/silver__dates.sql --exclude models/deepnftvalue/bronze/bronze__dnv_historical_valuations.sql

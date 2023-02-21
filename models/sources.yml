@@ -32,4 +32,14 @@ sources:
       - name: tokens_balance_diffs
       - name: tokens_metadata
       - name: transactions
+  - name: crosschain_silver
+    database: crosschain
+    schema: silver
+    tables:
+      - name: apis_keys
+  - name: ethereum_silver
+    database: ethereum
+    schema: silver
+    tables:
+      - name: nft_transfers
   
