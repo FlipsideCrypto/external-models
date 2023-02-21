@@ -5,7 +5,7 @@
 SELECT
     date_day AS valuation_date,
     collection_name,
-    contract_address AS collection_address,
+    lower(contract_address) AS collection_address,
     token_id,
     currency,
     price,

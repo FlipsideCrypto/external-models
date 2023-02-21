@@ -4,7 +4,7 @@
 
 SELECT
     collection_name,
-    collection_address,
+    lower(collection_address) AS collection_address,
     floor_price,
     valuation_max,
     valuation_min,
