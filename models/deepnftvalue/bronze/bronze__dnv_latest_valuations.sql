@@ -22,11 +22,8 @@ WHERE
             {{ this }}
     )
 {% endif %}
-ORDER BY
-    collection_slug
-LIMIT
-    4
-), api_key AS (
+),
+api_key AS (
     SELECT
         CONCAT(
             '{\'Authorization\': \'Token ',
@@ -40,20 +37,48 @@ LIMIT
         ) }}
     WHERE
         api_name = 'deepnftvalue'
-)
+),
+row_nos AS (
+    SELECT
+        api_url,
+        collection_slug,
+        _id,
+        ROW_NUMBER() over (
+            ORDER BY
+                api_url
+        ) AS row_no,
+        FLOOR(
+            row_no / 2
+        ) + 1 AS batch_no,
+        header
+    FROM
+        requests
+        JOIN api_key
+        ON 1 = 1
+),
+batched AS ({% for item in range(11) %}
 SELECT
-    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp,
-    SYSDATE() _inserted_timestamp,
+    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, _id, SYSDATE() _inserted_timestamp, collection_slug
+FROM
+    row_nos rn
+WHERE
+    batch_no = {{ item }}
+    AND EXISTS (
+SELECT
+    1
+FROM
+    row_nos
+WHERE
+    batch_no = {{ item }}
+LIMIT
+    1) {% if not loop.last %}
+    UNION ALL
+    {% endif %}
+{% endfor %})
+SELECT
+    resp,
+    _inserted_timestamp,
     collection_slug,
     _id
 FROM
-    requests
-    JOIN api_key
-    ON 1 = 1
-WHERE
-    EXISTS (
-        SELECT
-            1
-        FROM
-            requests
-    )
+    batched

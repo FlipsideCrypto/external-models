@@ -24,7 +24,7 @@ WHERE
 ORDER BY
     date_day DESC
 LIMIT
-    3
+    30
 ), api_key AS (
     SELECT
         CONCAT(
@@ -39,19 +39,43 @@ LIMIT
         ) }}
     WHERE
         api_name = 'deepnftvalue'
-)
+),
+row_nos AS (
+    SELECT
+        api_url,
+        ROW_NUMBER () over (
+            ORDER BY
+                api_url
+        ) AS row_no,
+        FLOOR(
+            row_no / 2
+        ) + 1 AS batch_no,
+        header
+    FROM
+        requests
+        JOIN api_key
+        ON 1 = 1
+),
+batched AS ({% for item in range(15) %}
 SELECT
-    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp,
-    SYSDATE() _inserted_timestamp,
+    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, api_url, SYSDATE() _inserted_timestamp
+FROM
+    row_nos rn
+WHERE
+    batch_no = {{ item }}
+    AND EXISTS (
+SELECT
+    1
+FROM
+    row_nos
+LIMIT
+    1) {% if not loop.last %}
+    UNION ALL
+    {% endif %}
+{% endfor %})
+SELECT
+    resp,
+    _inserted_timestamp,
     api_url
 FROM
-    requests
-    JOIN api_key
-    ON 1 = 1
-WHERE
-    EXISTS (
-        SELECT
-            1
-        FROM
-            requests
-    )
+    batched
