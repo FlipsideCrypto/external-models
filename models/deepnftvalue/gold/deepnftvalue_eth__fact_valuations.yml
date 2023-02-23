@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: deepnftvalue_eth__fact_valuations
+    description: This table contains a valuation for each token in the Bored Ape Yacht Club, Mutant Ape Yacht Club, Azuki, and CryptoPunks collections, every day. The table is updated daily.
+
+    columns:
+      - name: VALUATION_DATE
+        description: Date of valuation.
+      - name: COLLECTION_NAME
+        description: Name of NFT collection, e.g. Azuki or CryptoPunks.
+      - name: COLLECTION_ADDRESS
+        description: Contract address of NFT collection.
+      - name: TOKEN_ID
+        description: Token ID of NFT.
+      - name: CURRENCY
+        description: Valuation currency.
+      - name: PRICE
+        description: Valuation price.
+      - name: UPDATED_TIMESTAMP
+        description: Timestamp of the last update for the token.
+      
+      

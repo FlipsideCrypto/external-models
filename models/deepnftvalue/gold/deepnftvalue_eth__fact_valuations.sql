@@ -1,18 +1,14 @@
 {{ config(
     materialized = 'view',
-        meta={
-        'database_tags':{
-            'table': {
-                'PROTOCOL': 'DEEPNFTVALUE'
-            }
-        }
-    }
+    persist_docs ={ "relation": true,
+    "columns": true },
+    meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'DEEPNFTVALUE' }}}
 ) }}
 
 SELECT
     date_day AS valuation_date,
     collection_name,
-    lower(contract_address) AS collection_address,
+    LOWER(contract_address) AS collection_address,
     token_id,
     currency,
     price,

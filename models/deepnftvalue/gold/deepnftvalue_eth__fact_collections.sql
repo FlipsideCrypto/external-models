@@ -1,17 +1,13 @@
 {{ config(
     materialized = 'view',
-        meta={
-        'database_tags':{
-            'table': {
-                'PROTOCOL': 'DEEPNFTVALUE'
-            }
-        }
-    }
+    persist_docs ={ "relation": true,
+    "columns": true },
+    meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'DEEPNFTVALUE' }}}
 ) }}
 
 SELECT
     collection_name,
-    lower(collection_address) AS collection_address,
+    LOWER(collection_address) AS collection_address,
     floor_price,
     valuation_max,
     valuation_min,
