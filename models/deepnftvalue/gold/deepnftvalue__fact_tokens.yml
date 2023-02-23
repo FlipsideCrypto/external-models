@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: deepnftvalue_eth__fact_tokens
+  - name: deepnftvalue__fact_tokens
     description: This table contains a row for each token in the Bored Ape Yacht Club, Mutant Ape Yacht Club, Azuki, and CryptoPunks collections. The table is updated daily and pulled from DeepNFTValue's Tokens API.
 
     columns:

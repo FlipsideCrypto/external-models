@@ -53,9 +53,9 @@ The documentation included here details the design of the External tables and vi
 
 [DeepNFTValue Documentation](https://deepnftvalue.readme.io/reference/getting-started-with-deepnftvalue-api)
 
-- [deepnftvalue_eth__fact_collections](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue_eth__fact_collections)
-- [deepnftvalue_eth__fact_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue_eth__fact_tokens)
-- [deepnftvalue_eth__fact_valuations](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue_eth__fact_valuations)
+- [deepnftvalue__fact_collections](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue__fact_collections)
+- [deepnftvalue__fact_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue__fact_tokens)
+- [deepnftvalue__fact_valuations](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue__fact_valuations)
 
 
 ## **Data Model Overview**
