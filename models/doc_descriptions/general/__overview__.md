@@ -49,6 +49,14 @@ The documentation included here details the design of the External tables and vi
 - [defillama__fact_options_volume](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_options_volume)
 - [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.defillama.fact_protocol_fees_revenue)
 
+**DeepNFTValue**
+
+[DeepNFTValue Documentation](https://deepnftvalue.readme.io/reference/getting-started-with-deepnftvalue-api)
+
+- [deepnftvalue_eth__fact_collections](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.deepnftvalue_eth.fact_collections)
+- [deepnftvalue_eth__fact_tokens](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.deepnftvalue_eth.fact_tokens)
+- [deepnftvalue_eth__fact_valuations](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.deepnftvalue_eth.fact_valuations)
+
 
 ## **Data Model Overview**
 

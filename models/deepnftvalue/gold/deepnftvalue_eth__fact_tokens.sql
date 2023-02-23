@@ -1,17 +1,13 @@
 {{ config(
     materialized = 'view',
-        meta={
-        'database_tags':{
-            'table': {
-                'PROTOCOL': 'DEEPNFTVALUE'
-            }
-        }
-    }
+    persist_docs ={ "relation": true,
+    "columns": true },
+    meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'DEEPNFTVALUE' }}}
 ) }}
 
 SELECT
     collection_name,
-    lower(contract_address) AS collection_address,
+    LOWER(contract_address) AS collection_address,
     token_id,
     active_offer,
     attributes,
