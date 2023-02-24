@@ -45,7 +45,7 @@ SELECT
     valuation_max,
     valuation_min,
     CONCAT(
-        collection_address,
+        slug,
         '-',
         DATE_TRUNC(
             'hour',

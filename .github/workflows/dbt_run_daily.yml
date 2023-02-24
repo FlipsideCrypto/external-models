@@ -41,4 +41,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -m tag:defillama models/deepnftvalue models/silver__dates.sql --exclude models/deepnftvalue/bronze/bronze__dnv_historical_valuations.sql
+          dbt run -m tag:defillama models/deepnftvalue models/silver__dates.sql
