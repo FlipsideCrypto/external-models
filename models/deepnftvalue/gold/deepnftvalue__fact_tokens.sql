@@ -9,8 +9,8 @@ SELECT
     collection_name,
     LOWER(contract_address) AS collection_address,
     token_id :: INTEGER AS token_id,
-    active_offer :: OBJECT AS active_offer,
-    attributes :: OBJECT AS attributes,
+    active_offer AS active_offer,
+    attributes,
     image,
     CASE
         WHEN is_flagged :: STRING = 'true' THEN TRUE
