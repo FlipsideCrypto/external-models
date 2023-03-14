@@ -80,7 +80,7 @@ SELECT
     price,
     contract_address,
     CONCAT(
-        contract_address,
+        slug,
         '-',
         token_id,
         '-',

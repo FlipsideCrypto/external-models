@@ -44,14 +44,7 @@ SELECT
     collection_name,
     valuation_max,
     valuation_min,
-    CONCAT(
-        slug,
-        '-',
-        DATE_TRUNC(
-            'hour',
-            _inserted_timestamp
-        )
-    ) AS _id
+    slug AS _id
 FROM
     FINAL qualify ROW_NUMBER() over (
         PARTITION BY _id
