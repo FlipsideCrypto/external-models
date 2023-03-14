@@ -7,7 +7,8 @@ WITH base AS (
 
     SELECT
         resp,
-        _inserted_timestamp
+        _inserted_timestamp,
+        collection_slug AS slug
     FROM
         {{ ref('bronze__dnv_tokens') }}
 
@@ -26,6 +27,7 @@ WHERE
 FINAL AS (
     SELECT
         _inserted_timestamp,
+        slug,
         VALUE :token_id AS token_id,
         VALUE :active_offer AS active_offer,
         VALUE :attributes AS attributes,
@@ -60,7 +62,7 @@ SELECT
     valuation,
     _inserted_timestamp,
     CONCAT(
-        contract_address,
+        slug,
         '-',
         token_id
     ) AS _id
