@@ -72,7 +72,7 @@ FROM dex_base,
 SELECT
     chain,
     timestamp,
-    key::STRING AS protocol, 
+    LOWER(key::STRING) AS protocol, 
     value::INTEGER AS daily_volume,
     dex_object,
     _inserted_timestamp,
