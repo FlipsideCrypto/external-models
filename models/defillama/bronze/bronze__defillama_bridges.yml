@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: silver__defillama_bridges
+  - name: bronze__defillama_bridges
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
