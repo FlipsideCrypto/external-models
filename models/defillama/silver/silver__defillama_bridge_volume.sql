@@ -12,6 +12,7 @@ WITH bridge_base AS (
 SELECT
     bridge_id,
     bridge,
+    bridge_name,
     ethereum.streamline.udf_api(
         'GET',CONCAT('https://bridges.llama.fi/bridgevolume/all?id=',bridge_id),{},{}
     ) AS read,
@@ -20,6 +21,7 @@ FROM (
     SELECT 
         bridge_id,
         bridge,
+        bridge_name,
         row_num
     FROM {{ ref('bronze__defillama_bridges') }}
     WHERE row_num BETWEEN {{ item * 10 + 1 }} AND {{ (item + 1) * 10}}
@@ -47,6 +49,7 @@ UNION ALL
 SELECT
     bridge_id,
     bridge,
+    bridge_name,
     TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
     VALUE:depositTxs::INTEGER AS deposit_txs,
     VALUE:depositUSD::INTEGER AS deposit_usd,
@@ -55,4 +58,4 @@ SELECT
     _inserted_timestamp,
     CONCAT(bridge_id,'-',bridge,'-',timestamp) AS id
 FROM bridge_base,
-    LATERAL FLATTEN (input=> read:data) 
+    LATERAL FLATTEN (input=> read:data)
