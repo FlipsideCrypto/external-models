@@ -15,6 +15,7 @@
 SELECT
     bridge_id,
     bridge,
+    bridge_name,
     chains,
     destination_chain
 FROM {{ ref('bronze__defillama_bridges') }}

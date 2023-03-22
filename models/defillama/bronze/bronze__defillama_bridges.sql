@@ -16,6 +16,7 @@ SELECT
 SELECT
     VALUE:id::STRING AS bridge_id,
     VALUE:name::STRING AS bridge,
+    VALUE:displayName::STRING AS bridge_name,
     VALUE:chains AS chains,
     CASE 
         WHEN VALUE:destinationChain::STRING ilike 'false' OR VALUE:destinationChain::STRING = '-' THEN NULL 

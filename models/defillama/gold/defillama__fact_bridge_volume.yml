@@ -10,6 +10,8 @@ models:
         description: Unique identifier of the bridge.
       - name: BRIDGE
         description: Name of the bridge.
+      - name: BRIDGE_NAME
+        description: The more descriptive, official display name of the bridge.
       - name: DEPOSIT_TXS
         description: Total number of deposit transactions to the bridge.
       - name: DEPOSIT_USD

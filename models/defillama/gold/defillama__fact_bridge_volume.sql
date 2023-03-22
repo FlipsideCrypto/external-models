@@ -16,6 +16,7 @@ SELECT
     TIMESTAMP :: DATE AS DATE,
     bridge_id,
     bridge,
+    bridge_name,
     deposit_txs,
     deposit_usd,
     withdraw_txs,

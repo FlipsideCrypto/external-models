@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: silver__defillama_bridges
+  - name: bronze__defillama_bridges
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
@@ -13,6 +13,7 @@ models:
       - name: BRIDGE
         tests: 
           - not_null
+      - name: BRIDGE_NAME
       - name: CHAINS
       - name: DESTINATION_CHAIN
       - name: _INSERTED_TIMESTAMP
