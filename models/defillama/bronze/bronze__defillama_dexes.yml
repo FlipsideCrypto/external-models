@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: silver__defillama_dexes
+  - name: bronze__defillama_dexes
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
