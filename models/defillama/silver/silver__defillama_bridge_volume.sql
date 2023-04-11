@@ -33,7 +33,7 @@ WHERE bridge_id NOT IN (
     FROM (
         SELECT 
             DISTINCT bridge_id,
-            MAX(timestamp::DATE) AS max_timestamp
+            MAX(COALESCE(timestamp::DATE,CURRENT_DATE::TIMESTAMP)) AS max_timestamp
         FROM {{ this }}
         GROUP BY 1
         HAVING CURRENT_DATE = max_timestamp
@@ -50,7 +50,7 @@ SELECT
     bridge_id,
     bridge,
     bridge_name,
-    TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
+    COALESCE(TO_TIMESTAMP(VALUE:date::INTEGER),CURRENT_DATE::TIMESTAMP) AS timestamp,
     VALUE:depositTxs::INTEGER AS deposit_txs,
     VALUE:depositUSD::INTEGER AS deposit_usd,
     VALUE:withdrawTxs::INTEGER AS withdraw_txs,
@@ -59,3 +59,5 @@ SELECT
     CONCAT(bridge_id,'-',bridge,'-',timestamp) AS id
 FROM bridge_base,
     LATERAL FLATTEN (input=> read:data)
+WHERE deposit_txs IS NOT NULL
+    OR withdraw_txs IS NOT NULL
