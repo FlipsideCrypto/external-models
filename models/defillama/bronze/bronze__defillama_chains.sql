@@ -11,13 +11,13 @@ SELECT
         'GET','https://api.llama.fi/chains',{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp
-)
+),
 
+FINAL AS (
 SELECT
     VALUE:chainId::STRING AS chain_id,
     VALUE:name::STRING AS chain,
     VALUE:tokenSymbol::STRING AS token_symbol,
-    ROW_NUMBER() OVER (ORDER BY chain) AS row_num,
     _inserted_timestamp
 FROM chain_base,
     LATERAL FLATTEN (input=> read:data)
@@ -29,4 +29,29 @@ WHERE chain NOT IN (
     FROM
         {{ this }}
 )
+)
+
+SELECT
+    chain_id,
+    chain,
+    token_symbol,
+    m.row_num + ROW_NUMBER() OVER (ORDER BY chain) AS row_num,
+    _inserted_timestamp
+FROM FINAL
+JOIN (
+    SELECT
+        MAX(row_num) AS row_num
+    FROM
+        {{ this }}
+) m ON 1=1
+
+{% else %}
+)
+SELECT
+    chain_id,
+    chain,
+    token_symbol,
+    ROW_NUMBER() OVER (ORDER BY chain) AS row_num,
+    _inserted_timestamp
+FROM FINAL
 {% endif %}
