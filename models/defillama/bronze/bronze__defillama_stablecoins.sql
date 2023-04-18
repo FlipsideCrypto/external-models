@@ -11,8 +11,9 @@ SELECT
         'GET','https://stablecoins.llama.fi/stablecoins?includePrices=false',{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp
-)
+),
 
+FINAL AS (
 SELECT
     VALUE:id::STRING AS stablecoin_id,
     VALUE:name::STRING AS stablecoin,
@@ -21,7 +22,6 @@ SELECT
     VALUE:pegMechanism::STRING AS peg_mechanism,
     VALUE:priceSource::STRING AS price_source,
     VALUE:chains AS chains,
-    ROW_NUMBER() OVER (ORDER BY stablecoin) AS row_num,
     _inserted_timestamp
 FROM stablecoin_base,
     LATERAL FLATTEN (input=> read:data:peggedAssets)
@@ -33,4 +33,38 @@ WHERE stablecoin_id NOT IN (
     FROM
         {{ this }}
 )
+)
+
+SELECT
+    stablecoin_id,
+    stablecoin,
+    symbol,
+    peg_type,
+    peg_mechanism,
+    price_source,
+    chains,
+    m.row_num + ROW_NUMBER() OVER (ORDER BY stablecoin) AS row_num,
+    _inserted_timestamp
+FROM FINAL
+JOIN (
+    SELECT
+        MAX(row_num) AS row_num
+    FROM
+        {{ this }}
+) m ON 1=1
+
+{% else %}
+)
+
+SELECT
+    stablecoin_id,
+    stablecoin,
+    symbol,
+    peg_type,
+    peg_mechanism,
+    price_source,
+    chains,
+    ROW_NUMBER() OVER (ORDER BY stablecoin) AS row_num,
+    _inserted_timestamp
+FROM FINAL
 {% endif %}
