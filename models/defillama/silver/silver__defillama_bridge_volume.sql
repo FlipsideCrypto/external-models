@@ -59,3 +59,4 @@ SELECT
     CONCAT(bridge_id,'-',bridge,'-',timestamp) AS id
 FROM bridge_base,
     LATERAL FLATTEN (input=> read:data)
+WHERE id IS NOT NULL
