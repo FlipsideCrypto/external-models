@@ -35,7 +35,7 @@ all_tokens AS (
         ON created_at <= date_day
         AND date_day < SYSDATE() :: DATE
         JOIN generate_sequence
-        ON seq <= total_pages - 1
+        ON seq <= CEIL(total_pages) - 1
 )
 SELECT
     collection_slug,

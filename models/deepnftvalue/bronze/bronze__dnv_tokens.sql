@@ -21,6 +21,7 @@ WHERE
         FROM
             {{ this }}
     )
+    AND collection_slug <> 'cryptopunks'
 {% endif %}
 ),
 api_key AS (
@@ -48,15 +49,15 @@ row_nos AS (
                 api_url
         ) AS row_no,
         FLOOR(
-            row_no / 2
-        ) + 1 AS batch_no,
+            row_no / 10
+        ) AS batch_no,
         header
     FROM
         requests
         JOIN api_key
         ON 1 = 1
 ),
-batched AS ({% for item in range(15) %}
+batched AS ({% for item in range(9) %}
 SELECT
     ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, SYSDATE() _inserted_timestamp, collection_slug, _id
 FROM
