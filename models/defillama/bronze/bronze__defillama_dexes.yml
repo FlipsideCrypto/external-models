@@ -4,10 +4,11 @@ models:
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
-              - dex_id
+              - DEX_ID
+              - DEX
     
     columns:
-      - name: dex_id
+      - name: DEX_ID
         tests:
           - not_null
       - name: DEX
