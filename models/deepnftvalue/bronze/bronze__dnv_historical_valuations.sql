@@ -24,7 +24,7 @@ WHERE
 ORDER BY
     date_day DESC
 LIMIT
-    500
+    30
 ), api_key AS (
     SELECT
         CONCAT(
@@ -48,7 +48,7 @@ row_nos AS (
                 api_url
         ) AS row_no,
         FLOOR(
-            row_no / 2
+            row_no/2
         ) AS batch_no,
         header
     FROM
