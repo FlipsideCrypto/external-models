@@ -48,15 +48,15 @@ row_nos AS (
                 api_url
         ) AS row_no,
         FLOOR(
-            row_no / 2
-        ) + 1 AS batch_no,
+            row_no/2
+        ) AS batch_no,
         header
     FROM
         requests
         JOIN api_key
         ON 1 = 1
 ),
-batched AS ({% for item in range(15) %}
+batched AS ({% for item in range(10) %}
 SELECT
     ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, api_url, SYSDATE() _inserted_timestamp
 FROM
@@ -68,6 +68,8 @@ SELECT
     1
 FROM
     row_nos
+WHERE
+    batch_no = {{ item }}
 LIMIT
     1) {% if not loop.last %}
     UNION ALL

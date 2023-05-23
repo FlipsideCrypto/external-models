@@ -37,15 +37,45 @@ api_key AS (
         ) }}
     WHERE
         api_name = 'deepnftvalue'
-)
-SELECT
-    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp,
-    SYSDATE() _inserted_timestamp,
-    CONCAT(
+),
+row_nos AS (
+    SELECT
+        api_url,
         collection_slug,
-        '-',
-        _inserted_timestamp
-    ) AS _id
+        ROW_NUMBER() over (
+            ORDER BY
+                api_url
+        ) AS row_no,
+        FLOOR(
+            row_no / 1
+        ) - 1 AS batch_no,
+        header
+    FROM
+        api_url
+        CROSS JOIN api_key
+),
+batched AS ({% for item in range(10) %}
+SELECT
+    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, SYSDATE() _inserted_timestamp, collection_slug, CONCAT(collection_slug, '-', _inserted_timestamp) AS _id
 FROM
-    api_url
-    CROSS JOIN api_key
+    row_nos rn
+WHERE
+    batch_no = {{ item }}
+    AND EXISTS (
+SELECT
+    1
+FROM
+    row_nos
+WHERE
+    batch_no = {{ item }}
+LIMIT
+    1) {% if not loop.last %}
+    UNION ALL
+    {% endif %}
+{% endfor %})
+SELECT
+    resp,
+    _inserted_timestamp,
+    _id
+FROM
+    batched

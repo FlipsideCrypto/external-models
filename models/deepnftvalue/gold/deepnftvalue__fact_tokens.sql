@@ -11,6 +11,7 @@ SELECT
     token_id :: INTEGER AS token_id,
     active_offer AS active_offer,
     attributes,
+    attributes_synthetic,
     image,
     CASE
         WHEN is_flagged :: STRING = 'true' THEN TRUE
