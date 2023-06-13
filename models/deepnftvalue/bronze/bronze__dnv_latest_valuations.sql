@@ -1,7 +1,8 @@
 {{ config(
     materialized = 'incremental',
     unique_key = '_id',
-    full_refresh = false
+    full_refresh = false,
+    enabled = false
 ) }}
 
 WITH requests AS (

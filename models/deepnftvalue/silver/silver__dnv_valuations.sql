@@ -1,99 +1,34 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key = '_id'
+    materialized = 'table'
 ) }}
 
-WITH historical_base AS (
+WITH base AS (
 
     SELECT
-        resp,
+        collection_address,
+        collection_name,
+        token_id,
+        price,
+        valuation_date,
+        currency,
         _inserted_timestamp
     FROM
-        {{ ref('bronze__dnv_historical_valuations') }}
-
-{% if is_incremental() %}
-WHERE
-    _inserted_timestamp >= (
-        SELECT
-            MAX(
-                _inserted_timestamp
-            ) :: DATE - 1
-        FROM
-            {{ this }}
-    )
-{% endif %}
-),
-latest_base AS (
-    SELECT
-        resp,
-        _inserted_timestamp
-    FROM
-        {{ ref('bronze__dnv_latest_valuations') }}
-
-{% if is_incremental() %}
-WHERE
-    _inserted_timestamp >= (
-        SELECT
-            MAX(
-                _inserted_timestamp
-            ) :: DATE - 1
-        FROM
-            {{ this }}
-    )
-{% endif %}
-),
-all_data AS (
-    SELECT
-        resp,
-        _inserted_timestamp
-    FROM
-        historical_base
-    UNION ALL
-    SELECT
-        resp,
-        _inserted_timestamp
-    FROM
-        latest_base
-),
-FINAL AS (
-    SELECT
-        _inserted_timestamp,
-        VALUE :currency :: STRING AS currency,
-        VALUE :date :: DATE AS date_day,
-        VALUE :nft :collection :name :: STRING AS collection_name,
-        VALUE :nft :collection :slug :: STRING AS slug,
-        VALUE :nft :token_id :: INTEGER AS token_id,
-        VALUE :price :: FLOAT AS price
-    FROM
-        all_data,
-        LATERAL FLATTEN(
-            input => resp :data :results
-        )
+        {{ ref('bronze__streamline_valuations') }}
 )
 SELECT
-    _inserted_timestamp,
-    currency,
-    date_day,
+    valuation_date,
     collection_name,
-    slug,
+    LOWER(collection_address) AS collection_address,
     token_id,
+    currency,
     price,
-    contract_address,
+    _inserted_timestamp,
     CONCAT(
-        slug,
+        collection_name,
         '-',
         token_id,
         '-',
-        date_day
+        valuation_date
     ) AS _id
 FROM
-    FINAL
-    JOIN {{ ref('bronze__dnv_collection_slugs') }}
-    b
-    ON FINAL.slug = b.collection_slug qualify ROW_NUMBER() over (
-        PARTITION BY contract_address,
-        token_id,
-        date_day
-        ORDER BY
-            _inserted_timestamp DESC
-    ) = 1
+    base

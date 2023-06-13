@@ -42,4 +42,9 @@ sources:
     schema: silver
     tables:
       - name: nft_transfers
+  - name: bronze_streamline
+    database: streamline
+    schema: external
+    tables: 
+      - name: valuations
   
