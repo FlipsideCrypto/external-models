@@ -1,7 +1,8 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'api_url',
-    full_refresh = false
+    full_refresh = false,
+    enabled = false
 ) }}
 
 WITH requests AS (
@@ -48,7 +49,7 @@ row_nos AS (
                 api_url
         ) AS row_no,
         FLOOR(
-            row_no/2
+            row_no / 2
         ) AS batch_no,
         header
     FROM

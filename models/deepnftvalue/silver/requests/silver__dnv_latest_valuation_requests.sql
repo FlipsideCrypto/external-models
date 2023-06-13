@@ -1,5 +1,6 @@
 {{ config(
-    materialized = 'table'
+    materialized = 'table',
+    enabled = false
 ) }}
 
 WITH slugs AS (
