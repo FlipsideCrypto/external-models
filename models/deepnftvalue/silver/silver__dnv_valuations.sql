@@ -1,5 +1,9 @@
+-- depends_on: {{ ref('bronze__streamline_valuations') }}
 {{ config(
-    materialized = 'table'
+    materialized = 'incremental',
+    unique_key = "_id",
+    incremental_strategy = "delete+insert",
+    cluster_by = ['valuation_date::DATE']
 ) }}
 
 WITH base AS (
@@ -11,9 +15,24 @@ WITH base AS (
         price,
         valuation_date,
         currency,
-        _inserted_timestamp
+        _inserted_timestamp,
+        collection_slug
     FROM
-        {{ ref('bronze__streamline_valuations') }}
+
+{% if is_incremental() %}
+{{ ref('bronze__streamline_valuations') }}
+WHERE
+    _inserted_timestamp >= (
+        SELECT
+            MAX(
+                _inserted_timestamp
+            ) :: DATE
+        FROM
+            {{ this }}
+    )
+{% else %}
+    {{ ref('bronze__streamline_fr_valuations') }}
+{% endif %}
 )
 SELECT
     valuation_date,
@@ -22,9 +41,10 @@ SELECT
     token_id,
     currency,
     price,
+    collection_slug,
     _inserted_timestamp,
     CONCAT(
-        collection_name,
+        collection_slug,
         '-',
         token_id,
         '-',
