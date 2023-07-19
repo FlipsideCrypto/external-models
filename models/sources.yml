@@ -46,5 +46,5 @@ sources:
     database: streamline
     schema: external
     tables: 
-      - name: valuations
+      - name: valuations_parquet
   
