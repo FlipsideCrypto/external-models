@@ -51,4 +51,8 @@ SELECT
         valuation_date
     ) AS _id
 FROM
-    base
+    base qualify ROW_NUMBER() over (
+        PARTITION BY _id
+        ORDER BY
+            _inserted_timestamp DESC
+    ) = 1
