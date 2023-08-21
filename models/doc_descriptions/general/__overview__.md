@@ -57,6 +57,12 @@ The documentation included here details the design of the External tables and vi
 - [deepnftvalue__fact_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue__fact_tokens)
 - [deepnftvalue__fact_valuations](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.deepnftvalue__fact_valuations)
 
+**Snapshot**
+
+[Snapshot Documentation](https://docs.snapshot.org/)
+
+- [snapshot__ez_snapshot](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__ez_snapshot)
+
 ## **Helpful User-Defined Functions (UDFs)**
 
 UDFs are custom functions built by the Flipside team that can be used in your queries to make your life easier. 

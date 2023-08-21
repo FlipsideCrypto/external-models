@@ -42,6 +42,7 @@ sources:
     schema: silver
     tables:
       - name: nft_transfers
+      - name: snapshot
   - name: bronze_streamline
     database: streamline
     schema: external
