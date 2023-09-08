@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: snapshot__ez_votes
+    description: A table that contains all votes on Snapshot and information about the voting space and proposal. All data in this table is off chain.
+    columns:
+      - name: ID
+        description: A pseudo transaction hash assigned to all votes on snapshot.
+      - name: PROPOSAL_ID
+        description: An address that identifies the proposal being voted on.
+      - name: VOTER
+        description: The wallet address of the user that voted on a proposal.
+      - name: VOTE_OPTION
+        description: How the user voted on the proposal. Corresponds to the choices array.
+      - name: VOTING_POWER
+        description: The amount of voting power one holds is proportional to the amount of the token they hold.
+      - name: VOTE_TIMESTAMP
+        description: The time at which the vote was cast.
+      - name: CHOICES
+        description: An array containing the voting options on the proposal.
+      - name: PROPOSAL_AUTHOR
+        description: The address of the wallet that wrote the proposal.
+      - name: PROPOSAL_TITLE
+        description: The title or name of the proposal.
+      - name: PROPOSAL_TEXT
+        description: The body of the proposal.
+      - name: SPACE_ID
+        description: A way to identify which group, or space, on Snapshot a proposal belongs to.
+      - name: NETWORK
+        description: The default network or blockchain used for the space.
+      - name: DELAY
+        description: The default number of hours of voting delay for the space. The voting delay is the time between proposal submission and the opening of voting.
+      - name: QUORUM
+        description: The minimum amount of voting power for a proposal to pass.
+      - name: VOTING_PERIOD
+        description: The default time in hours within a space for a proposal to be open for voting.
+      - name: VOTING_TYPE
+        description: The type of voting system used for this space. If this column is not null, the same voting system will be used for all proposals in this space.
+      - name: PROPOSAL_START_TIME
+        description: The time at which voting on the proposal begins.
+      - name: PROPOSAL_END_TIME
+        description: The time at which voting on the proposal ends.
