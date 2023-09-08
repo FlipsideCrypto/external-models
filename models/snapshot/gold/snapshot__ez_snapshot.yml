@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: snapshot__ez_votes
+  - name: snapshot__ez_snapshot
     description: A table that contains all votes on Snapshot and information about the voting space and proposal. All data in this table is off chain.
     columns:
       - name: ID
