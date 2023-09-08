@@ -9,7 +9,8 @@
                 'PURPOSE': 'GOVERNANCE'
             }
         }
-    }
+    },
+    tags = ['snapshot']
 ) }}
 
 SELECT 

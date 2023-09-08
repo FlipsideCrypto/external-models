@@ -3,7 +3,8 @@
     materialized = 'incremental',
     unique_key = "_id",
     incremental_strategy = "delete+insert",
-    cluster_by = ['valuation_date::DATE']
+    cluster_by = ['valuation_date::DATE'],
+    tags = ['deepnftvalue']
 ) }}
 
 WITH base AS (

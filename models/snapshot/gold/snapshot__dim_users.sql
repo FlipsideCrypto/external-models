@@ -3,7 +3,8 @@
     persist_docs ={ "relation": true,
     "columns": true },
     meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'SNAPSHOT',
-    'PURPOSE': 'GOVERNANCE' } } }
+    'PURPOSE': 'GOVERNANCE' } } },
+    tags = ['snapshot']
 ) }}
 
 SELECT

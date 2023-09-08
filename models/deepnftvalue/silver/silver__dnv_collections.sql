@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = '_id'
+    unique_key = '_id',
+    tags = ['deepnftvalue']
 ) }}
 
 WITH base AS (
