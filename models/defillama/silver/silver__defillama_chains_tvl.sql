@@ -57,3 +57,6 @@ SELECT
     ) }} AS id
 FROM tvl_base,
     LATERAL FLATTEN (input=> read:data)
+qualify (ROW_NUMBER () over (PARTITION BY chain_id, chain, TIMESTAMP
+ORDER BY
+    _inserted_timestamp DESC)) = 1
