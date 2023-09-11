@@ -4,7 +4,6 @@
     full_refresh = false,
     tags = ['snapshot']
 ) }}
--- backfill from ethereum bronze_api__snapshot_votes
 
 WITH initial_votes_request AS ({% for item in range(6) %}
     (
