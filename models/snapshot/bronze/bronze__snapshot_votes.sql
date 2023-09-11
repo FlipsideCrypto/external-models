@@ -1,9 +1,11 @@
 {{ config(
     materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
     unique_key = 'id',
     full_refresh = false,
     tags = ['snapshot']
 ) }}
+-- backfill from ethereum bronze_api__snapshot_votes
 
 WITH initial_votes_request AS ({% for item in range(6) %}
     (
@@ -30,7 +32,7 @@ FROM
     {{ this }}
 {% else %}
 SELECT
-    1595000000 AS max_vote_start
+    1595080000 AS max_vote_start
 {% endif %}) AS max_time)) {% if not loop.last %}
 UNION ALL
 {% endif %}
@@ -125,7 +127,6 @@ SELECT
     vote_option,
     _inserted_timestamp
 FROM
-    votes_merged
-    INNER JOIN {{ ref('bronze__snapshot_proposals') }} USING (proposal_id) qualify(ROW_NUMBER() over(PARTITION BY id
+    votes_merged qualify(ROW_NUMBER() over(PARTITION BY id
 ORDER BY
     _inserted_timestamp DESC)) = 1

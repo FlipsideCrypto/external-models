@@ -1,20 +1,21 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'address',
+    unique_key = 'vote_id',
     incremental_strategy = 'delete+insert',
     tags = ['snapshot']
 ) }}
 
 SELECT
-    address,
-    NAME,
-    about,
-    avatar,
+    vote_timestamp,
+    LOWER(voter) AS voter,
+    proposal_id,
+    vote_option,
+    voting_power,
     ipfs,
-    created_at,
+    id AS vote_id,
     _inserted_timestamp
 FROM
-    {{ ref('bronze__snapshot_users') }}
+    {{ ref('bronze__snapshot_votes') }}
 
 {% if is_incremental() %}
 WHERE
