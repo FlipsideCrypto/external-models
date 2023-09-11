@@ -1,6 +1,5 @@
 {{ config(
     materialized = 'incremental',
-    incremental_strategy = 'delete+insert',
     unique_key = 'proposal_id',
     tags = ['snapshot']
 ) }}
