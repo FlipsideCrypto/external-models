@@ -126,6 +126,6 @@ SELECT
     _inserted_timestamp
 FROM
     votes_merged
-    INNER JOIN {{ ref('bronze_api__snapshot_proposals') }} USING (proposal_id) qualify(ROW_NUMBER() over(PARTITION BY id
+    INNER JOIN {{ ref('bronze__snapshot_proposals') }} USING (proposal_id) qualify(ROW_NUMBER() over(PARTITION BY id
 ORDER BY
     _inserted_timestamp DESC)) = 1

@@ -48,7 +48,8 @@ FINAL AS (
         VALUE :ipfs :: STRING AS ipfs,
         TO_TIMESTAMP_NTZ(
             VALUE :created
-        ) AS created_at _inserted_timestamp
+        ) AS created_at,
+        _inserted_timestamp
     FROM
         requests,
         LATERAL FLATTEN(
