@@ -14,10 +14,6 @@ The description of the space.
 The symbol of the space.
 {% enddocs %}
 
-{% docs snapshot_spaces_symbol %}
-The symbol of the space.
-{% enddocs %}
-
 {% docs snapshot_spaces_categories %}
 The category of the space.
 {% enddocs %}
