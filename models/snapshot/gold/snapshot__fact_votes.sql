@@ -11,7 +11,6 @@ SELECT
     vote_timestamp,
     voter,
     proposal_id,
-    voting_power,
     vote_option,
     voting_power,
     ipfs,

@@ -1,24 +1,15 @@
 version: 2
 models:
-  - name: bronze__snapshot_votes
+  - name: bronze__snapshot_spaces
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
-            - ID
+            - SPACE_ID
     columns:
-      - name: ID
+      - name: SPACE_ID
         tests:
           - not_null
-      - name: PROPOSAL_ID
-        tests:
-          - not_null
-      - name: VOTER
-        tests:
-          - not_null
-      - name: VOTE_TIMESTAMP
-        tests:
-          - not_null
-      - name: VOTE_OPTION
+      - name: SPACE
         tests:
           - not_null
       - name: _INSERTED_TIMESTAMP

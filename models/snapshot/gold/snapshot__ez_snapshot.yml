@@ -1,41 +1,41 @@
 version: 2
 models:
   - name: snapshot__ez_snapshot
-    description: A table that contains all votes on Snapshot and information about the voting space and proposal. All data in this table is off chain.
+    description: A convenience view that contains all votes on Snapshot and information about the voting space and proposal.
     columns:
       - name: ID
-        description: A pseudo transaction hash assigned to all votes on snapshot.
+        description: '{{ doc("snapshot_vote_id") }}'
       - name: PROPOSAL_ID
-        description: An address that identifies the proposal being voted on.
+        description: '{{ doc("snapshot_proposal_id") }}'
       - name: VOTER
-        description: The wallet address of the user that voted on a proposal.
+        description: '{{ doc("snapshot_voter") }}'
       - name: VOTE_OPTION
-        description: How the user voted on the proposal. Corresponds to the choices array.
+        description: '{{ doc("snapshot_vote_option") }}'
       - name: VOTING_POWER
-        description: The amount of voting power one holds is proportional to the amount of the token they hold.
+        description: '{{ doc("snapshot_voting_power") }}'
       - name: VOTE_TIMESTAMP
-        description: The time at which the vote was cast.
+        description: '{{ doc("snapshot_vote_timestamp") }}'
       - name: CHOICES
-        description: An array containing the voting options on the proposal.
+        description: '{{ doc("snapshot_choices") }}'
       - name: PROPOSAL_AUTHOR
-        description: The address of the wallet that wrote the proposal.
+        description: '{{ doc("snapshot_proposal_author") }}'
       - name: PROPOSAL_TITLE
-        description: The title or name of the proposal.
+        description: '{{ doc("snapshot_proposal_title") }}'
       - name: PROPOSAL_TEXT
-        description: The body of the proposal.
+        description: '{{ doc("snapshot_proposal_text") }}'
       - name: SPACE_ID
-        description: A way to identify which group, or space, on Snapshot a proposal belongs to.
+        description: '{{ doc("snapshot_space_id") }}'
       - name: NETWORK
-        description: The default network or blockchain used for the space.
+        description: '{{ doc("snapshot_network") }}'
       - name: DELAY
-        description: The default number of hours of voting delay for the space. The voting delay is the time between proposal submission and the opening of voting.
+        description: '{{ doc("snapshot_delay") }}'
       - name: QUORUM
-        description: The minimum amount of voting power for a proposal to pass.
+        description: '{{ doc("snapshot_quorum") }}'
       - name: VOTING_PERIOD
-        description: The default time in hours within a space for a proposal to be open for voting.
+        description: '{{ doc("snapshot_voting_period") }}'
       - name: VOTING_TYPE
-        description: The type of voting system used for this space. If this column is not null, the same voting system will be used for all proposals in this space.
+        description: '{{ doc("snapshot_voting_type") }}'
       - name: PROPOSAL_START_TIME
-        description: The time at which voting on the proposal begins.
+        description: '{{ doc("snapshot_proposal_start_time") }}'
       - name: PROPOSAL_END_TIME
-        description: The time at which voting on the proposal ends.
+        description: '{{ doc("snapshot_proposal_end_time") }}'

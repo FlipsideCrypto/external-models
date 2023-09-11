@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: snapshot__dim_users
+    description: A dimensional view that contains all users on Snapshot and related information.
+    columns:
+      - name: ADDRESS
+        description: '{{ doc("snapshot_user_address") }}'
+      - name: NAME
+        description: '{{ doc("snapshot_user_name") }}'
+      - name: ABOUT
+        description: '{{ doc("snapshot_user_about") }}'
+      - name: AVATAR
+        description: '{{ doc("snapshot_user_avatar") }}'
+      - name: IPFS
+        description: '{{ doc("snapshot_ipfs") }}'
+      - name: CREATED_AT
+        description: '{{ doc("snapshot_user_created_at") }}'

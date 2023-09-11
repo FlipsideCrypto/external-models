@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: snapshot__dim_spaces
+    description: A dimensional view that contains all spaces on Snapshot and related information.
+    columns:
+      - name: SPACE_ID
+        description: '{{ doc("snapshot_space_id") }}'
+      - name: SPACE
+        description: '{{ doc("snapshot_space") }}'
+      - name: ABOUT
+        description: '{{ doc("snapshot_spaces_about") }}'
+      - name: SYMBOL
+        description: '{{ doc("snapshot_spaces_symbol") }}'
+      - name: NETWORK
+        description: '{{ doc("snapshot_network") }}'
+      - name: CATEGORIES
+        description: '{{ doc("snapshot_spaces_categories") }}'
+      - name: DOMAIN
+        description: '{{ doc("snapshot_spaces_domain") }}'
+      - name: IS_PRIVATE
+        description: '{{ doc("snapshot_spaces_is_private") }}'
+      - name: IS_VERIFIED
+        description: '{{ doc("snapshot_spaces_is_verified") }}'
+      - name: ADMINS
+        description: '{{ doc("snapshot_spaces_admins") }}'
+      - name: MEMBERS
+        description: '{{ doc("snapshot_spaces_members") }}'
+      - name: TREASURIES
+        description: '{{ doc("snapshot_spaces_treasuries") }}'
