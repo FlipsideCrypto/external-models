@@ -1,10 +1,9 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'proposal_id',
+    full_refresh = false,
     tags = ['snapshot']
 ) }}
---    full_refresh = false,
--- backfill to complete in 24hrs
 
 WITH requests AS ({% for item in range(6) %}
     (

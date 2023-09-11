@@ -2,10 +2,9 @@
     materialized = 'incremental',
     incremental_strategy = 'delete+insert',
     unique_key = 'address',
+    full_refresh = false,
     tags = ['snapshot']
 ) }}
---    full_refresh = false,
--- backfill to complete in 1.5 weeks (estimate)
 
 WITH initial_request AS ({% for item in range(6) %}
     (
