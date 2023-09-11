@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: snapshot__fact_votes
+    description: A fact view that contains all votes on Snapshot and related information.
+    columns:
+      - name: VOTE_TIMESTAMP
+        description: '{{ doc("snapshot_vote_timestamp") }}'
+      - name: VOTER
+        description: '{{ doc("snapshot_voter") }}'
+      - name: PROPOSAL_ID
+        description: '{{ doc("snapshot_proposal_id") }}'
+      - name: VOTE_OPTION
+        description: '{{ doc("snapshot_vote_option") }}'
+      - name: VOTING_POWER
+        description: '{{ doc("snapshot_voting_power") }}'
+      - name: IPFS
+        description: '{{ doc("snapshot_ipfs") }}'
+      - name: VOTE_ID
+        description: '{{ doc("snapshot_vote_id") }}'

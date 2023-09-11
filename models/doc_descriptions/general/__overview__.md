@@ -62,6 +62,10 @@ The documentation included here details the design of the External tables and vi
 [Snapshot Documentation](https://docs.snapshot.org/)
 
 - [snapshot__ez_snapshot](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__ez_snapshot)
+- [snapshot__dim_spaces](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__snapshot__dim_spaces)
+- [snapshot__dim_users](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__dim_users)
+- [snapshot__fact_proposals](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__fact_proposals)
+- [snapshot__fact_votes](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__fact_votes)
 
 ## **Helpful User-Defined Functions (UDFs)**
 

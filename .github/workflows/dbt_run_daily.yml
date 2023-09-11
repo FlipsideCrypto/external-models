@@ -42,4 +42,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -m tag:defillama models/deepnftvalue models/silver__dates.sql models/snapshot
+          dbt run -m tag:defillama tag:deepnftvalue tag:core

@@ -1,0 +1,37 @@
+version: 2
+models:
+  - name: snapshot__fact_proposals
+    description: A fact view that contains all proposals on Snapshot and related information.
+    columns:
+      - name: CREATED_AT
+        description: '{{ doc("snapshot_proposal_created_at") }}'
+      - name: PROPOSAL_TITLE
+        description: '{{ doc("snapshot_proposal_title") }}'
+      - name: PROPOSAL_AUTHOR
+        description: '{{ doc("snapshot_proposal_author") }}'
+      - name: PROPOSAL_TEXT
+        description: '{{ doc("snapshot_proposal_text") }}'
+      - name: CHOICES
+        description: '{{ doc("snapshot_choices") }}'
+      - name: DELAY
+        description: '{{ doc("snapshot_delay") }}'
+      - name: QUORUM
+        description: '{{ doc("snapshot_quorum") }}'
+      - name: VOTING_PERIOD
+        description: '{{ doc("snapshot_voting_period") }}'
+      - name: VOTING_TYPE
+        description: '{{ doc("snapshot_voting_type") }}'
+      - name: IPFS
+        description: '{{ doc("snapshot_ipfs") }}'
+      - name: PROPOSAL_START_TIME
+        description: '{{ doc("snapshot_proposal_start_time") }}'
+      - name: PROPOSAL_END_TIME
+        description: '{{ doc("snapshot_proposal_end_time") }}'
+      - name: SPACE_ID
+        description: '{{ doc("snapshot_space_id") }}'
+      - name: NETWORK
+        description: '{{ doc("snapshot_network") }}'
+      - name: NETWORK_ID
+        description: '{{ doc("snapshot_network_id") }}'
+      - name: PROPOSAL_ID
+        description: '{{ doc("snapshot_proposal_id") }}'
