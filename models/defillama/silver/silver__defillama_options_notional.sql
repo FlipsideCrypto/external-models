@@ -76,7 +76,7 @@ SELECT
     value::INTEGER AS daily_volume_notional,
     options_object,
     _inserted_timestamp,
-    {{ dbt_utils.surrogate_key(
+    {{ dbt_utils.generate_surrogate_key(
         ['chain', 'protocol', 'timestamp']
     ) }} AS id
 FROM reads_output,

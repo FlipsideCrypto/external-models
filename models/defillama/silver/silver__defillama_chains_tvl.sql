@@ -52,7 +52,7 @@ SELECT
     TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
     VALUE:totalLiquidityUSD::INTEGER AS tvl_usd,
     _inserted_timestamp,
-     {{ dbt_utils.surrogate_key(
+     {{ dbt_utils.generate_surrogate_key(
         ['chain_id', 'chain', 'timestamp']
     ) }} AS id
 FROM tvl_base,
