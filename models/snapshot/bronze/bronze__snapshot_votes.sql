@@ -125,6 +125,8 @@ SELECT
     vote_option,
     _inserted_timestamp
 FROM
-    votes_merged qualify(ROW_NUMBER() over(PARTITION BY id
+    votes_merged
+WHERE
+    proposal_id IS NOT NULL qualify(ROW_NUMBER() over(PARTITION BY id
 ORDER BY
     _inserted_timestamp DESC)) = 1
