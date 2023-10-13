@@ -4,8 +4,8 @@ run-name: dbt_run_scheduled_bi_hourly
 on:
   workflow_dispatch:
   schedule:
-    # Runs at minute 15 and 45 past every hour (see https://crontab.guru)
-    - cron: '15,45 */1 * * *'
+    # Runs 3x/hour. (see https://crontab.guru)
+    - cron: '10,30,50 */1 * * *'
     
 env:
   DBT_PROFILES_DIR: ${{ vars.DBT_PROFILES_DIR }}
