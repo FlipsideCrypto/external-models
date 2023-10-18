@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: bronze__defillama_chainlist
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - CHAIN_ID
+    
+    columns:
+      - name: CHAIN_ID
+        tests:
+          - not_null
+      - name: CHAIN
+        tests: 
+          - not_null
+      - name: TOKEN_SYMBOL
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ

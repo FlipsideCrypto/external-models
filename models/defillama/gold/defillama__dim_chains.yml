@@ -2,11 +2,28 @@ version: 2
 models:
   - name: defillama__dim_chains
     description: This table contains dimensional information about the blockchains and networks listed on Defillama.
-
     columns:
       - name: CHAIN_ID
         description: Unique identifier of the chain.
       - name: CHAIN
         description: Name of the blockchain.
       - name: TOKEN_SYMBOL
-        description: Symbol for the primary token of the chain.
+        description: Symbol for the native token of the chain.
+      - name: CHAIN_SYMBOL
+        description: The official abbreviation or symbol representing the blockchain.
+      - name: TOKEN_NAME
+        description: The full name of the native token used on the blockchain.
+      - name: TOKEN_DECIMALS
+        description: The number of decimals used by the native token, dictating its smallest divisible unit.
+      - name: NETWORK_ID
+        description: Identifier that distinguishes between multiple networks within a single blockchain (e.g., Mainnet vs Testnet).
+      - name: RPC
+        description: URL of the primary RPC endpoint used to interact with the blockchain.
+      - name: FAUCETS
+        description: List or URLs of faucets available for obtaining test tokens on the chain's testnets.
+      - name: INFO_URL
+        description: URL to an official or authoritative information source about the blockchain.
+      - name: SHORT_NAME
+        description: A shorter or abbreviated version of the blockchain's name, used in contexts with limited space.
+      - name: EXPLORERS
+        description: List of URLs or platforms where transactions, blocks, and other chain activities can be explored and verified.
