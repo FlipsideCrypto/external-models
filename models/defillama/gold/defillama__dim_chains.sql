@@ -13,7 +13,17 @@
 ) }}
 
 SELECT
-    chain_id,
     chain,
-    token_symbol
-FROM {{ ref('bronze__defillama_chains') }}
+    chain_symbol,
+    token_name,
+    token_decimals,
+    token_symbol,
+    chain_id,
+    network_id,
+    rpc,
+    faucets,
+    info_url,
+    short_name,
+    explorers
+FROM 
+    {{ ref('bronze__defillama_chainlist') }}
