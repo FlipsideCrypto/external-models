@@ -2,7 +2,6 @@
     materialized = 'incremental',
     incremental_strategy = 'delete+insert',
     unique_key = 'chain_id',
-    full_refresh = false,
     tags = ['defillama']
 ) }}
 
