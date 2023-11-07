@@ -23,7 +23,7 @@ LATERAL FLATTEN (input=> read:data:allChains)
 
 dex_base AS (
 
-{% for item in range(5) %}
+{% for item in range(10) %}
 (
 SELECT
     chain,
