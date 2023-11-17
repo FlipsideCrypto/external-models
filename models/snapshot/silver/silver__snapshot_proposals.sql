@@ -39,3 +39,7 @@ WHERE
             {{ this }}
     )
 {% endif %}
+
+qualify(ROW_NUMBER() over (PARTITION BY proposal_id
+ORDER BY
+    p._inserted_timestamp DESC)) = 1
