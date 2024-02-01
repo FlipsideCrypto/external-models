@@ -15,6 +15,6 @@ SELECT
     *
 FROM
     {{ source(
-        'tokenflow_starknet_l1_data',
-        'blocks'
+        'starknet_snapshot',
+        'l1_blocks'
     ) }}
