@@ -15,6 +15,6 @@ SELECT
     *
 FROM
     {{ source(
-        'tokenflow_starknet_l1_data',
-        'storage_diffs'
+        'starknet_snapshot',
+        'l1_storage_diffs'
     ) }}

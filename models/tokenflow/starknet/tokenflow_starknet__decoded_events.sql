@@ -15,6 +15,6 @@ SELECT
     *
 FROM
     {{ source(
-        'tokenflow_starknet_decoded',
+        'starknet_snapshot',
         'events'
     ) }}

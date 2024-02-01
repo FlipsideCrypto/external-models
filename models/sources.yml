@@ -47,4 +47,16 @@ sources:
     schema: external
     tables: 
       - name: valuations_parquet
-  
+  - name: starknet_snapshot
+    database: tokenflow
+    schema: starknet
+    tables:
+      - name: blocks
+      - name: events
+      - name: messages
+      - name: traces
+      - name: transactions
+      - name: l1_blocks
+      - name: l1_contracts
+      - name: l1_messages
+      - name: l1_storage_diffs
