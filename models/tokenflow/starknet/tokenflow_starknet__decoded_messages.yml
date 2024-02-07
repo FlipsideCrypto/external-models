@@ -1,7 +1,7 @@
 version: 2
 models:
   - name: tokenflow_starknet__decoded_messages
-    description: This table contains decoded message level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
+    description: Table updates ceased after February 1, 2024. This table contains decoded message level data for the Starknet blockchain, sourced from Token Flow. For more information on Starknet, please see [Starknet Resources](https://starknet.io/). For more information on Token Flow, please see [Token Flow Resources](https://docs.tokenflow.live/).
       
     columns:
       - name: BLOCK_NUMBER
