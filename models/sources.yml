@@ -60,3 +60,9 @@ sources:
       - name: l1_contracts
       - name: l1_messages
       - name: l1_storage_diffs
+  - name: flashbots
+    database: streamline
+    schema: flashbots
+    tables:
+      - name: mev
+      - name: protect
