@@ -13,6 +13,11 @@ models:
         description: The number of the block in which transactions were included.
       - name: BLOCK_TIME
         description: The timestamp for when the block was mined.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 3
       - name: BLOCK_HASH
         description: The hash of the block in which the MEV-share transactions landed.
       - name: EXTRA_DATA
