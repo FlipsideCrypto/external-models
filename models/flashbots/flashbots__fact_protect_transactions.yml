@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: flashbots__fact_protect_transactions
+    description: >
+      This table contains all the transactions received by Flashbots Protect RPC that are seen landed onchain, including the privacy setting user or application set when sending them. 
+      Read more about Flashbots Protect from [documentation](https://docs.flashbots.net/flashbots-protect/quick-start) and [website](https://protect.flashbots.net/)!
+      
+    columns:
+      - name: TX_HASH
+        description: The Ethereum transaction hash of the protect transaction.
+      - name: FROM_ADDRESS
+        description: The Ethereum address of the sender initiating the transaction.
+      - name: TO_ADDRESS
+        description: The Ethereum address of the recipient of the transaction. 
+      - name: PUBLIC_MEMPOOL
+        description: A boolean indicating whether the transaction was initially visible in the public mempool. Source [mempool_dumpster](https://mempool-dumpster.flashbots.net/index.html)
+      - name: CREATED_AT_BLOCK_NUMBER
+        description: The block number at which the transaction was created (first received by Flashbots server). Note - Due to some reorg/simulation issues, there are some rows where `created_at_block_number` > `included_block_number`
+      - name: INCLUDED_BLOCK_NUMBER
+        description: The block number in which the transaction was included in the blockchain. 
+      - name: HINTS_SELECTED
+        description: The hints shared by the user for public streaming to searchers in the MEV-share orderflow auction (OFA).
+      - name: NUM_OF_BUILDERS_SHARED
+        description: The number of block builders the transaction was shared with, higher number will likely help faster inclusion speed onchain.
+      - name: REFUND_PERCENT
+        description: The percentage of OFA backrun profits refunded to the sender (user). The rest can be kept by builders or bided to payout to validator. Flashbots builders keeps 0 profit and send it to validator in the end of block payment transaction.
