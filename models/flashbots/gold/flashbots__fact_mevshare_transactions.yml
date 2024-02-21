@@ -1,0 +1,43 @@
+version: 2
+models:
+  - name: flashbots__fact_mevshare_transactions
+    description: > 
+      This table records all the landed backrun transactions on MEV-share, and its original user transaction that is being backrun, as well as the refund transaction where block builder send searcher's refund back to originating user. 
+      These 3 transactions are settled in a bundle with the order of `(user_tx, backrun_tx, refund_tx)`.
+
+      MEV-share is the Order Flow Auction (OFA) product from Flashbots, resharing MEV profits back to users, with parameterized privacy features. 
+      MEV-share inherit orderflow coming from Flashbots Protect RPC endpoint. Read more in [Flashbots docs](https://docs.flashbots.net/flashbots-protect/mev-share)!
+
+    columns:
+      - name: BLOCK_NUMBER
+        description: The number of the block in which transactions were included.
+      - name: BLOCK_TIME
+        description: The timestamp for when the block was mined.
+      - name: BLOCK_HASH
+        description: The hash of the block in which the MEV-share transactions landed.
+      - name: EXTRA_DATA
+        description: Additional data included in the block, often used for identifying the block builder.
+      - name: FEE_RECIPIENT_ADDRESS
+        description: The Ethereum address of the recipient of block rewards, which can be the block builder or validator.
+      - name: BUNDLE_ID
+        description: A row number partitioned by (`user_tx_hash`, `backrun_tx_hash`) to use as part of the deterministic id for refund bundles.
+      - name: USER_TX_HASH
+        description: The Ethereum hash of the user's protect transaction.
+      - name: USER_TX_FROM
+        description: The Ethereum address of the sender of the protect transaction.
+      - name: USER_TX_TO
+        description: The Ethereum address of the recipient of the protect transaction.
+      - name: BACKRUN_TX_HASH
+        description: The Ethereum hash of the transaction that backran the user's transaction in MEV-share OFA. 
+      - name: BACKRUN_TX_FROM
+        description: The Ethereum address of the sender of the backrunning transaction.
+      - name: BACKRUN_TX_TO
+        description: The Ethereum address of the recipient of the backrunning transaction.
+      - name: REFUND_TX_HASH
+        description: The Ethereum hash of the refund transaction.
+      - name: REFUND_TX_FROM
+        description: The Ethereum address from which the refund was sent, which is always the block builder address.
+      - name: REFUND_TX_TO
+        description: The Ethereum address to which the refund was sent, which usually is user address but can be a different address user set when sending transaction to Flashbots Protect / MEV-share.
+      - name: REFUND_VALUE_ETH
+        description: The amount of ETH refunded to the protect transaction, as a result of a successful OFA backrun, depending on user's refund percentage setting when sending the transaction.
