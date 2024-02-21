@@ -4,7 +4,7 @@ models:
     description: >
       This table contains all the transactions received by Flashbots Protect RPC that are seen landed onchain, including the privacy setting user or application set when sending them. 
       Read more about Flashbots Protect from [documentation](https://docs.flashbots.net/flashbots-protect/quick-start) and [website](https://protect.flashbots.net/)!
-      
+
     columns:
       - name: TX_HASH
         description: The Ethereum transaction hash of the protect transaction.
@@ -18,6 +18,8 @@ models:
         description: The block number at which the transaction was created (first received by Flashbots server). Note - Due to some reorg/simulation issues, there are some rows where `created_at_block_number` > `included_block_number`
       - name: INCLUDED_BLOCK_NUMBER
         description: The block number in which the transaction was included in the blockchain. 
+      - name: TX_ID
+        description: A row number partitioned by (`tx_hash`, `created_at_block_number`, `included_block_number`) to use as part of the deterministic id for transactions who were submitted multiple times at same block, with different shared configs
       - name: HINTS_SELECTED
         description: The hints shared by the user for public streaming to searchers in the MEV-share orderflow auction (OFA).
       - name: NUM_OF_BUILDERS_SHARED

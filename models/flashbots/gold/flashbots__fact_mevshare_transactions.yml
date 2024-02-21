@@ -7,23 +7,20 @@ models:
 
       MEV-share is the Order Flow Auction (OFA) product from Flashbots, resharing MEV profits back to users, with parameterized privacy features. 
       MEV-share inherit orderflow coming from Flashbots Protect RPC endpoint. Read more in [Flashbots docs](https://docs.flashbots.net/flashbots-protect/mev-share)!
-    
+
     columns:
       - name: BLOCK_NUMBER
         description: The number of the block in which transactions were included.
       - name: BLOCK_TIME
         description: The timestamp for when the block was mined.
-        tests:
-          - not_null
-          - dbt_expectations.expect_row_values_to_have_recent_data:
-              datepart: day
-              interval: 3
       - name: BLOCK_HASH
         description: The hash of the block in which the MEV-share transactions landed.
       - name: EXTRA_DATA
         description: Additional data included in the block, often used for identifying the block builder.
       - name: FEE_RECIPIENT_ADDRESS
         description: The Ethereum address of the recipient of block rewards, which can be the block builder or validator.
+      - name: BUNDLE_ID
+        description: A row number partitioned by (`user_tx_hash`, `backrun_tx_hash`) to use as part of the deterministic id for refund bundles.
       - name: USER_TX_HASH
         description: The Ethereum hash of the user's protect transaction.
       - name: USER_TX_FROM

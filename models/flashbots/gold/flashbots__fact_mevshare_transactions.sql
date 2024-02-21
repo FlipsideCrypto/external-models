@@ -1,7 +1,5 @@
 {{ config(
-    materialized = 'table',
-    persist_docs ={ "relation": true,
-    "columns": true },
+    materialized = "view",
     tags = ['flashbots'],
     meta={
         'database_tags':{
@@ -13,11 +11,12 @@
 ) }}
 
 SELECT
-    block_number::integer as block_number,
+    block_number,
     block_time,
     block_hash,
     extra_data,
     fee_recipient_address,
+    bundle_id,
     user_tx_hash,
     user_tx_from,
     user_tx_to,
@@ -28,8 +27,5 @@ SELECT
     refund_from,
     refund_to,
     refund_value_eth
-FROM 
-    {{ source(
-        'flashbots',
-        'mev'
-    ) }}
+FROM
+    {{ ref('silver__flashbots_mev_txs') }}

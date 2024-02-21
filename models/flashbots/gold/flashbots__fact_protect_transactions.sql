@@ -1,7 +1,5 @@
 {{ config(
-    materialized = 'table',
-    persist_docs ={ "relation": true,
-    "columns": true },
+    materialized = "view",
     tags = ['flashbots'],
     meta={
         'database_tags':{
@@ -19,11 +17,9 @@ SELECT
     public_mempool,
     created_at_block_number,
     included_block_number,
+    tx_id,
     hints_selected,
     num_of_builders_shared,
     refund_percent
 FROM 
-    {{ source(
-        'flashbots',
-        'protect'
-    ) }}
+    {{ ref('silver__flashbots_protect_txs') }}
