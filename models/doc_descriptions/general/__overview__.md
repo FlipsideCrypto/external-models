@@ -7,19 +7,9 @@ The documentation included here details the design of the External tables and vi
 
 ### **Quick Links to Table Documentation**
 
-**Token Flow: Ethereum**
-
-[Token Flow Documentation](https://docs.tokenflow.live/)
-
-- [tokenflow_eth__blocks](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.blocks)
-- [tokenflow_eth__calls](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.calls)
-- [tokenflow_eth__events](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.events)
-- [tokenflow_eth__state_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.state_diffs)
-- [tokenflow_eth__storage_diffs](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_diffs)
-- [tokenflow_eth__storage_reads](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.storage_reads)
-- [tokenflow_eth__transactions](https://flipsidecrypto.github.io/external-models/#!/source/source.external_models.tokenflow_eth.transactions)
-
 **Token Flow: Starknet**
+
+Note: These tables ceased updating on Feburary 4th, 2024.
 
 [Token Flow Documentation](https://docs.tokenflow.live/)
 
@@ -66,6 +56,13 @@ The documentation included here details the design of the External tables and vi
 - [snapshot__dim_users](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__dim_users)
 - [snapshot__fact_proposals](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__fact_proposals)
 - [snapshot__fact_votes](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.snapshot__fact_votes)
+
+**Flashbots**
+
+[Flashbots Documentation](https://docs.flashbots.net/flashbots-protect/overview)
+
+- [flashbots__fact_mevshare_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_mevshare_transactions)
+- [flashbots__fact_protect_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_protect_transactions)
 
 ## **Helpful User-Defined Functions (UDFs)**
 
