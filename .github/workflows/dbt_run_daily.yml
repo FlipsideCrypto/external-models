@@ -42,4 +42,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -m tag:defillama tag:deepnftvalue tag:core tag:flashbots
+          dbt run -m tag:defillama tag:deepnftvalue tag:core
