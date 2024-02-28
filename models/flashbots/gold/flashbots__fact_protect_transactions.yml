@@ -5,7 +5,7 @@ models:
       This table contains all the transactions received by Flashbots Protect RPC that are seen landed onchain, including the privacy setting user or application set when sending them. 
       Read more about Flashbots Protect from [documentation](https://docs.flashbots.net/flashbots-protect/quick-start) and [website](https://protect.flashbots.net/)!
 
-      Please note: Data after February 14, 2024 will be added soon. Please reach out to the Flashbots team for any data discrepancies or questions.
+      Please reach out to the Flashbots team for any data discrepancies or questions.
 
     columns:
       - name: TX_HASH
