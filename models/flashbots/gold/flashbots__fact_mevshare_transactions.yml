@@ -8,7 +8,7 @@ models:
       MEV-share is the Order Flow Auction (OFA) product from Flashbots, resharing MEV profits back to users, with parameterized privacy features. 
       MEV-share inherit orderflow coming from Flashbots Protect RPC endpoint. Read more in [Flashbots docs](https://docs.flashbots.net/flashbots-protect/mev-share)!
 
-      Please note: Data after February 14, 2024 will be added soon. Please reach out to the Flashbots team for any data discrepancies or questions.
+      Please reach out to the Flashbots team for any data discrepancies or questions.
 
     columns:
       - name: BLOCK_NUMBER
