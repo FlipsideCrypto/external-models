@@ -13,7 +13,7 @@ SELECT
     _inserted_timestamp
 FROM (
     SELECT
-        ethereum.streamline.udf_api(
+        live.udf_api(
             'GET','https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyNotionalVolume',{},{}
             ) AS read,
         SYSDATE() AS _inserted_timestamp
@@ -27,7 +27,7 @@ options_base AS (
 (
 SELECT
     chain,
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET',CONCAT('https://api.llama.fi/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyNotionalVolume'),{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp

@@ -9,7 +9,7 @@ WITH requests AS ({% for item in range(6) %}
     (
 
     SELECT
-        ethereum.streamline.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
+        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
     SELECT
         api_key
     FROM

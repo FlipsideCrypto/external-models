@@ -13,7 +13,7 @@ SELECT
     bridge_id,
     bridge,
     bridge_name,
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET',CONCAT('https://bridges.llama.fi/bridgevolume/all?id=',bridge_id),{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp

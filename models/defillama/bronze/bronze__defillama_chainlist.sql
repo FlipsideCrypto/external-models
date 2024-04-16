@@ -8,7 +8,7 @@
 WITH chainlist_base AS (
 
     SELECT
-        ethereum.streamline.udf_api(
+        live.udf_api(
             'GET',
             'https://chainid.network/chains.json',{},{}
         ) AS READ,

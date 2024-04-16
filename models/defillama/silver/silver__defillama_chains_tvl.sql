@@ -12,7 +12,7 @@ WITH tvl_base AS (
 SELECT
     chain_id,
     chain,
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET',CONCAT('https://api.llama.fi/charts/',chain),{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp

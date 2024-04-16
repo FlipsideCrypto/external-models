@@ -7,7 +7,7 @@
 WITH chain_base AS (
 
 SELECT
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET','https://api.llama.fi/chains',{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp

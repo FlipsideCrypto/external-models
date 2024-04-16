@@ -60,7 +60,7 @@ row_nos AS (
 ),
 batched AS ({% for item in range(9) %}
 SELECT
-    ethereum.streamline.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, SYSDATE() _inserted_timestamp, collection_slug, _id
+    live.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, SYSDATE() _inserted_timestamp, collection_slug, _id
 FROM
     row_nos rn
 WHERE

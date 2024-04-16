@@ -9,7 +9,7 @@ WITH initial_votes_request AS ({% for item in range(6) %}
     (
 
     SELECT
-        ethereum.streamline.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
+        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
     SELECT
         api_key
     FROM
@@ -61,7 +61,7 @@ votes_initial AS (
 final_votes_request AS ({% for item in range(6) %}
     (
 SELECT
-    ethereum.streamline.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
+    live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
 SELECT
     api_key
 FROM

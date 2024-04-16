@@ -7,7 +7,7 @@
 WITH stablecoin_base AS (
 
 SELECT
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET','https://stablecoins.llama.fi/stablecoins?includePrices=false',{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp
