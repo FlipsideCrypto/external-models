@@ -10,13 +10,7 @@ WITH initial_request AS ({% for item in range(6) %}
     (
 
     SELECT
-        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey': (
-    SELECT
-        api_key
-    FROM
-        {{ source('crosschain_silver', 'apis_keys') }}
-    WHERE
-        api_name = 'snapshot') },{ 'query': 'query { users(orderBy: "created", orderDirection: asc, first: 1000, skip: ' || {{ item * 1000 }} || ', where:{created_gte: ' || max_time_start || '}) { id name about avatar ipfs created } }' }) AS resp, SYSDATE() AS _inserted_timestamp
+        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey':'key' },{ 'query': 'query { users(orderBy: "created", orderDirection: asc, first: 1000, skip: ' || {{ item * 1000 }} || ', where:{created_gte: ' || max_time_start || '}) { id name about avatar ipfs created } }' },'Vault/prod/external/graphql') AS resp, SYSDATE() AS _inserted_timestamp
     FROM
         (
     SELECT
