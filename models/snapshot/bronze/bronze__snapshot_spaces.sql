@@ -10,7 +10,7 @@ WITH requests AS ({% for item in range(6) %}
     (
 
     SELECT
-        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey':'key' },{ 'query': 'query { spaces(orderBy: "created", orderDirection: desc, first: 1000, skip: ' || {{ item * 1000 }} || ') { id name about network symbol admins members categories domain private treasuries { address name network } verified } }' },'Vault/prod/external/graphql') AS resp, SYSDATE() AS _inserted_timestamp) {% if not loop.last %}
+        live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey':'key' },{ 'query': 'query { spaces(orderBy: "created", orderDirection: desc, first: 1000, skip: ' || {{ item * 1000 }} || ') { id name about network symbol admins members categories domain private treasuries { address name network } verified } }' },'Vault/prod/external/snapshot') AS resp, SYSDATE() AS _inserted_timestamp) {% if not loop.last %}
         UNION ALL
         {% endif %}
     {% endfor %}),

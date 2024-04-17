@@ -11,7 +11,7 @@ WITH requests AS ({% for item in range(6) %}
     SELECT
         live.udf_api('GET', 'https://hub.snapshot.org/graphql',{ 'apiKey':'key' },
         { 'query':'query { proposals(orderBy: "created", orderDirection: asc,first:1000, skip: ' || {{ item * 1000 }} || ',where:{created_gte: ' || max_time_start || '}) { id space{id voting {delay quorum period type}} ipfs author created network type title body start end state votes choices scores_state scores } }' }
-        ,'Vault/prod/external/graphql') AS resp, 
+        ,'Vault/prod/external/snapshot') AS resp, 
         SYSDATE() AS _inserted_timestamp
     FROM
         (
