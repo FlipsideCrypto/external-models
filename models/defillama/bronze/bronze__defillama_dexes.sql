@@ -7,10 +7,10 @@
 WITH base AS (
 
 SELECT
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET','https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=totalVolume',{},{}
     ) AS dex_read,
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET','https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=totalPremiumVolume',{},{}
     ) AS options_read,
     SYSDATE() AS _inserted_timestamp

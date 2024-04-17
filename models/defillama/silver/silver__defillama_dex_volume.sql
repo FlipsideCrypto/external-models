@@ -13,7 +13,7 @@ SELECT
     _inserted_timestamp
 FROM (
     SELECT
-        ethereum.streamline.udf_api(
+        live.udf_api(
             'GET','https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{}
             ) AS read,
         SYSDATE() AS _inserted_timestamp
@@ -27,7 +27,7 @@ dex_base AS (
 (
 SELECT
     chain,
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET',CONCAT('https://api.llama.fi/overview/dexs/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyVolume'),{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp

@@ -8,7 +8,7 @@
 WITH bridge_base AS (
 
 SELECT
-    ethereum.streamline.udf_api(
+    live.udf_api(
         'GET','https://bridges.llama.fi/bridges?includeChains=true',{},{}
     ) AS read,
     SYSDATE() AS _inserted_timestamp
