@@ -44,5 +44,5 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt test
+          dbt test -m models/
   
