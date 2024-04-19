@@ -44,5 +44,5 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt test -m models/
+          dbt test -m "external_models,models/"
   
