@@ -47,7 +47,9 @@ SELECT
     valuation_min,
     slug AS _id
 FROM
-    FINAL qualify ROW_NUMBER() over (
+    FINAL
+WHERE
+    slug IS NOT NULL qualify ROW_NUMBER() over (
         PARTITION BY _id
         ORDER BY
             _inserted_timestamp DESC
