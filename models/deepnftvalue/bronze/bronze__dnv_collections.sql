@@ -24,21 +24,6 @@ api_url AS (
         slugs
         CROSS JOIN api_endpoint
 ),
-api_key AS (
-    SELECT
-        CONCAT(
-            '{\'Authorization\': \'Token ',
-            api_key,
-            '\', \'accept\': \'application/json\'}'
-        ) AS header
-    FROM
-        {{ source(
-            'crosschain_silver',
-            'apis_keys'
-        ) }}
-    WHERE
-        api_name = 'deepnftvalue'
-),
 row_nos AS (
     SELECT
         api_url,
@@ -49,15 +34,13 @@ row_nos AS (
         ) AS row_no,
         FLOOR(
             row_no / 1
-        ) - 1 AS batch_no,
-        header
+        ) - 1 AS batch_no
     FROM
         api_url
-        CROSS JOIN api_key
 ),
 batched AS ({% for item in range(10) %}
 SELECT
-    live.udf_api(' GET ', api_url, PARSE_JSON(header),{}) AS resp, SYSDATE() _inserted_timestamp, collection_slug, CONCAT(collection_slug, '-', _inserted_timestamp) AS _id
+    live.udf_api('GET', api_url, OBJECT_CONSTRUCT('Authorization', '{Authorization}', 'accept', 'application/json'),{}, 'Vault/prod/external/deepnftvalue') AS resp, SYSDATE() _inserted_timestamp, collection_slug, CONCAT(collection_slug, '-', _inserted_timestamp) AS _id
 FROM
     row_nos rn
 WHERE
