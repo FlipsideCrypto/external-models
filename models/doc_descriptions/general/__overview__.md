@@ -68,7 +68,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 [Token Lists Documentation](https://tokenlists.org/)
 
-- [tokenlists__dim_verified_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.tokenlists__dim_verified_tokens)
+- [tokenlists__ez_verified_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.tokenlists__ez_verified_tokens)
 
 ## **Helpful User-Defined Functions (UDFs)**
 

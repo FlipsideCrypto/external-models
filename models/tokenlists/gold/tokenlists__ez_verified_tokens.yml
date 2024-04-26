@@ -14,13 +14,17 @@ models:
         description: The number of decimals of the token.
       - name: CHAIN_ID
         description: The unique identifier of the chain where the token is deployed.
+      - name: CHAIN_NAME
+        description: The name of the chain where the token is deployed. This is derived from `defillama.dim_chains`.
+      - name: CHAIN_SYMBOL
+        description: The official abbreviation or symbol representing the blockchain. This is derived from `defillama.dim_chains`.
       - name: TOKEN_EXTENSIONS
         description: Extended token information, including mappings of the tokens on other chains.
       - name: PROVIDER
         description: The provider of the token list.
       - name: LIST_METADATA
         description: The metadata of the token list.
-      - name: DIM_VERIFIED_TOKENS_ID
+      - name: EZ_VERIFIED_TOKENS_ID
         description: '{{ doc("pk") }}'   
       - name: INSERTED_TIMESTAMP
         description: '{{ doc("inserted_timestamp") }}'   
