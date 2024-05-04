@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: defillama__fact_stablecoin_supply
+    description: This table contains historical decentralized exchange volumes for the stablecoins in `dim_stablecoins`, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: NAME
+        description: The name of the stablecoin.
+      - name: CIRCULATING
+        description: The total circulating supply of the stablecoin for that date.
+      - name: MINTED
+        description: The total minted amount of the stablecoin for that date.
+      - name: UNRELEASED
+        description: The total unreleased supply of the stablecoin for that date.
