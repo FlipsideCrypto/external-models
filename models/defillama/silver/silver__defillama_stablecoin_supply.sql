@@ -41,7 +41,7 @@ FROM (
 UNION ALL
 {% endif %}
 {% endfor %}
-UNION ALL
+UNION ALL --USDT and USDC need to be called outside of the loop
 (
 SELECT
     stablecoin_id,
