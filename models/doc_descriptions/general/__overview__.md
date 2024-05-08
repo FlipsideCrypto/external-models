@@ -37,7 +37,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [defillama__fact_chain_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_chain_tvl)
 - [defillama__fact_dex_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_dex_volume)
 - [defillama__fact_options_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_options_volume)
-- [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue)
+- [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue) 
 
 **DeepNFTValue**
 
@@ -115,7 +115,6 @@ Note that you can also right-click on models to interactively filter and explore
 - [Tutorials](https://docs.flipsidecrypto.com/our-data/tutorials)
 - [Github](https://github.com/FlipsideCrypto/external-models)
 - [What is dbt?](https://docs.getdbt.com/docs/introduction)
-
 
 
 {% enddocs %}
