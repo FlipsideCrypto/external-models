@@ -64,6 +64,12 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [flashbots__fact_mevshare_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_mevshare_transactions)
 - [flashbots__fact_protect_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_protect_transactions)
 
+**Token Lists**
+
+[Token Lists Documentation](https://tokenlists.org/)
+
+- [tokenlists__ez_verified_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.tokenlists__ez_verified_tokens)
+
 ## **Helpful User-Defined Functions (UDFs)**
 
 UDFs are custom functions built by the Flipside team that can be used in your queries to make your life easier. 

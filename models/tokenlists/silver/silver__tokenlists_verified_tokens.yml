@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: silver__tokenlists_verified_tokens
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - API_URL
+              - LOWER(ADDRESS)
+              - CHAIN_ID
+    
+    columns:
+      - name: API_URL
+        tests:
+          - not_null
+      - name: ADDRESS
+        tests: 
+          - not_null
+      - name: CHAIN_ID
+        tests:
+          - not_null
