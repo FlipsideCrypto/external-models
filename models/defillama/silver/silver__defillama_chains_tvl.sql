@@ -23,8 +23,6 @@ FROM (
         row_num
     FROM {{ ref('bronze__defillama_chains') }}
     WHERE row_num BETWEEN {{ item * 60 + 1 }} AND {{ (item + 1) * 60 }}
-        AND chain NOT IN ('Regen')
-        --exclude chains with response size > 6mb
     )
 {% if is_incremental() %}
 WHERE chain NOT IN (

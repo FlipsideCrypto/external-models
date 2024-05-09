@@ -26,44 +26,14 @@ with FINAL AS (
     FROM
         {{ ref('bronze__defillama_protocols_tvl') }}
     WHERE
-        chain IN (
-            'Ethereum',
-            'BSC',
-            'Arbitrum',
-            'Polygon',
-            'Avalanche',
-            'Base',
-            'Optimism',
-            'Solana',
-            'Kava',
-            'Cronos',
-            'Blast',
-            'zkSync Era',
-            'Linea',
-            'Mantle',
-            'Scroll',
-            'Gnosis',
-            'Polygon zkEVM',
-            'Aurora',
-            'Moonbeam',
-            'Harmony',
-            'Metis',
-            'Moonriver',
-            'Klaytn',
-            'Heco',
-            'Celo',
-            'Manta',
-            'Dogechain'
-        )
-    AND
-        chain_tvl > 1000
+    1=1
     {% if is_incremental() %}
     AND
         _inserted_timestamp >= (
             SELECT
                 MAX(
                     _inserted_timestamp
-                ) - INTERVAL '36 hours'
+                )
             FROM
                 {{ this }}
         )
