@@ -56,7 +56,7 @@ SELECT
 FROM stablecoin_base,
     LATERAL FLATTEN (input=> read:data:tokens) f
 ),
-FINAL AS (
+expand_flatten AS (
     SELECT
         f.address,
         f.symbol,
@@ -115,7 +115,8 @@ FINAL AS (
         {{ ref('bronze__defillama_stablecoins') }} d
     ON
         f.stablecoin_id = d.stablecoin_id
-)
+),
+FINAL AS (
 select
     address,
     symbol,
@@ -129,5 +130,16 @@ select
     minted,
     unreleased,
     _inserted_timestamp
+FROM
+    expand_flatten
+)
+SELECT
+    *,
+    {{ dbt_utils.generate_surrogate_key(
+        ['stablecoin','timestamp']
+    ) }} AS defillama_stablecoin_supply_id,
+    SYSDATE() AS inserted_timestamp,
+    SYSDATE() AS modified_timestamp,
+    '{{ invocation_id }}' AS _invocation_id
 FROM
     FINAL

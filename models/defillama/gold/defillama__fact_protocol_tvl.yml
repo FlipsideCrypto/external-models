@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: defillama__fact_protocol_tvl
+    description: This table contains protocol TVL at a chain level, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: PROTOCOL_ID
+        description: The Defillama id of the protocol.
+      - name: CATEGORY
+        description: Category the protocol belongs to.
+      - name: MARKET_CAP
+        description: The total market cap of the protocol.
+      - name: SYMBOL
+        description: The symbol of the token associated with the protocol.
+      - name: CHAIN_TVL
+        description: The total value locked on the chain for that protocol.
+      - name: CHAIN_TVL_PREV_DAY
+        description: The total value locked on the chain for that protocol, for the previous day.
+      - name: CHAIN_TVL_PREV_WEEK
+        description: The total value locked on the chain for that protocol, for the previous week.
+      - name: CHAIN_TVL_PREV_MONTH
+        description: The total value locked on the chain for that protocol, for the previous month.

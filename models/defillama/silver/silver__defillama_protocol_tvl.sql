@@ -9,7 +9,7 @@ with FINAL AS (
         
         protocol_id,
         category,
-        NAME,
+        NAME as protocol,
         market_cap,
         symbol,
         _inserted_timestamp as timestamp,

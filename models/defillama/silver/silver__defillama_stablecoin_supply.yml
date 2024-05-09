@@ -1,31 +1,31 @@
 version: 2
 models:
-  - name: silver__defillama_protocol_tvl
+  - name: silver__defillama_stablecoin_supply
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
-              - DEFILLAMA_TVL_ID
+              - DEFILLAMA_STABLE_SUPPLY_ID
     
     columns:
-      - name: CHAIN
+      - name: ADDRESS
+      - name: SYMBOL
+      - name: STABLECOIN 
+      - name: STABLECOIN_ID
+      - name: CHAINS
         tests:
           - not_null
+      - name: PEG_TYPE
       - name: TIMESTAMP
-      - name: PROTOCOL
-      - name: TVL 
-      - name: TVL_PREV_DAY 
-      - name: TVL_PREV_WEEK 
-      - name: TVL_PREV_MONTH 
-      - name: CHAIN_TVL 
-      - name: CHAIN_TVL_PREV_DAY 
-      - name: CHAIN_TVL_PREV_WEEK 
-      - name: CHAIN_TVL_PREV_MONTH 
+      - name: VALUE
+      - name: CIRCULATING
+      - name: MINTED
+      - name: UNRELEASED
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_in_type_list:
               column_type_list:
                 - TIMESTAMP_NTZ
-      - name: DEFILLAMA_TVL_ID
+      - name: DEFILLAMA_STABLE_SUPPLY_ID
         tests:
           - not_null
