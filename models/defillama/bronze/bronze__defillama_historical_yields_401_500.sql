@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_historical_yields_id',
-    tags = ['defillama','500']
+    tags = ['500']
 ) }}
 
 WITH 

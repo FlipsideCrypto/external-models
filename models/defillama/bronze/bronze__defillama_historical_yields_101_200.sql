@@ -1,17 +1,10 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_historical_yields_id',
-    tags = ['defillama','200']
+    tags = ['200']
 ) }}
 
 WITH 
-{# upstream_complete_check as (
-    select
-        'check'
-    FROM
-        {{ ref('bronze__defillama_historical_yields_101_200') }}
-), #}
-
 historical_yield AS (
 
 {% for item in range(100) %}

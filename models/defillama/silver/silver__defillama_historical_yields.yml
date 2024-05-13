@@ -1,0 +1,7 @@
+version: 2
+models:
+  - name: silver__defillama_historical_yields
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - defillama_historical_yields_id
