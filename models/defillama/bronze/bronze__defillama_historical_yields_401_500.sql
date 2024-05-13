@@ -5,13 +5,6 @@
 ) }}
 
 WITH 
-{# upstream_complete_check as (
-    select
-        'check'
-    FROM
-        {{ ref('bronze__defillama_historical_yields_201_300') }}
-), #}
-
 historical_yield AS (
 
 {% for item in range(100) %}

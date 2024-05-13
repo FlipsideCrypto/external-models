@@ -1,6 +1,6 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key = 'defillama_historical_yield_id',
+    materialized = 'table',
+    unique_key = 'defillama_historical_yields_id',
     tags = ['defillama']
 ) }}
 
