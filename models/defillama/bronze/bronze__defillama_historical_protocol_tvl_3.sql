@@ -1,12 +1,13 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'defillama_historical_protocol_tvl',
-    tags = ['100']
+    unique_key = 'defillama_historical_protocol_tvl'
 ) }}
 
-WITH protocol_tvl AS (
+WITH 
 
-{% for item in range(100) %}
+protocol_tvl AS (
+
+{% for item in range(5) %}
 (
 SELECT
     protocol_id,
@@ -23,7 +24,7 @@ FROM (
         protocol_slug,
         row_num
     FROM {{ ref('bronze__defillama_protocols') }}
-    WHERE row_num BETWEEN {{ item * 10 + 1 }} AND {{ (item + 1) * 10 }}
+    WHERE row_num BETWEEN {{ (item+32) * 10 + 1 }} AND {{ (item + 33) * 10 }}
     )
     {% if is_incremental() %}
     WHERE protocol_slug NOT IN (
