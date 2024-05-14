@@ -1,60 +1,64 @@
-{{ config(
-    materialized = 'incremental',
-    unique_key = 'id',
-    full_refresh = false,
-    tags = ['defillama']
-) }}
+import pandas as pd
+from datetime import datetime
+import requests
+from snowflake.snowpark import Session, Row
+from snowflake.snowpark.functions import col, lit, to_timestamp, flatten
 
-WITH tvl_base AS (
+def get_protocol_data(protocol_slug):
+    url = f'https://api.llama.fi/protocol/{protocol_slug}'
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
 
-{% for item in range(5) %}
-(
-SELECT
-    chain_id,
-    chain,
-    live.udf_api(
-        'GET',CONCAT('https://api.llama.fi/charts/',chain),{},{}
-    ) AS read,
-    SYSDATE() AS _inserted_timestamp
-FROM (
-    SELECT 
-        DISTINCT chain, 
-        chain_id,
-        row_num
-    FROM {{ ref('bronze__defillama_chains') }}
-    WHERE row_num BETWEEN {{ item * 60 + 1 }} AND {{ (item + 1) * 60 }}
+def model(dbt, session: Session):
+    dbt.config(
+        materialized="incremental",
+        unique_key="defillama_historical_protocol_tvl",
+        tags=["100"]
     )
-{% if is_incremental() %}
-WHERE chain NOT IN (
-    SELECT
-        chain
-    FROM (
-        SELECT 
-            DISTINCT chain,
-            MAX(timestamp::DATE) AS max_timestamp
-        FROM {{ this }}
-        GROUP BY 1
-        HAVING CURRENT_DATE = max_timestamp
-    )
-)
-{% endif %}
-) {% if not loop.last %}
-UNION ALL
-{% endif %}
-{% endfor %}
-)
 
-SELECT
-    chain_id,
-    chain,
-    TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
-    VALUE:totalLiquidityUSD::INTEGER AS tvl_usd,
-    _inserted_timestamp,
-     {{ dbt_utils.generate_surrogate_key(
-        ['chain_id', 'chain', 'timestamp']
-    ) }} AS id
-FROM tvl_base,
-    LATERAL FLATTEN (input=> read:data)
-qualify (ROW_NUMBER () over (PARTITION BY chain_id, chain, TIMESTAMP
-ORDER BY
-    _inserted_timestamp DESC)) = 1
+    # Load the bronze table
+    bronze_df = dbt.ref("bronze__defillama_protocols").to_pandas()
+    
+    # Prepare data in chunks
+    chunk_size = 10
+    chunks = [bronze_df[i:i + chunk_size] for i in range(0, len(bronze_df), chunk_size)]
+    
+    results = []
+
+    for chunk in chunks:
+        for index, row in chunk.iterrows():
+            protocol_data = get_protocol_data(row['protocol_slug'])
+            if protocol_data:
+                for tvl_record in protocol_data['tvl']:
+                    results.append(Row(
+                        protocol_id=row['protocol_id'],
+                        protocol=row['protocol'],
+                        protocol_slug=row['protocol_slug'],
+                        date=tvl_record['date'],
+                        tvl=float(tvl_record['totalLiquidityUSD']),
+                        _inserted_timestamp=datetime.utcnow()
+                    ))
+
+    if results:
+        df = session.create_dataframe(results)
+        
+        if dbt.is_incremental():
+            max_timestamp = df.select(col("protocol_slug"), col("_inserted_timestamp").cast("DATE").alias("max_timestamp")) \
+                              .group_by(col("protocol_slug")) \
+                              .agg({"max_timestamp": "max"}) \
+                              .filter(col("max_timestamp") == datetime.utcnow().date())
+
+            df = df.filter(~df["protocol_slug"].isin(max_timestamp["protocol_slug"]))
+
+        df = df.with_column("defillama_historical_protocol_tvl", lit(dbt.utils.generate_surrogate_key(["protocol_id", "date"])))
+        df = df.with_column("inserted_timestamp", lit(datetime.utcnow()))
+        df = df.with_column("modified_timestamp", lit(datetime.utcnow()))
+        df = df.with_column("_invocation_id", lit(dbt.invocation_id))
+
+        return df
+    else:
+        return session.create_dataframe([])
+

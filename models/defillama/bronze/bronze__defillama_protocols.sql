@@ -31,6 +31,10 @@ SELECT
     VALUE:audit_note::STRING AS audit_note,
     VALUE:category::STRING AS category,
     VALUE:chains AS chains,
+    ROW_NUMBER() over (
+        ORDER BY
+        protocol_id 
+    ) AS row_num,
     _inserted_timestamp
 FROM protocol_base,
     LATERAL FLATTEN (input=> read:data)
