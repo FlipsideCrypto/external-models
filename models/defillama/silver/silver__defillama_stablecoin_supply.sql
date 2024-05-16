@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'stablecoin_id',
+    full_refresh = false,
     tags = ['defillama']
 ) }}
 

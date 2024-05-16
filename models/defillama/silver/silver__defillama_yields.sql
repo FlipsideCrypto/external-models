@@ -1,5 +1,6 @@
 {{ config(
     materialized = 'incremental',
+    full_refresh = false,
     unique_key = 'defillama_yield_id',
     tags = ['defillama']
 ) }}
@@ -70,7 +71,7 @@ SELECT
     *,
     ROW_NUMBER() over (
         ORDER BY
-            pool_id desc
+            pool_id DESC
     ) AS row_num,
     {{ dbt_utils.generate_surrogate_key(
         ['pool_id','chain','timestamp']
