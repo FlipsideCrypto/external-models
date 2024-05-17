@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: bronze__defillama_protocols_tvl
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - PROTOCOL_ID
+    
+    columns:
+      - name: PROTOCOL_ID
+        tests: 
+          - not_null
+      - name: CATEGORY
+      - name: NAME
+      - name: SYMBOL
+      - name: TVL
+      - name: TVL_PREV_DAY
+      - name: TVL_PREV_WEEK
+      - name: TVL_PREV_MONTH
+      - name: CHAIN
+      - name: CHAIN_TVL
+      - name: CHAIN_TVL_PREV_DAY
+      - name: CHAIN_TVL_PREV_WEEK
+      - name: CHAIN_TVL_PREV_MONTH
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ

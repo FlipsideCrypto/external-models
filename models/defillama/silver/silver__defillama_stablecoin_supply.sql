@@ -1,62 +1,11 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'stablecoin_id',
+    unique_key = 'defillama_stablecoin_supply_id',
     full_refresh = false,
     tags = ['defillama']
 ) }}
 
-WITH stablecoin_base AS (
-
-{% for item in range(40) %}
-(
-SELECT
-    stablecoin_id,
-    stablecoin,
-    symbol,
-    live.udf_api(
-        'GET',concat('https://stablecoins.llama.fi/stablecoin/',stablecoin_id),{},{}
-    ) AS read,
-    SYSDATE() AS _inserted_timestamp,
-FROM (
-    SELECT 
-        stablecoin_id,
-        stablecoin,
-        symbol,
-        row_num
-    FROM {{ ref('bronze__defillama_stablecoins') }}
-    WHERE row_num BETWEEN {{ item * 5 + 1 }} AND {{ (item + 1) * 5 }}
-    )
-    {% if is_incremental() %}
-    WHERE stablecoin_id NOT IN (
-    SELECT
-        stablecoin_id
-    FROM (
-        SELECT 
-            DISTINCT stablecoin_id,
-            MAX(timestamp::DATE) AS max_timestamp
-        FROM {{ this }}
-        GROUP BY 1
-        HAVING CURRENT_DATE = max_timestamp
-    ))
-{% endif %}
-){% if not loop.last %}
-UNION ALL
-{% endif %}
-{% endfor %}
-),
-flatten AS (
-SELECT
-    read:data:address::string as address,
-    read:data:symbol::string as symbol,
-    read:data:name::string as name,
-    read:data:id::string as stablecoin_id,
-    value AS value,
-    TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
-    
-    _inserted_timestamp
-FROM stablecoin_base,
-    LATERAL FLATTEN (input=> read:data:tokens) f
-),
+WITH 
 expand_flatten AS (
     SELECT
         f.address,
@@ -111,28 +60,28 @@ expand_flatten AS (
         value,
         f._inserted_timestamp
     FROM
-        flatten f
+        {{ ref('bronze__defillama_stablecoin_supply') }} f
     LEFT JOIN
         {{ ref('bronze__defillama_stablecoins') }} d
     ON
         f.stablecoin_id = d.stablecoin_id
 ),
 FINAL AS (
-select
-    address,
-    symbol,
-    name as stablecoin,
-    stablecoin_id,
-    chains,
-    peg_type,
-    timestamp,
-    value,
-    circulating,
-    minted,
-    unreleased,
-    _inserted_timestamp
-FROM
-    expand_flatten
+    select
+        address,
+        symbol,
+        name as stablecoin,
+        stablecoin_id,
+        chains,
+        peg_type,
+        timestamp,
+        value,
+        circulating,
+        minted,
+        unreleased,
+        _inserted_timestamp
+    FROM
+        expand_flatten
 )
 SELECT
     *,

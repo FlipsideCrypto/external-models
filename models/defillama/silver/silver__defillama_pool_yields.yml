@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: silver__defillama_pool_yields
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - DEFILLAMA_YIELD_ID
+    columns:
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
+      - name: TIMESTAMP
+        tests:
+          - not_null
