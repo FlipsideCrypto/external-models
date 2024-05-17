@@ -1,10 +1,10 @@
 version: 2
 models:
-  - name: silver__layerzero_txs_snapshot1
+  - name: silver__layerzero_txs_snapshot
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
-            - LAYERZERO_TXS_SNAPSHOT1_ID 
+            - LAYERZERO_TXS_SNAPSHOT_ID 
     columns:
       - name: SOURCE_TRANSACTION_HASH
         tests:

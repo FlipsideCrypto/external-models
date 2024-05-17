@@ -1,6 +1,6 @@
 {{ config(
     materialized = "table",
-    unique_key = "layerzero_txs_snapshot1_id",
+    unique_key = "layerzero_txs_snapshot_id",
     cluster_by = "source_timestamp_utc::DATE",
     tags = ['layerzero']
 ) }}
@@ -135,8 +135,8 @@ SELECT
     snapshot_version,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
-        ['source_transaction_hash', 'tx_rn']
-    ) }} AS layerzero_txs_snapshot1_id,
+        ['source_transaction_hash', 'tx_rn', 'snapshot_version']
+    ) }} AS layerzero_txs_snapshot_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp
 FROM

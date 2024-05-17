@@ -28,7 +28,7 @@ models:
         description: The stargate swap in USD.
       - name: SNAPSHOT_VERSION
         description: The version number of the snapshot taken.
-      - name: LAYERZERO_TXS_SNAPSHOT1_ID
+      - name: LAYERZERO_TXS_SNAPSHOT_ID
         description: '{{ doc("pk") }}'   
       - name: INSERTED_TIMESTAMP
         description: '{{ doc("inserted_timestamp") }}'   
