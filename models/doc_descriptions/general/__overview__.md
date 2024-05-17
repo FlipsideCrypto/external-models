@@ -70,6 +70,12 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 - [tokenlists__ez_verified_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.tokenlists__ez_verified_tokens)
 
+**LayerZero**
+
+[LayerZero Sybil Reporting Documentation](https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file)
+
+- [layerzero__fact_transactions_snapshot1](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.layerzero__fact_transactions_snapshot1)
+
 ## **Helpful User-Defined Functions (UDFs)**
 
 UDFs are custom functions built by the Flipside team that can be used in your queries to make your life easier. 
