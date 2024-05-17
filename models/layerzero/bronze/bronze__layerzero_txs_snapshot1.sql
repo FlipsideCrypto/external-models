@@ -14,7 +14,8 @@ SELECT
     project,
     native_drop_usd,
     stargate_swap_usd,
-    SYSDATE() AS _inserted_timestamp
+    SYSDATE() AS _inserted_timestamp,
+    'snapshot_one' AS snapshot_version
 FROM
     {{ source(
         "layerzero",

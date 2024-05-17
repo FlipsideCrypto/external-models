@@ -114,6 +114,7 @@ WITH base AS (
             ORDER BY
                 source_chain ASC
         ) AS tx_rn,
+        snapshot_version,
         _inserted_timestamp
     FROM
         {{ ref('bronze__layerzero_txs_snapshot1') }}
@@ -131,6 +132,7 @@ SELECT
     native_drop_usd,
     stargate_swap_usd,
     tx_rn,
+    snapshot_version,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['source_transaction_hash', 'tx_rn']

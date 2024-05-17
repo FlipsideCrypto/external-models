@@ -3,9 +3,8 @@
     persist_docs ={ "relation": true,
     "columns": true },
     tags = ['layerzero'],
-    meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'layerzero' } } }
+    meta ={ 'database_tags':{ 'table':{ 'PROTOCOL': 'layerzero' }} }
 ) }}
-
 
 SELECT
     source_chain,
@@ -19,6 +18,7 @@ SELECT
     project,
     native_drop_usd,
     stargate_swap_usd,
+    snapshot_version,
     layerzero_txs_snapshot1_id,
     inserted_timestamp,
     modified_timestamp

@@ -1,7 +1,7 @@
 version: 2
 models:
-  - name: layerzero__fact_transactions_snapshot1
-    description: This table records transactions data provided by LayerZero in their Sybil Reporting effort. It contains records prior to Snapshot 1. You may refer to this github link for more information - https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file . Please reach out to the LayerZero team for any data discrepancies or questions.
+  - name: layerzero__fact_transactions_snapshot
+    description: This table records transactions data provided by LayerZero in their Sybil Reporting effort. You may refer to this github link for more information - https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file . Please reach out to the LayerZero team for any data discrepancies or questions.
 
     columns:
       - name: SOURCE_CHAIN
@@ -26,6 +26,8 @@ models:
         description: The native drop in USD.
       - name: STARGATE_SWAP_USD
         description: The stargate swap in USD.
+      - name: SNAPSHOT_VERSION
+        description: The version number of the snapshot taken.
       - name: LAYERZERO_TXS_SNAPSHOT1_ID
         description: '{{ doc("pk") }}'   
       - name: INSERTED_TIMESTAMP
