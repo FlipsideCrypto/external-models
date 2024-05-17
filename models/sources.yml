@@ -66,3 +66,8 @@ sources:
     tables:
       - name: mev
       - name: protect
+  - name: layerzero
+    database: external
+    schema: layerzero
+    tables:
+      - name: transactions
