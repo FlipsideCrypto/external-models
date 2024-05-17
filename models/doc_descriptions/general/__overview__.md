@@ -74,7 +74,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 [LayerZero Sybil Reporting Documentation](https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file)
 
-- [layerzero__fact_transactions_snapshot1](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.layerzero__fact_transactions_snapshot1)
+- [layerzero__fact_transactions_snapshot](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.layerzero__fact_transactions_snapshot)
 
 ## **Helpful User-Defined Functions (UDFs)**
 
