@@ -6,6 +6,14 @@ models:
     columns:
       - name: DATE
         description: Date associated with the reported records.
+      - name: POOL_ID
+        description: The Defillama id of the pool.
+      - name: CHAIN
+        description: The name of the blockchain.
+      - name: PROJECTS
+        description: Projects the pool belongs to.
+      - name: SYMBOL
+        description: The symbol of the tokens associated with the pool.
       - name: APY
         description: Base APY + Reward APY
       - name: BASE_APY
@@ -24,16 +32,10 @@ models:
         description: Percent change of APY in last 30 days
       - name: APY_REWARDS
         description: Annualized percentage yield from incentives.
-      - name: CHAIN
-        description: The name of the blockchain.
       - name: IL_7D 
         description: The percentage impermanent loss between between LPing for the last 7 days vs holding the underlying assets instead.
       - name: IL_RISK 
         description: Yes or no if the pool has impermanent loss risk.
-      - name: POOL_ID
-        description: The Defillama id of the pool.
-      - name: PROJECTS
-        description: Projects the pool belongs to.
       - name: REWARD_TOKENS
         description: Address of the incentive tokens.
       - name: MU
@@ -42,8 +44,6 @@ models:
         description: The representation of pool volatility/risk. Higher the sigma indicated a higher risk.
       - name: STABLECOIN  
         description: Boolean based on if the pool is a stablecoin to stablecoin pool. 
-      - name: SYMBOL
-        description: The symbol of the tokens associated with the pool.
       - name: TVL_USD
         description: The total value locked in the pool.
       - name: UNDERLYING_TOKENS
