@@ -16,7 +16,7 @@ models:
         description: The symbol of the tokens associated with the pool.
       - name: APY
         description: Base APY + Reward APY
-      - name: BASE_APY
+      - name: APY_BASE
         description: Annualized percentage yield from trading fees/supplying. For dexes we use the 24h fees and scale those to a year.
       - name: BASE_7D
         description: Annualized percentage yield from trading fees from the last 7 days.

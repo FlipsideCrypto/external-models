@@ -50,7 +50,6 @@ SELECT
     read:data:id::string as stablecoin_id,
     value AS value,
     TO_TIMESTAMP(VALUE:date::INTEGER) AS timestamp,
-    
     _inserted_timestamp
 FROM stablecoin_base,
     LATERAL FLATTEN (input=> read:data:tokens) f

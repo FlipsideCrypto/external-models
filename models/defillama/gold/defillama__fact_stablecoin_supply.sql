@@ -16,8 +16,8 @@ SELECT
     TIMESTAMP :: DATE AS DATE,
     stablecoin_id,
     stablecoin,
-    chains,
     symbol,
+    chains,
     circulating,
     minted,
     unreleased

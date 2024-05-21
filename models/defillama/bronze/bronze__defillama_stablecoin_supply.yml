@@ -10,23 +10,13 @@ models:
     columns:
       - name: ADDRESS
       - name: SYMBOL
-      - name: STABLECOIN 
+      - name: NAME 
       - name: STABLECOIN_ID
-      - name: CHAINS
-        tests:
-          - not_null
-      - name: PEG_TYPE
       - name: TIMESTAMP
       - name: VALUE
-      - name: CIRCULATING
-      - name: MINTED
-      - name: UNRELEASED
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_in_type_list:
               column_type_list:
                 - TIMESTAMP_NTZ
-      - name: DEFILLAMA_STABLECOIN_SUPPLY_ID
-        tests:
-          - not_null

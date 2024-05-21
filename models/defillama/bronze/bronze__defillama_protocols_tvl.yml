@@ -5,6 +5,8 @@ models:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
               - PROTOCOL_ID
+              - CHAIN
+              - _INSERTED_TIMESTAMP
     
     columns:
       - name: PROTOCOL_ID
