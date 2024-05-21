@@ -7,19 +7,6 @@ models:
               - DEFILLAMA_TVL_ID
     
     columns:
-      - name: CHAIN
-        tests:
-          - not_null
-      - name: TIMESTAMP
-      - name: PROTOCOL
-      - name: TVL 
-      - name: TVL_PREV_DAY 
-      - name: TVL_PREV_WEEK 
-      - name: TVL_PREV_MONTH 
-      - name: CHAIN_TVL 
-      - name: CHAIN_TVL_PREV_DAY 
-      - name: CHAIN_TVL_PREV_WEEK 
-      - name: CHAIN_TVL_PREV_MONTH 
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

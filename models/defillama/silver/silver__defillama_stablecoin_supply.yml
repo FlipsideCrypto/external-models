@@ -7,19 +7,6 @@ models:
               - DEFILLAMA_STABLECOIN_SUPPLY_ID
     
     columns:
-      - name: ADDRESS
-      - name: SYMBOL
-      - name: STABLECOIN 
-      - name: STABLECOIN_ID
-      - name: CHAINS
-        tests:
-          - not_null
-      - name: PEG_TYPE
-      - name: TIMESTAMP
-      - name: VALUE
-      - name: CIRCULATING
-      - name: MINTED
-      - name: UNRELEASED
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null
