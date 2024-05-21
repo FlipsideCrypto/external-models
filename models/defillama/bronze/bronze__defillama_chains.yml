@@ -7,11 +7,9 @@ models:
               - CHAIN
     
     columns:
-      - name: CHAIN_ID
       - name: CHAIN
         tests: 
           - not_null
-      - name: TOKEN_SYMBOL
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

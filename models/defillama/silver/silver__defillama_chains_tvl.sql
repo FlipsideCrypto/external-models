@@ -7,7 +7,7 @@
 
 WITH tvl_base AS (
 
-{% for item in range(5) %}
+{% for item in range(7) %}
 (
 SELECT
     chain_id,

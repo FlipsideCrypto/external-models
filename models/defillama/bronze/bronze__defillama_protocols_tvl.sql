@@ -2,7 +2,8 @@
     materialized = 'incremental',
     full_refresh = false,
     unique_key = ['protocol_id','chain','_inserted_timestamp'],
-    cluster_by = ['chain']
+    cluster_by = ['chain'],
+    tags = ['defillama']
 ) }}
 
 WITH api_pull AS (
@@ -40,6 +41,14 @@ protocol_expand AS (
         _inserted_timestamp
     FROM
         lat_flat
+{% if is_incremental() %}
+WHERE _inserted_timestamp::DATE > (
+        SELECT
+            MAX(_inserted_timestamp) :: DATE
+        FROM
+            {{ this }}
+    )
+{% endif %}
 )
 SELECT
     protocol_id,

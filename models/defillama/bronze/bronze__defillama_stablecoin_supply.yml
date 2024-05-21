@@ -8,12 +8,6 @@ models:
               - TIMESTAMP
     
     columns:
-      - name: ADDRESS
-      - name: SYMBOL
-      - name: NAME 
-      - name: STABLECOIN_ID
-      - name: TIMESTAMP
-      - name: VALUE
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

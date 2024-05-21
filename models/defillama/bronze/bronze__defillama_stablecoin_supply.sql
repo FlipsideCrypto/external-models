@@ -6,7 +6,7 @@
 ) }}
 WITH stablecoin_base AS (
 
-{% for item in range(40) %}
+{% for item in range(50) %}
 (
 SELECT
     stablecoin_id,

@@ -12,18 +12,6 @@ models:
       - name: PROTOCOL_ID
         tests: 
           - not_null
-      - name: CATEGORY
-      - name: NAME
-      - name: SYMBOL
-      - name: TVL
-      - name: TVL_PREV_DAY
-      - name: TVL_PREV_WEEK
-      - name: TVL_PREV_MONTH
-      - name: CHAIN
-      - name: CHAIN_TVL
-      - name: CHAIN_TVL_PREV_DAY
-      - name: CHAIN_TVL_PREV_WEEK
-      - name: CHAIN_TVL_PREV_MONTH
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

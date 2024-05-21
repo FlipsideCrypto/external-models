@@ -1,12 +1,13 @@
 {{ config(
     materialized = 'incremental',
     unique_key = ['defillama_tvl_id'],
-    cluster_by = ['chain']
+    cluster_by = ['chain'],
+    tags = ['defillama']
 ) }}
 
 with FINAL AS (
     SELECT
-        
+        SYSDATE()::DATE as TIMESTAMP,
         protocol_id,
         category,
         NAME as protocol,
@@ -25,14 +26,12 @@ with FINAL AS (
         _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_protocols_tvl') }}
-    WHERE
-    1=1
     {% if is_incremental() %}
-    AND
-        _inserted_timestamp >= (
+    WHERE
+        _inserted_timestamp::DATE > (
             SELECT
                 MAX(
-                    _inserted_timestamp
+                    _inserted_timestamp ::DATE
                 )
             FROM
                 {{ this }}

@@ -14,8 +14,6 @@ models:
       - name: DEX
         tests: 
           - not_null
-      - name: CATEGORY
-      - name: CHAINS
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

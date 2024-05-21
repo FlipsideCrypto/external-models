@@ -9,20 +9,7 @@ WITH pool_yields AS (
 
     SELECT
         live.udf_api('GET', CONCAT('https://yields.llama.fi/pools'),{},{}) AS READ,
-
-{% if is_incremental() %}
-CASE
-    WHEN (
-        SELECT
-            MAX(_inserted_timestamp) :: DATE
-        FROM
-            {{ this }}
-    ) < SYSDATE() :: DATE THEN 1
-    ELSE 0
-END AS refresh_needed,
-{% endif %}
-
-SYSDATE() AS _inserted_timestamp
+        SYSDATE()::DATE AS _inserted_timestamp
 ),
 FINAL AS (
     SELECT
@@ -63,16 +50,16 @@ FINAL AS (
         )
 
 {% if is_incremental() %}
-WHERE
-    refresh_needed = 1
+WHERE _inserted_timestamp > (
+        SELECT
+            MAX(_inserted_timestamp) :: DATE
+        FROM
+            {{ this }}
+    )
 {% endif %}
 )
 SELECT
     *,
-    ROW_NUMBER() over (
-        ORDER BY
-            pool_id DESC
-    ) AS row_num,
     {{ dbt_utils.generate_surrogate_key(
         ['pool_id','chain','timestamp']
     ) }} AS defillama_yield_id,
