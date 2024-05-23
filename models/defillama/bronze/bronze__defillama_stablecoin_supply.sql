@@ -23,7 +23,7 @@ FROM (
         symbol,
         row_num
     FROM {{ ref('bronze__defillama_stablecoins') }}
-    WHERE row_num BETWEEN {{ item * 5 + 1 }} AND {{ (item + 1) * 5 }} and row_num <> 6
+    WHERE row_num BETWEEN {{ item * 5 + 1 }} AND {{ (item + 1) * 5 }} and row_num > 6
     )
     {% if is_incremental() %}
     WHERE stablecoin_id NOT IN (
