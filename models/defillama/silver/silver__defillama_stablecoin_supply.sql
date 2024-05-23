@@ -68,7 +68,7 @@ expand_flatten AS (
 {% if is_incremental() %}
 WHERE f._inserted_timestamp::DATE > (
         SELECT
-            MAX(_inserted_timestamp) :: DATE
+            MAX(_inserted_timestamp) :: DATE 
         FROM
             {{ this }}
     )

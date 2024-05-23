@@ -13,7 +13,6 @@ with FINAL AS (
         NAME as protocol,
         market_cap,
         symbol,
-        _inserted_timestamp as timestamp,
         tvl,
         tvl_prev_day,
         tvl_prev_week,
@@ -25,7 +24,7 @@ with FINAL AS (
         chain_tvl_prev_month,
         _inserted_timestamp
     FROM
-        {{ ref('bronze__defillama_protocols_tvl') }}
+        {{ ref('bronze__defillama_protocol_tvl') }}
     {% if is_incremental() %}
     WHERE
         _inserted_timestamp::DATE > (
