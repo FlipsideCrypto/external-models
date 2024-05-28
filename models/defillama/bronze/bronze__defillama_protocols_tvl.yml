@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: bronze__defillama_protocols_tvl
+  - name: bronze__defillama_protocol_tvl
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
