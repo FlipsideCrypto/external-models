@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: blast__leaderboard
+  - name: blast__fact_leaderboard
     description: This table contains daily snapshots of the top 500 leaderboards for Blast Points and Gold.
 
     columns:

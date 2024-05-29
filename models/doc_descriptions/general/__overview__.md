@@ -63,6 +63,12 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 - [flashbots__fact_mevshare_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_mevshare_transactions)
 - [flashbots__fact_protect_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_protect_transactions)
+- 
+**Blast Leaderboard**
+
+[Live Leaderboard Site](https://blast.io/en/leaderboard)
+
+- [blast__fact_leaderboard](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.blast__fact_leaderboard)
 
 ## **Helpful User-Defined Functions (UDFs)**
 
