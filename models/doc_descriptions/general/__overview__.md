@@ -66,7 +66,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 - [flashbots__fact_mevshare_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_mevshare_transactions)
 - [flashbots__fact_protect_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_protect_transactions)
-- 
+
 **Blast Leaderboard**
 
 [Live Leaderboard Site](https://blast.io/en/leaderboard)
