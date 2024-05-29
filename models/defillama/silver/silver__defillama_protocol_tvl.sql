@@ -5,12 +5,13 @@
     tags = ['defillama']
 ) }}
 
-with FINAL AS (
+WITH FINAL AS (
+
     SELECT
-        SYSDATE()::DATE as TIMESTAMP,
+        SYSDATE() :: DATE AS TIMESTAMP,
         protocol_id,
         category,
-        NAME as protocol,
+        NAME AS protocol,
         market_cap,
         symbol,
         tvl,
@@ -25,18 +26,18 @@ with FINAL AS (
         _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_protocol_tvl') }}
-    {% if is_incremental() %}
-    WHERE
-        _inserted_timestamp::DATE > (
-            SELECT
-                MAX(
-                    _inserted_timestamp ::DATE
-                )
-            FROM
-                {{ this }}
-        )
-    {% endif %}
-    
+
+{% if is_incremental() %}
+WHERE
+    _inserted_timestamp :: DATE > (
+        SELECT
+            MAX(
+                _inserted_timestamp :: DATE
+            )
+        FROM
+            {{ this }}
+    )
+{% endif %}
 )
 SELECT
     *,

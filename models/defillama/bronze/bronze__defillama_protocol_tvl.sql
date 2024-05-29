@@ -41,8 +41,10 @@ protocol_expand AS (
         _inserted_timestamp
     FROM
         lat_flat
+
 {% if is_incremental() %}
-WHERE _inserted_timestamp::DATE > (
+WHERE
+    _inserted_timestamp :: DATE > (
         SELECT
             MAX(_inserted_timestamp) :: DATE
         FROM

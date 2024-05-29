@@ -32,7 +32,7 @@ SELECT
     VALUE :gold :: FLOAT AS gold_amount,
     VALUE :referrerDisplayName :: STRING AS invited_by,
     {{ dbt_utils.generate_surrogate_key(
-        ['date', 'rank', 'name']
+        ['date', 'rank', 'leaderboard_type']
     ) }} AS id,
     _inserted_timestamp,
 FROM
