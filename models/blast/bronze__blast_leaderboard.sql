@@ -34,7 +34,7 @@ SELECT
     {{ dbt_utils.generate_surrogate_key(
         ['date', 'rank', 'leaderboard_type']
     ) }} AS id,
-    _inserted_timestamp,
+    _inserted_timestamp
 FROM
     api_call,
     LATERAL FLATTEN (
