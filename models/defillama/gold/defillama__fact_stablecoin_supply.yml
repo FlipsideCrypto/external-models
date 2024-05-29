@@ -7,7 +7,7 @@ models:
       - name: DATE
         description: Date associated with the reported records.
       - name: STABLECOIN_ID
-        description: The Defillma ID of the stablecoin.
+        description: The Defillama ID of the stablecoin.
       - name: STABLECOIN
         description: The name of the stablecoin.
       - name: SYMBOL

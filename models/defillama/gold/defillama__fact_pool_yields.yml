@@ -1,13 +1,13 @@
 version: 2
 models:
   - name: defillama__fact_pool_yields
-    description: This table contains yields data at a pool level, where available.
+    description: This table contains yield data at a pool level, where available.
 
     columns:
       - name: DATE
         description: Date associated with the reported records.
       - name: POOL_ID
-        description: The Defillama id of the pool.
+        description: The Defillama ID of the pool.
       - name: CHAIN
         description: The name of the blockchain.
       - name: PROJECTS
@@ -15,35 +15,35 @@ models:
       - name: SYMBOL
         description: The symbol of the tokens associated with the pool.
       - name: APY
-        description: Base APY + Reward APY
+        description: Base APY + Reward APY.
       - name: APY_BASE
-        description: Annualized percentage yield from trading fees/supplying. For dexes we use the 24h fees and scale those to a year.
+        description: Annualized percentage yield from trading fees/supplying. For DEXes, we use the 24-hour fees and scale those to a year.
       - name: BASE_7D
         description: Annualized percentage yield from trading fees from the last 7 days.
       - name: APY_BASE_INCEPTION
         description: Annualized percentage yield since inception.
       - name: APY_MEAN_30D
-        description: Average APY in last 30 days.
+        description: Average APY in the last 30 days.
       - name: APY_PCT_1D
-        description: Percent change of APY in last 24 hours.
+        description: Percent change of APY in the last 24 hours.
       - name: APY_PCT_7D
-        description: Percent change of APY in last 7 days
+        description: Percent change of APY in the last 7 days.
       - name: APY_PCT_30D
-        description: Percent change of APY in last 30 days
+        description: Percent change of APY in the last 30 days.
       - name: APY_REWARDS
         description: Annualized percentage yield from incentives.
       - name: IL_7D 
-        description: The percentage impermanent loss between between LPing for the last 7 days vs holding the underlying assets instead.
+        description: The percentage of impermanent loss between LPing for the last 7 days versus holding the underlying assets instead.
       - name: IL_RISK 
-        description: Yes or no if the pool has impermanent loss risk.
+        description: Yes or No if the pool has impermanent loss risk.
       - name: REWARD_TOKENS
-        description: Address of the incentive tokens.
+        description: Addresses of the incentive tokens.
       - name: MU
-        description: Expected return based on mean of potential returns of the pool.
+        description: Expected return based on the mean of potential returns of the pool.
       - name: SIGMA
-        description: The representation of pool volatility/risk. Higher the sigma indicated a higher risk.
+        description: The representation of pool volatility/risk. A higher sigma indicates a higher risk.
       - name: STABLECOIN  
-        description: Boolean based on if the pool is a stablecoin to stablecoin pool. 
+        description: Boolean indicating if the pool is a stablecoin-to-stablecoin pool. 
       - name: TVL_USD
         description: The total value locked in the pool.
       - name: UNDERLYING_TOKENS

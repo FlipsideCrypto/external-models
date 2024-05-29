@@ -9,9 +9,9 @@ models:
       - name: CHAIN
         description: The name of the blockchain.
       - name: PROTOCOL_ID
-        description: The Defillama id of the protocol.
+        description: The Defillama ID of the protocol.
       - name: CATEGORY
-        description: Category the protocol belongs to.
+        description: The category the protocol belongs to.
       - name: MARKET_CAP
         description: The total market cap of the protocol.
       - name: SYMBOL
