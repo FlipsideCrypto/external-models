@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: blast__leaderboard
+    description: This table contains daily snapshots of the top 500 leaderboards for Blast Points and Gold.
+
+    columns:
+      - name: DATE
+        description: The date of the leaderboard snapshot.
+      - name: LEADERBOARD_TYPE
+        description: The criterion by which the leaderboard is ranked, either points or gold.
+      - name: RANK
+        description: The rank (1-500) associated with the user.
+      - name: NAME
+        description: The name of the user associated with that rank.
+      - name: POINTS_AMOUNT
+        description: The amount of points accrued by the user.
+      - name: GOLD_AMOUNT
+        description: The amount of gold accrued by the user.
+      - name: INVITED_BY
+        description: The user who referred the associated user.

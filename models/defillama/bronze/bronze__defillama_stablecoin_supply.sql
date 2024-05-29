@@ -1,7 +1,6 @@
 {{ config(
-    materialized = 'incremental',
+    materialized = 'table',
     unique_key = ['stablecoin_id','timestamp'],
-    full_refresh = false,
     tags = ['defillama']
 ) }}
 
@@ -29,23 +28,7 @@ WITH stablecoin_base AS ({% for item in range(50) %}
         AND {{(item + 1) * 5 }}
         )
 
-{% if is_incremental() %}
-WHERE
-    stablecoin_id NOT IN (
-SELECT
-    stablecoin_id
-FROM
-    (
-SELECT
-    DISTINCT stablecoin_id, 
-    MAX(TIMESTAMP :: DATE) AS max_timestamp
-FROM
-    {{ this }}
-GROUP BY
-    1
-HAVING
-    CURRENT_DATE = max_timestamp))
-{% endif %}) {% if not loop.last %}
+){% if not loop.last %}
 UNION ALL
 {% endif %}
 {% endfor %})

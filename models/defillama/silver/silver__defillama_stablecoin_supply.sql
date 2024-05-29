@@ -1,7 +1,6 @@
 {{ config(
-    materialized = 'incremental',
+    materialized = 'table',
     unique_key = 'defillama_stablecoin_supply_id',
-    full_refresh = false,
     tags = ['defillama']
 ) }}
 
@@ -65,14 +64,6 @@ expand_flatten AS (
         {{ ref('bronze__defillama_stablecoins') }} d
     ON
         f.stablecoin_id = d.stablecoin_id
-{% if is_incremental() %}
-WHERE f._inserted_timestamp::DATE > (
-        SELECT
-            MAX(_inserted_timestamp) :: DATE 
-        FROM
-            {{ this }}
-    )
-{% endif %}
 ),
 FINAL AS (
     select
