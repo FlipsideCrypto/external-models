@@ -13,12 +13,12 @@
 ) }}
 
 SELECT
+    TIMESTAMP :: DATE AS DATE,
     stablecoin_id,
     stablecoin,
     symbol,
-    peg_type,
-    peg_mechanism,
-    price_source,
-    chains
-FROM 
-    {{ ref('bronze__defillama_stablecoins') }}
+    chains,
+    circulating,
+    unreleased
+FROM
+    {{ ref('silver__defillama_stablecoin_supply') }} f

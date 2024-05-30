@@ -13,11 +13,6 @@ models:
       - name: STABLECOIN
         tests:
           - not_null
-      - name: SYMBOL
-      - name: PEG_TYPE
-      - name: PEG_MECHANISM
-      - name: PRICE_SOURCE
-      - name: CHAINS
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

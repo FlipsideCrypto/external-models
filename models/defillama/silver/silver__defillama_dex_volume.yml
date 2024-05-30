@@ -10,10 +10,6 @@ models:
       - name: CHAIN
         tests:
           - not_null
-      - name: TIMESTAMP
-      - name: PROTOCOL
-      - name: DAILY_VOLUME
-      - name: DEX_OBJECT
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null

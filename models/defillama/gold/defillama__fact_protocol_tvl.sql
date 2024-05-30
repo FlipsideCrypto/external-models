@@ -13,12 +13,16 @@
 ) }}
 
 SELECT
-    stablecoin_id,
-    stablecoin,
+    TIMESTAMP :: DATE AS DATE,
+    chain,
+    protocol_id,
+    category,
+    protocol,
+    market_cap,
     symbol,
-    peg_type,
-    peg_mechanism,
-    price_source,
-    chains
-FROM 
-    {{ ref('bronze__defillama_stablecoins') }}
+    chain_tvl,
+    chain_tvl_prev_day,
+    chain_tvl_prev_week,
+    chain_tvl_prev_month
+FROM
+    {{ ref('silver__defillama_protocol_tvl') }} f

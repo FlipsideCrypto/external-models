@@ -37,6 +37,10 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [defillama__fact_chain_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_chain_tvl)
 - [defillama__fact_dex_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_dex_volume)
 - [defillama__fact_options_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_options_volume)
+- [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue)
+- [defillama__fact_stablecoin_supply](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_stablecoin_supply)
+- [defillama__fact_protocol_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_tvl)
+- [defillama__fact_pool_yields](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_pool_yields)
 - [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue) 
 
 **DeepNFTValue**
@@ -63,6 +67,12 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 - [flashbots__fact_mevshare_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_mevshare_transactions)
 - [flashbots__fact_protect_transactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.flashbots__fact_protect_transactions)
+
+**Blast Leaderboard**
+
+[Live Leaderboard Site](https://blast.io/en/leaderboard)
+
+- [blast__fact_leaderboard](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.blast__fact_leaderboard)
 
 **Token Lists**
 

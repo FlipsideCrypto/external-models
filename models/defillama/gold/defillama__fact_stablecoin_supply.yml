@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: defillama__fact_stablecoin_supply
+    description: This table contains historical circulating supply for the stablecoins in `dim_stablecoins`, where available.
+
+    columns:
+      - name: DATE
+        description: Date associated with the reported records.
+      - name: STABLECOIN_ID
+        description: The Defillama ID of the stablecoin.
+      - name: STABLECOIN
+        description: The name of the stablecoin.
+      - name: SYMBOL
+        description: The symbol of the stablecoin.
+      - name: CHAINS
+        description: The name of the blockchain.
+      - name: CIRCULATING
+        description: The total circulating supply of the stablecoin for that date.
+      - name: UNRELEASED
+        description: The total unreleased supply of the stablecoin for that date.

@@ -14,10 +14,6 @@ models:
       - name: BRIDGE
         tests:
           - not_null
-      - name: DEPOSIT_TXS
-      - name: DEPOSIT_USD
-      - name: WITHDRAW_TXS
-      - name: WITHDRAW_USD
       - name: _INSERTED_TIMESTAMP
         tests:
           - not_null
