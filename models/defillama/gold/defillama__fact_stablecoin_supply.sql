@@ -19,7 +19,6 @@ SELECT
     symbol,
     chains,
     circulating,
-    minted,
     unreleased
 FROM
     {{ ref('silver__defillama_stablecoin_supply') }} f

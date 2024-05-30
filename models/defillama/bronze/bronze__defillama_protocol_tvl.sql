@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'incremental',
     full_refresh = false,
-    unique_key = ['protocol_id','chain','_inserted_timestamp'],
+    unique_key = ['protocol_id','chain','timestamp'],
     cluster_by = ['chain'],
     tags = ['defillama']
 ) }}
@@ -27,6 +27,7 @@ lat_flat AS (
 ),
 protocol_expand AS (
     SELECT
+        SYSDATE() :: DATE AS TIMESTAMP,
         VALUE :defillamaId :: STRING AS protocol_id,
         VALUE :category :: STRING AS category,
         VALUE :name :: STRING AS NAME,
@@ -53,6 +54,7 @@ WHERE
 {% endif %}
 )
 SELECT
+    timestamp,
     protocol_id,
     category,
     NAME,

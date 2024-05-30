@@ -16,7 +16,5 @@ models:
         description: The name of the blockchain.
       - name: CIRCULATING
         description: The total circulating supply of the stablecoin for that date.
-      - name: MINTED
-        description: The total minted amount of the stablecoin for that date.
       - name: UNRELEASED
         description: The total unreleased supply of the stablecoin for that date.

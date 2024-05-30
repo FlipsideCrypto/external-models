@@ -60,9 +60,37 @@ WHERE _inserted_timestamp::DATE > (
 {% endif %}
 )
 SELECT
-    *,
+        TIMESTAMP,
+        apy,
+        apy_base,
+        base_7d,
+        apy_base_inception,
+        apy_mean_30d,
+        apy_pct_1d,
+        apy_pct_30d,
+        apy_pct_7d,
+        apy_rewards,
+        chain,
+        COUNT,
+        exposure,
+        il_7d,
+        il_risk,
+        mu,
+        outlier,
+        pool_id,
+        pool_meta,
+        predictions,
+        projects,
+        reward_tokens,
+        sigma,
+        stablecoin,
+        symbol,
+        tvl_usd,
+        underlying_tokens
+        volume_usd_1d,
+        volume_usd_7d,
     {{ dbt_utils.generate_surrogate_key(
-        ['pool_id','chain','_inserted_timestamp']
+        ['pool_id','chain','timestamp']
     ) }} AS defillama_yield_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,

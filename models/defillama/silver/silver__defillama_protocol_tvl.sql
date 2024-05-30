@@ -42,7 +42,7 @@ WHERE
 SELECT
     *,
     {{ dbt_utils.generate_surrogate_key(
-        ['protocol_id','chain','_inserted_timestamp']
+        ['protocol_id','chain','timestamp']
     ) }} AS defillama_tvl_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
