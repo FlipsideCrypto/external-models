@@ -1,0 +1,36 @@
+version: 2
+models:
+  - name: layerzero__fact_transactions_snapshot
+    description: This table records transactions data provided by LayerZero in their Sybil Reporting effort. You may refer to this github link for more information - https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file . Please reach out to the LayerZero team for any data discrepancies or questions.
+
+    columns:
+      - name: SOURCE_CHAIN
+        description: The chain where the transaction originated from.
+      - name: SOURCE_TRANSACTION_HASH
+        description: The transaction hash from the source chain.
+      - name: SOURCE_CONTRACT
+        description: The contract address from the source transaction.
+      - name: DESTINATION_CHAIN
+        description: The chain where the transaction is directed to.
+      - name: DESTINATION_TRANSACTION_HASH
+        description: The transaction hash on the destination chain.
+      - name: DESTINATION_CONTRACT
+        description: The contract address from the destination transaction.
+      - name: SENDER_WALLET
+        description: The wallet address that initiated the source transaction hash.
+      - name: SOURCE_TIMESTAMP_UTC
+        description: The timestamp of the source transaction hash in UTC.
+      - name: PROJECT
+        description: The name of the project.
+      - name: NATIVE_DROP_USD
+        description: The native drop in USD.
+      - name: STARGATE_SWAP_USD
+        description: The stargate swap in USD.
+      - name: SNAPSHOT_VERSION
+        description: The version number of the snapshot taken.
+      - name: LAYERZERO_TXS_SNAPSHOT_ID
+        description: '{{ doc("pk") }}'   
+      - name: INSERTED_TIMESTAMP
+        description: '{{ doc("inserted_timestamp") }}'   
+      - name: MODIFIED_TIMESTAMP
+        description: '{{ doc("modified_timestamp") }}' 

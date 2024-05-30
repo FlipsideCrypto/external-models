@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: bronze__all_tokenlists
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - API_URL
+              - REQUEST
+    
+    columns:
+      - name: API_URL
+        tests:
+          - not_null
+      - name: REQUEST
+        tests: 
+          - not_null

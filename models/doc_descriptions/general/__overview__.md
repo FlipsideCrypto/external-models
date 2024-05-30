@@ -41,6 +41,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [defillama__fact_stablecoin_supply](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_stablecoin_supply)
 - [defillama__fact_protocol_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_tvl)
 - [defillama__fact_pool_yields](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_pool_yields)
+- [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue) 
 
 **DeepNFTValue**
 
@@ -72,6 +73,17 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 [Live Leaderboard Site](https://blast.io/en/leaderboard)
 
 - [blast__fact_leaderboard](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.blast__fact_leaderboard)
+**Token Lists**
+
+[Token Lists Documentation](https://tokenlists.org/)
+
+- [tokenlists__ez_verified_tokens](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.tokenlists__ez_verified_tokens)
+
+**LayerZero**
+
+[LayerZero Sybil Reporting Documentation](https://github.com/LayerZero-Labs/sybil-report/?tab=readme-ov-file)
+
+- [layerzero__fact_transactions_snapshot](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.layerzero__fact_transactions_snapshot)
 
 ## **Helpful User-Defined Functions (UDFs)**
 
@@ -118,7 +130,6 @@ Note that you can also right-click on models to interactively filter and explore
 - [Tutorials](https://docs.flipsidecrypto.com/our-data/tutorials)
 - [Github](https://github.com/FlipsideCrypto/external-models)
 - [What is dbt?](https://docs.getdbt.com/docs/introduction)
-
 
 
 {% enddocs %}

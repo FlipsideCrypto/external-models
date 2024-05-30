@@ -42,4 +42,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -m tag:tokenflow
+          dbt run -m tag:tokenflow tag:tokenlists
