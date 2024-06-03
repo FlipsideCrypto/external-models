@@ -1,6 +1,5 @@
 {{ config(
     materialized = 'incremental',
-    full_refresh = false,
     unique_key = 'defillama_yield_id',
     tags = ['defillama']
 ) }}
@@ -101,6 +100,7 @@ SELECT
     ) }} AS defillama_yield_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
+    _inserted_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
     FINAL
