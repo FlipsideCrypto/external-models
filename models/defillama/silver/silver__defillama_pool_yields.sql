@@ -1,6 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_yield_id',
+    full_refresh = false,
     tags = ['defillama']
 ) }}
 
