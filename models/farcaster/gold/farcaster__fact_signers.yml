@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: farcaster__fact_signers
+    description: Stores all registered signers. For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: FID
+        description: FID of the user that authorized this signer.
+      - name: APP_FID
+        description: FID of the user/app that requested this signer.
+      - name: NAME
+      - name: SIGNER
+      - name: TIMESTAMP
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not the same as when the key was created on the network!)
+      - name: UPDATED_AT
+        description: When the row was last updated.
+      - name: DELETED_AT
+        description: Timestamp of the block where this signer was removed.

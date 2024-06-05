@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: farcaster__dim_fnames
+    description: Stores all usernames that are currently registered. Note that in the case a username is deregistered, the row is soft-deleted via the `deleted_at` column until a new username is registered for the given FID. For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: FID
+        description: FID the username belongs to.
+      - name: FNAME
+        description: Username, e.g. dwr if an fname, or dwr.eth if an ENS name.
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not the same as when the key was created on the network!)
+      - name: UPDATED_AT
+        description: When the row was last updated.
+      - name: DELETED_AT
+        description: When the proof was revoked or the fname was otherwise deregistered from this user.
+      - name: CUSTODY_ADDRESS
+        description: Address that owns the FID.
+      - name: EXPIRES_AT
