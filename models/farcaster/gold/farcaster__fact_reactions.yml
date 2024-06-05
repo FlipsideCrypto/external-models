@@ -24,5 +24,10 @@ models:
         description: When the row was first created in this DB (not the same as the message timestamp!)
       - name: UPDATED_AT
         description: When the row was last updated.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
       - name: DELETED_AT
         description: When the reaction was considered deleted by the hub (e.g. in response to a ReactionRemove message, etc.)

@@ -22,5 +22,10 @@ models:
         description: When the row was first created in this DB (not when the link itself was created on the network!)
       - name: UPDATED_AT
         description: When the row was last updated
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
       - name: DELETED_AT
         description: When the link was considered deleted by the hub (e.g. in response to a LinkRemoveMessage message, etc.)
