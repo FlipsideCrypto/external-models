@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: farcaster__fact_user_data
+    description: Represents data associated with a user (e.g. profile photo, bio, username, etc.) For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: FID
+        description: FID of the user that signed the message.
+      - name: TYPE
+        description: The type of user data (PFP, bio, username, etc.)
+      - name: VALUE
+        description: The string value of the field.
+      - name: HASH
+        description: Message hash.
+      - name: TIMESTAMP
+        description: Message timestamp in UTC.
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not the same as the message timestamp!)
+      - name: UPDATED_AT
+        description: When the row was last updated.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: DELETED_AT
+        description: When the data was considered deleted by the hub

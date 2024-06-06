@@ -71,3 +71,16 @@ sources:
     schema: layerzero
     tables:
       - name: transactions
+  - name: external_bronze
+    database: external
+    schema: bronze
+    tables:
+      - name: farcaster_casts
+      - name: farcaster_fids
+      - name: farcaster_fnames
+      - name: farcaster_links
+      - name: farcaster_signers
+      - name: farcaster_storage
+      - name: farcaster_reactions
+      - name: farcaster_user_data
+      - name: farcaster_verifications

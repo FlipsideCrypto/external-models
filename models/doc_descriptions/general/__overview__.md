@@ -86,6 +86,17 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 
 - [layerzero__fact_transactions_snapshot](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.layerzero__fact_transactions_snapshot)
 
+**Farcaster (Neynar)**
+- [dim_fids](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__dim_fids)
+- [dim_fnames](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__dim_fnames)
+- [fact_casts](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_casts)
+- [fact_links](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_links)
+- [fact_reactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_reactions)
+- [fact_signers](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_signers)
+- [fact_storage](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_storage)
+- [fact_user_data](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_user_data)
+- [fact_verifications](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_verifications)
+
 ## **Helpful User-Defined Functions (UDFs)**
 
 UDFs are custom functions built by the Flipside team that can be used in your queries to make your life easier. 

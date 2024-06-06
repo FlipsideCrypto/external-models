@@ -1,0 +1,31 @@
+version: 2
+models:
+  - name: farcaster__fact_links
+    description: Represents a link between two FIDs (e.g. a follow, subscription, etc.). For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: FID
+        description: Farcaster ID (the user ID).
+      - name: TARGET_FID
+        description: Farcaster ID of the target user.
+      - name: HASH
+        description: Message hash.
+      - name: TIMESTAMP
+        description: Message timestamp in UTC.
+      - name: TYPE
+        description: Type of connection between users, e.g. follow.
+      - name: DISPLAY_TIMESTAMP
+        description: When the row was last updated.
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not when the link itself was created on the network!)
+      - name: UPDATED_AT
+        description: When the row was last updated
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: DELETED_AT
+        description: When the link was considered deleted by the hub (e.g. in response to a LinkRemoveMessage message, etc.)

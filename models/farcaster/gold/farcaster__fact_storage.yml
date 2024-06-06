@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: farcaster__fact_storage
+    description: Stores how many units of storage each FID has purchased, and when it expires. For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: FID
+        description: FID that owns the storage.
+      - name: UNITS
+        description: Number of storage units allocated.
+      - name: EXPIRY
+        description: When this storage allocation will expire.
+      - name: TIMESTAMP
+        description: Message timestamp in UTC.
+      - name: CREATED_AT
+        description: When the row was first created in this DB
+      - name: UPDATED_AT
+        description: When the row was last updated.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: DELETED_AT

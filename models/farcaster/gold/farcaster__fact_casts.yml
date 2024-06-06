@@ -1,0 +1,43 @@
+version: 2
+models:
+  - name: farcaster__fact_casts
+    description: Represents a cast authored by a user. For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: TIMESTAMP
+        description: Message timestamp in UTC.
+      - name: FID
+        description: FID of the user that signed the message.
+      - name: HASH
+        description: Message hash.
+      - name: PARENT_HASH
+        description: If this cast was a reply, the hash of the parent cast. null otherwise.
+      - name: PARENT_FID
+        description: If this cast was a reply, the FID of the author of the parent cast. null otherwise.
+      - name: PARENT_URL
+        description: If this cast was a reply to a URL (e.g. an NFT, a web URL, etc.), the URL. null otherwise.
+      - name: TEXT
+        description: The raw text of the cast with mentions removed.
+      - name: EMBEDS
+        description: Array of URLs or cast IDs that were embedded with this cast.
+      - name: MENTIONS
+        description: Array of FIDs mentioned in the cast.
+      - name: MENTIONS_POSITIONS
+        description: UTF8 byte offsets of the mentioned FIDs in the cast.
+      - name: ROOT_PARENT_HASH
+        description: If this cast was a reply, the hash of the original cast in the reply chain. null otherwise.
+      - name: ROOT_PARENT_URL
+        description: If this cast was a reply, then the URL that the original cast in the reply chain was replying to.
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not the same as the message timestamp!)
+      - name: UPDATED_AT
+        description: When the row was last updated.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: DELETED_AT
+        description: When the cast was considered deleted/revoked/pruned by the hub (e.g. in response to a CastRemove message, etc.)
