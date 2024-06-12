@@ -84,3 +84,4 @@ sources:
       - name: farcaster_reactions
       - name: farcaster_user_data
       - name: farcaster_verifications
+      - name: farcaster_profile_with_addresses
