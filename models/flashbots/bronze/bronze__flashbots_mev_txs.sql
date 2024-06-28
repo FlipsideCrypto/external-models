@@ -41,6 +41,7 @@ WITH meta AS (
         refund_from,
         refund_to,
         refund_value_eth,
+        is_mevshare,
         s.value
     FROM
         {{ source(
