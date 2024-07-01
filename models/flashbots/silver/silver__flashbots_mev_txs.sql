@@ -23,6 +23,7 @@ SELECT
     LOWER(refund_from) AS refund_from,
     LOWER(refund_to) AS refund_to,
     refund_value_eth,
+    is_mevshare::boolean as is_mevshare,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['user_tx_hash', 'backrun_tx_hash', 'bundle_id']

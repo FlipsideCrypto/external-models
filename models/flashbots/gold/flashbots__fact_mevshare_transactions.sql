@@ -26,6 +26,7 @@ SELECT
     refund_tx_hash,
     refund_from,
     refund_to,
-    refund_value_eth
+    refund_value_eth,
+    is_mevshare
 FROM
     {{ ref('silver__flashbots_mev_txs') }}

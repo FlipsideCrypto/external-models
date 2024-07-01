@@ -43,3 +43,5 @@ models:
         description: The Ethereum address to which the refund was sent, which usually is user address but can be a different address user set when sending transaction to Flashbots Protect / MEV-share.
       - name: REFUND_VALUE_ETH
         description: The amount of ETH refunded to the protect transaction, as a result of a successful OFA backrun, depending on user's refund percentage setting when sending the transaction.
+      - name: IS_MEVSHARE
+        description: If true, mev-share matched the transactions in the bundle. If false, it was sent pre-matched from a third party to mev-share.
