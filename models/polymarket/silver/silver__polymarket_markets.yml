@@ -1,10 +1,10 @@
 version: 2
 models:
-  - name: bronze__polymarket_markets
+  - name: silver__polymarket_markets
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
-              - POLYMARKET_MARKET_ID
+              - CONDITION_ID
     
     columns:
       - name: CONDITION_ID

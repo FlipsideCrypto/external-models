@@ -1,21 +1,14 @@
 {{ config(
-    materialized = 'view',
-    persist_docs ={ "relation": true,
-    "columns": true },
-    tags = ['polymarket'],
-    meta={
-        'database_tags':{
-            'table': {
-                'PROTOCOL': 'POLYMARKET'
-            }
-        }
-    }
+    materialized = 'table',
+    unique_key = 'condition_id',
+    tags = ['polymarket']
 ) }}
 
 SELECT
     condition_id,
     question,
     description,
+    tokens,
     token_1_token_id,
     token_1_outcome,
     token_1_winner,
@@ -38,10 +31,14 @@ SELECT
     fpmm,
     maker_base_fee,
     taker_base_fee,
+    notifications_enabled,
     neg_risk,
     neg_risk_market_id,
     neg_risk_request_id,
     rewards,
-    tags
+    tags,
+    _inserted_timestamp
 FROM
-    {{ ref('silver__polymarket_markets') }} 
+    {{ ref('bronze__polymarket_markets') }} qualify(ROW_NUMBER() over (PARTITION BY condition_id
+ORDER BY
+    _inserted_timestamp DESC)) = 1
