@@ -13,7 +13,6 @@ WITH recursive api_results AS (
             'https://clob.polymarket.com/markets?limit=100',{},{}
         ) AS READ
     UNION ALL
-        -- Recursive step to handle pagination using cursor
     SELECT
         PARSE_JSON(READ) :next_cursor AS CURSOR,
         live.udf_api(
