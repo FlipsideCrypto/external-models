@@ -7,36 +7,55 @@
 WITH recursive api_results AS (
 
     SELECT
+
 {% if is_incremental() %}
-(select cursor from {{this}} WHERE count = 100 order by page_number desc limit 1) as cursor,
-(select max(page_number) from {{this}} WHERE count = 100)+1 as page_number,
-        live.udf_api(
-            'GET',
-            'https://clob.polymarket.com/markets?limit=100&next_cursor=' || cursor,{},{}
-        ) AS READ
-{% else %}
-        NULL AS CURSOR,
-        0 AS page_number,
-        live.udf_api(
-            'GET',
-            'https://clob.polymarket.com/markets?limit=100',{},{}
-        ) AS READ
-    UNION ALL
+(
     SELECT
-        PARSE_JSON(READ) :next_cursor AS CURSOR,
-        page_number + 1 AS page_number,
-        live.udf_api(
-            'GET',
-            'https://clob.polymarket.com/markets?limit=100&next_cursor=' || PARSE_JSON(
-                READ :data
-            ) :next_cursor,{},{}
-        ) AS READ
+        CURSOR
     FROM
-        api_results
+        {{ this }}
     WHERE
-        PARSE_JSON(
+        COUNT = 100
+    ORDER BY
+        page_number DESC
+    LIMIT
+        1
+) AS CURSOR,
+(
+    SELECT
+        MAX(page_number)
+    FROM
+        {{ this }}
+    WHERE
+        COUNT = 100
+) + 1 AS page_number,
+live.udf_api(
+    'GET',
+    'https://clob.polymarket.com/markets?limit=100&next_cursor=' || CURSOR,{},{}
+) AS READ
+{% else %}
+    NULL AS CURSOR,
+    0 AS page_number,
+    live.udf_api(
+        'GET',
+        'https://clob.polymarket.com/markets?limit=100',{},{}
+    ) AS READ
+UNION ALL
+SELECT
+    PARSE_JSON(READ) :next_cursor AS CURSOR,
+    page_number + 1 AS page_number,
+    live.udf_api(
+        'GET',
+        'https://clob.polymarket.com/markets?limit=100&next_cursor=' || PARSE_JSON(
             READ :data
-        ) :next_cursor IS NOT NULL
+        ) :next_cursor,{},{}
+    ) AS READ
+FROM
+    api_results
+WHERE
+    PARSE_JSON(
+        READ :data
+    ) :next_cursor IS NOT NULL
 {% endif %}
 ),
 FINAL AS (
@@ -74,9 +93,9 @@ FINAL AS (
         VALUE :rewards :: variant AS rewards,
         VALUE :tags :: variant AS tags,
         SYSDATE() AS _inserted_timestamp,
-        PAGE_NUMBER,
-        read:data:count::string as count,
-        read:data:next_cursor::string as cursor
+        page_number,
+        READ :data :count :: STRING AS COUNT,
+        READ :data :next_cursor :: STRING AS CURSOR
     FROM
         api_results,
         LATERAL FLATTEN (
@@ -88,7 +107,9 @@ SELECT
 FROM
     FINAL
 WHERE
-    condition_id <> '' AND token_1_token_id <> ''
+    condition_id <> ''
+    AND token_1_token_id <> ''
+
 {% if is_incremental() %}
 AND condition_id NOT IN (
     SELECT
