@@ -1,64 +1,36 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'question_id',
+    unique_key = 'polymarket_market_id',
     tags = ['polymarket']
 ) }}
 
 WITH recursive api_results AS (
 
     SELECT
-
-{% if is_incremental() %}
-(
+        NULL AS CURSOR,
+        0 AS page_number,
+        live.udf_api(
+            'GET',
+            'https://clob.polymarket.com/markets?limit=100',{},{}
+        ) AS READ
+    UNION ALL
     SELECT
-        CURSOR
+        PARSE_JSON(READ) :next_cursor AS CURSOR,
+        page_number + 1 AS page_number,
+        live.udf_api(
+            'GET',
+            'https://clob.polymarket.com/markets?limit=100&next_cursor=' || PARSE_JSON(
+                READ :data
+            ) :next_cursor,{},{}
+        ) AS READ
     FROM
-        {{ this }}
+        api_results
     WHERE
-        COUNT = 100
-    ORDER BY
-        page_number DESC
-    LIMIT
-        1
-) AS CURSOR,
-(
-    SELECT
-        MAX(page_number)
-    FROM
-        {{ this }}
-    WHERE
-        COUNT = 100
-) + 1 AS page_number,
-live.udf_api(
-    'GET',
-    'https://clob.polymarket.com/markets?limit=100&next_cursor=' || CURSOR,{},{}
-) AS READ
-{% else %}
-    NULL AS CURSOR,
-    0 AS page_number,
-    live.udf_api(
-        'GET',
-        'https://clob.polymarket.com/markets?limit=100',{},{}
-    ) AS READ
-UNION ALL
-SELECT
-    PARSE_JSON(READ) :next_cursor AS CURSOR,
-    page_number + 1 AS page_number,
-    live.udf_api(
-        'GET',
-        'https://clob.polymarket.com/markets?limit=100&next_cursor=' || PARSE_JSON(
+        PARSE_JSON(
             READ :data
-        ) :next_cursor,{},{}
-    ) AS READ
-FROM
-    api_results
-WHERE
-    PARSE_JSON(
-        READ :data
-    ) :next_cursor IS NOT NULL
-{% endif %}
+        ) :next_cursor IS NOT NULL
 ),
-FINAL AS (
+final AS (
     SELECT
         VALUE :condition_id :: STRING AS condition_id,
         VALUE :question :: STRING AS question,
@@ -103,7 +75,10 @@ FINAL AS (
         ) f
 )
 SELECT
-    *
+    *,
+    {{ dbt_utils.generate_surrogate_key(
+        ['condition_id', '_inserted_timestamp']
+    ) }} AS polymarket_market_id
 FROM
     FINAL
 WHERE
@@ -111,9 +86,9 @@ WHERE
     AND token_1_token_id <> ''
 
 {% if is_incremental() %}
-AND condition_id NOT IN (
+AND polymarket_market_id NOT IN (
     SELECT
-        DISTINCT condition_id
+        DISTINCT polymarket_market_id
     FROM
         {{ this }}
 )
