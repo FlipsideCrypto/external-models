@@ -7,7 +7,16 @@
 WITH recursive api_results AS (
 
     SELECT
+{% if is_incremental() %}
+(select cursor from {{this}} WHERE count = 100 order by page_number desc limit 1) as cursor,
+(select max(page_number) from {{this}} WHERE count = 100)+1 as page_number,
+        live.udf_api(
+            'GET',
+            'https://clob.polymarket.com/markets?limit=100&next_cursor=' || cursor,{},{}
+        ) AS READ
+{% else %}
         NULL AS CURSOR,
+        0 AS page_number,
         live.udf_api(
             'GET',
             'https://clob.polymarket.com/markets?limit=100',{},{}
@@ -15,6 +24,7 @@ WITH recursive api_results AS (
     UNION ALL
     SELECT
         PARSE_JSON(READ) :next_cursor AS CURSOR,
+        page_number + 1 AS page_number,
         live.udf_api(
             'GET',
             'https://clob.polymarket.com/markets?limit=100&next_cursor=' || PARSE_JSON(
@@ -27,6 +37,7 @@ WITH recursive api_results AS (
         PARSE_JSON(
             READ :data
         ) :next_cursor IS NOT NULL
+{% endif %}
 ),
 FINAL AS (
     SELECT
@@ -62,7 +73,10 @@ FINAL AS (
         VALUE :neg_risk_request_id :: STRING AS neg_risk_request_id,
         VALUE :rewards :: variant AS rewards,
         VALUE :tags :: variant AS tags,
-        SYSDATE() AS _inserted_timestamp
+        SYSDATE() AS _inserted_timestamp,
+        PAGE_NUMBER,
+        read:data:count::string as count,
+        read:data:next_cursor::string as cursor
     FROM
         api_results,
         LATERAL FLATTEN (
