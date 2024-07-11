@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: bronze__polymarket_markets
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - POLYMARKET_MARKET_ID
+    
+    columns:
+      - name: CONDITION_ID
+        tests:
+          - not_null
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
