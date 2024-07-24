@@ -8,6 +8,8 @@ models:
         description: FID of the user (primary key)
       - name: CREATED_AT
         description: When the row was first created in this DB (not the same as registration date!)
+      - name: REGISTERED_AT
+        description: Timestamp of the block in which the user was registered.
       - name: UPDATED_AT
         description: When the row was last updated.
         tests:

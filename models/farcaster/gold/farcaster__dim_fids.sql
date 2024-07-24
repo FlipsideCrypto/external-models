@@ -10,7 +10,8 @@ SELECT
     custody_address,
     fid,
     created_at,
-    updated_at
+    updated_at,
+    registered_at
 FROM
     {{ source(
         'external_bronze',
