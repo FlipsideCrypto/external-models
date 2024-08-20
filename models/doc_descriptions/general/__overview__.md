@@ -89,6 +89,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 **Farcaster (Neynar)**
 - [dim_fids](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__dim_fids)
 - [dim_fnames](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__dim_fnames)
+- [dim_profile_with_addresses](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__dim_profile_with_addresses)
 - [fact_casts](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_casts)
 - [fact_links](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_links)
 - [fact_reactions](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_reactions)
@@ -96,6 +97,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [fact_storage](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_storage)
 - [fact_user_data](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_user_data)
 - [fact_verifications](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_verifications)
+- [fact_warpcast_power_users](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.farcaster__fact_warpcast_power_users)
 
 ## **Helpful User-Defined Functions (UDFs)**
 
