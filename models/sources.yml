@@ -85,3 +85,4 @@ sources:
       - name: farcaster_user_data
       - name: farcaster_verifications
       - name: farcaster_profile_with_addresses
+      - name: farcaster_warpcast_power_users
