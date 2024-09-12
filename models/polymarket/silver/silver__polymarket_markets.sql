@@ -1,5 +1,6 @@
 {{ config(
-    materialized = 'table',
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
     unique_key = 'condition_id',
     tags = ['polymarket']
 ) }}
@@ -37,8 +38,21 @@ SELECT
     neg_risk_request_id,
     rewards,
     tags,
-    _inserted_timestamp
+    _inserted_timestamp as inserted_timestamp,
+    SYSDATE() AS modified_timestamp
 FROM
-    {{ ref('bronze__polymarket_markets') }} qualify(ROW_NUMBER() over (PARTITION BY condition_id
+    {{ ref('bronze__polymarket_markets') }} 
+
+{% if is_incremental() %}
+WHERE _inserted_timestamp >= (
+    SELECT
+        MAX(
+            _inserted_timestamp
+        ) - INTERVAL '{{ var("LOOKBACK", "4 hours") }}'
+    FROM
+        {{ this }}
+)
+{% endif %}
+    qualify(ROW_NUMBER() over (PARTITION BY condition_id
 ORDER BY
     _inserted_timestamp DESC)) = 1
