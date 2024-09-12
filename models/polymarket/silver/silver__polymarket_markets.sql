@@ -38,6 +38,9 @@ SELECT
     neg_risk_request_id,
     rewards,
     tags,
+    {{ dbt_utils.generate_surrogate_key(
+        ['condition_id','_inserted_timestamp']
+    ) }} AS dim_markets_id,
     _inserted_timestamp as inserted_timestamp,
     SYSDATE() AS modified_timestamp
 FROM
