@@ -14,7 +14,7 @@ SELECT
 FROM (
     SELECT
         live.udf_api(
-            'GET','https://api.llama.fi/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=totalFees',{},{}
+            'GET','https://api.llama.fi/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyFees',{},{}
             ) AS read,
         SYSDATE() AS _inserted_timestamp
     ),
