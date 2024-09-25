@@ -91,6 +91,7 @@ SELECT
         ['condition_id','_inserted_timestamp']
     ) }} AS dim_markets_id,
     _inserted_timestamp,
+    SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp
 FROM
     base qualify(ROW_NUMBER() over (PARTITION BY condition_id
