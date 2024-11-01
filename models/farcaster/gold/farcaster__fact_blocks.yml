@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: farcaster__fact_blocks
+    description: ... For more info see [Neynar](https://docs.neynar.com/docs/how-to-query-neynar-sql-playground-for-farcaster-data) or [schema](https://github.com/farcasterxyz/hub-monorepo/tree/51c57245df8ec1c68d616dd3ab8ae5b80edf68fd/apps/replicator)
+
+    columns:
+      - name: BLOCKER_FID
+        description: The FID of the user that blocked the other user.
+      - name: BLOCKED_FID
+        description: The FID of the user that has been blocked.
+      - name: ID
+        description: Generic identifier specific to this DB (a.k.a. surrogate key)
+      - name: CREATED_AT
+        description: When the row was first created in this DB (not the same as the message timestamp!)
+        tests:
+          - not_null
+      - name: DELETED_AT
+        description: When the cast was considered deleted/revoked/pruned by the hub (e.g. in response to a CastRemove message, etc.)
