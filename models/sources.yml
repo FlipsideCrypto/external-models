@@ -75,6 +75,7 @@ sources:
     database: external
     schema: bronze
     tables:
+      - name: farcaster_blocks
       - name: farcaster_casts
       - name: farcaster_fids
       - name: farcaster_fnames
@@ -84,5 +85,6 @@ sources:
       - name: farcaster_reactions
       - name: farcaster_user_data
       - name: farcaster_verifications
+      - name: farcaster_channel_follows
       - name: farcaster_profile_with_addresses
       - name: farcaster_warpcast_power_users
