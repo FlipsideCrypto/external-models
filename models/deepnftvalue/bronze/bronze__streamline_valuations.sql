@@ -1,6 +1,6 @@
 {{ config (
     materialized = 'view',
-    tags = ['deepnftvalue']
+    tags = ['stale']
 ) }}
 
 WITH meta AS (
