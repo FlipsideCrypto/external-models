@@ -1,34 +1,4 @@
 version: 2
 models:
   - name: deepnftvalue__fact_tokens
-    description: This table contains a row for each token in the Bored Ape Yacht Club, Mutant Ape Yacht Club, Azuki, and CryptoPunks collections. The table is updated daily and pulled from DeepNFTValue's Tokens API.
-
-    columns:
-      - name: COLLECTION_NAME
-        description: Name of NFT collection, e.g. Azuki or CryptoPunks.
-      - name: COLLECTION_ADDRESS
-        description: Contract address of NFT collection.
-      - name: TOKEN_ID
-        description: Token ID of NFT.
-      - name: ACTIVE_OFFER
-        description: Includes information about the active offer for the token, if any.
-      - name: ATTRIBUTES
-        description: Attributes of NFT collection.
-      - name: IMAGE
-        description: Image URL of NFT.
-      - name: IS_FLAGGED
-        description: Indicates whether the token is flagged.
-      - name: OWNER
-        description: Address of token owner and ENS name, if available.
-      - name: RARITY
-        description: Rarity of NFT.
-      - name: RARITY_RANK
-        description: Rarity rank of NFT.
-      - name: TOP_BID
-        description: Includes information about the top bid for the token, if any.
-      - name: VALUATION 
-        description: Valuation of NFT, as of updated_timestamp.
-      - name: UPDATED_TIMESTAMP
-        description: Timestamp of the last update for the token.
-      
-      
+    description: Deprecating soon! This table will be removed on December 4th, 2024 and is no longer updated.

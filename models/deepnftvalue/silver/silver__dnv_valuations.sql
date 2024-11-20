@@ -4,7 +4,7 @@
     unique_key = "_id",
     incremental_strategy = "delete+insert",
     cluster_by = ['valuation_date::DATE'],
-    tags = ['deepnftvalue']
+    tags = ['stale']
 ) }}
 
 WITH base AS (

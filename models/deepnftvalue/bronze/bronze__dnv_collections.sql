@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = '_id',
     full_refresh = false,
-    tags = ['deepnftvalue']
+    tags = ['stale']
 ) }}
 
 WITH slugs AS (

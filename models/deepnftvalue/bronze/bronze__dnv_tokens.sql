@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = '_id',
     full_refresh = false,
-    tags = ['disabled']
+    tags = ['stale']
 ) }}
 
 WITH requests AS (

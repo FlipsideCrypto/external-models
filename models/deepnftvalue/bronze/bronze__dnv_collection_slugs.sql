@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'table',
-    tags = ['deepnftvalue']
+    tags = ['stale']
 ) }}
 
 SELECT
