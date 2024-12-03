@@ -12,7 +12,9 @@ WITH api_pull AS (
         PARSE_JSON(
             live.udf_api(
                 'GET',
-                'https://api.llama.fi/lite/protocols2?b=2',{},{}
+                'https://api.llama.fi/lite/protocols2',
+                {},
+                {}
             )
         ) :data :protocols AS response,
         SYSDATE() AS _inserted_timestamp
