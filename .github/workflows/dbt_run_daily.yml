@@ -44,4 +44,4 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt run -m tag:defillama tag:deepnftvalue tag:core tag:blast tag:polymarket
+          dbt run -m tag:defillama tag:deepnftvalue tag:core tag:blast tag:polymarket --exclude -m models/defillama/bronze/bronze__defillama_stablecoin_supply.sql+
