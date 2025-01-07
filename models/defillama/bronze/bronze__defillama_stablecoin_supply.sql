@@ -1,5 +1,6 @@
 {{ config(
     materialized = 'table',
+    enabled = false,
     unique_key = ['stablecoin_id','timestamp'],
     tags = ['defillama']
 ) }}

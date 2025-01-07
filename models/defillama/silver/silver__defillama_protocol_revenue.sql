@@ -5,79 +5,54 @@
     tags = ['defillama']
 ) }}
 
-WITH all_chains_rev_base AS (
+WITH api_pull AS (
 
-SELECT
-    LOWER(VALUE::STRING) AS chain,
-    ROW_NUMBER() OVER (ORDER BY chain) AS row_num, 
-    _inserted_timestamp
-FROM (
     SELECT
-        live.udf_api(
-            'GET','https://api.llama.fi/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyRevenue',{},{}
-            ) AS read,
+        PARSE_JSON(
+            live.udf_api(
+                'GET',
+                'https://api.llama.fi/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyRevenue',{},{}
+            )
+        ) :data :protocols AS response,
         SYSDATE() AS _inserted_timestamp
-    ),
-LATERAL FLATTEN (input=> read:data:allChains) 
 ),
-
-rev_base AS (
-
-{% for item in range(7) %}
-(
-SELECT
-    chain,
-    live.udf_api(
-        'GET',CONCAT('https://api.llama.fi/overview/fees/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyRevenue'),{},{}
-    ) AS read,
-    SYSDATE() AS _inserted_timestamp
-FROM (
-    SELECT 
-        DISTINCT chain, 
-        row_num
-    FROM all_chains_rev_base
-    WHERE row_num BETWEEN {{ item * 15 + 1 }} AND {{ (item + 1) * 15 }}
-    )
-{% if is_incremental() %}
-WHERE chain NOT IN (
+lat_flat AS (
     SELECT
-        chain
-    FROM (
-        SELECT 
-            DISTINCT chain,
-            MAX(timestamp::DATE) AS max_timestamp
-        FROM {{ this }}
-        GROUP BY 1
-        HAVING CURRENT_DATE = max_timestamp
-    )
-)
-{% endif %}
-) {% if not loop.last %}
-UNION ALL
-{% endif %}
-{% endfor %}
+        r.value AS VALUE,
+        r.value :displayName :: STRING AS protocol,
+        _inserted_timestamp
+    FROM
+        api_pull,
+        LATERAL FLATTEN (
+            input => response
+        ) AS r
 ),
-
-reads_output AS (
-
-SELECT
-    chain,
-    TO_TIMESTAMP(VALUE[0]::INTEGER) AS timestamp,
-    VALUE[1] AS rev_object,
-    _inserted_timestamp
-FROM rev_base,
-    LATERAL FLATTEN (input=> read:data:totalDataChartBreakdown)
+chain_breakdown AS (
+    SELECT
+        k.key AS chain,
+        SYSDATE() :: DATE AS TIMESTAMP,
+        protocol,
+        k.value AS rev_object,
+        v.value :: INTEGER AS daily_rev,
+        _inserted_timestamp
+    FROM
+        lat_flat,
+        LATERAL FLATTEN(
+            input => VALUE :breakdown24h
+        ) k,
+        LATERAL FLATTEN(
+            input => k.value
+        ) v
 )
-
 SELECT
     chain,
-    timestamp,
-    key::STRING AS protocol, 
-    value::INTEGER AS daily_rev,
+    TIMESTAMP,
+    protocol,
+    daily_rev,
     rev_object,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['chain', 'protocol', 'timestamp']
     ) }} AS id
-FROM reads_output,
-  LATERAL FLATTEN(input => PARSE_JSON(reads_output.rev_object))
+FROM
+    chain_breakdown
