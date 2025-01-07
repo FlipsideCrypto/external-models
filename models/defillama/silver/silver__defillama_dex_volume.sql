@@ -19,6 +19,7 @@ WITH api_pull AS (
 lat_flat AS (
     SELECT
         r.value AS VALUE,
+        r.VALUE:displayName::STRING AS protocol,
         _inserted_timestamp
     FROM
         api_pull,
@@ -30,7 +31,7 @@ chain_breakdown AS (
     SELECT
         k.key AS chain,
         SYSDATE() :: DATE AS TIMESTAMP,
-        v.key AS protocol,
+        protocol,
         k.value AS dex_object,
         v.value :: INTEGER AS daily_volume,
         _inserted_timestamp
