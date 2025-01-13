@@ -18,7 +18,7 @@ models:
                 - TIMESTAMP_NTZ
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
-              interval: 3
+              interval: 2
       - name: ID
         tests:
           - not_null
