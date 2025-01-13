@@ -6,54 +6,79 @@
     tags = ['defillama']
 ) }}
 
-WITH api_pull AS (
+WITH all_chains_options_base AS (
 
+SELECT
+    LOWER(VALUE::STRING) AS chain,
+    ROW_NUMBER() OVER (ORDER BY chain) AS row_num, 
+    _inserted_timestamp
+FROM (
     SELECT
-        PARSE_JSON(
-            live.udf_api(
-                'GET',
-                'https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{}
-            )
-        ) :data :protocols AS response,
+        live.udf_api(
+            'GET','https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{}
+            ) AS read,
         SYSDATE() AS _inserted_timestamp
+    ),
+LATERAL FLATTEN (input=> read:data:allChains) 
 ),
-lat_flat AS (
-    SELECT
-        r.value AS VALUE,
-        r.value :displayName :: STRING AS protocol,
-        _inserted_timestamp
-    FROM
-        api_pull,
-        LATERAL FLATTEN (
-            input => response
-        ) AS r
-),
-chain_breakdown AS (
-    SELECT
-        k.key AS chain,
-        SYSDATE() :: DATE AS TIMESTAMP,
-        protocol,
-        k.value AS options_object,
-        v.value :: INTEGER AS daily_volume_premium,
-        _inserted_timestamp
-    FROM
-        lat_flat,
-        LATERAL FLATTEN(
-            input => VALUE :breakdown24h
-        ) k,
-        LATERAL FLATTEN(
-            input => k.value
-        ) v
-)
+
+options_base AS (
+
+{% for item in range(5) %}
+(
 SELECT
     chain,
-    TIMESTAMP,
-    protocol,
-    daily_volume_premium,
+    live.udf_api(
+        'GET',CONCAT('https://api.llama.fi/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyPremiumVolume'),{},{}
+    ) AS read,
+    SYSDATE() AS _inserted_timestamp
+FROM (
+    SELECT 
+        DISTINCT chain, 
+        row_num
+    FROM all_chains_options_base
+    WHERE row_num BETWEEN {{ item * 5 + 1 }} AND {{ (item + 1) * 5 }}
+    )
+{% if is_incremental() %}
+WHERE chain NOT IN (
+    SELECT
+        chain
+    FROM (
+        SELECT 
+            DISTINCT chain,
+            MAX(timestamp::DATE) AS max_timestamp
+        FROM {{ this }}
+        GROUP BY 1
+        HAVING CURRENT_DATE = max_timestamp
+    )
+)
+{% endif %}
+) {% if not loop.last %}
+UNION ALL
+{% endif %}
+{% endfor %}
+),
+
+reads_output AS (
+
+SELECT
+    chain,
+    TO_TIMESTAMP(VALUE[0]::INTEGER) AS timestamp,
+    VALUE[1] AS options_object,
+    _inserted_timestamp
+FROM options_base,
+    LATERAL FLATTEN (input=> read:data:totalDataChartBreakdown)
+)
+
+SELECT
+    chain,
+    timestamp,
+    key::STRING AS protocol, 
+    value::INTEGER AS daily_volume_premium,
     options_object,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['chain', 'protocol', 'timestamp']
     ) }} AS id
-FROM
-    chain_breakdown
+FROM reads_output,
+  LATERAL FLATTEN(
