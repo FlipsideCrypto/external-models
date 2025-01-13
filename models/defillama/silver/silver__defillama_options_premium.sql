@@ -81,4 +81,4 @@ SELECT
         ['chain', 'protocol', 'timestamp']
     ) }} AS id
 FROM reads_output,
-  LATERAL FLATTEN(
+  LATERAL FLATTEN(input => PARSE_JSON(reads_output.options_object))
