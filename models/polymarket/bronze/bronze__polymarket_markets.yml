@@ -1,7 +1,6 @@
 version: 2
 models:
   - name: bronze__polymarket_markets
-    tests:
     columns:
       - name: CONDITION_ID
         tests:
