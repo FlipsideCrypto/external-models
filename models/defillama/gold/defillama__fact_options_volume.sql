@@ -3,6 +3,7 @@
     persist_docs ={ "relation": true,
     "columns": true },
     tags = ['defillama'],
+    enabled = false,
     meta={
         'database_tags':{
             'table': {
