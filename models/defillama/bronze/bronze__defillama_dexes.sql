@@ -8,10 +8,10 @@ WITH base AS (
 
 SELECT
     live.udf_api(
-        'GET','https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{}
+        'GET','https://pro-api.llama.fi/{api_key}/api/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{},'Vault/prod/defillama'
     ) AS dex_read,
     live.udf_api(
-        'GET','https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{}
+        'GET','https://pro-api.llama.fi/{api_key}/api/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{},'Vault/prod/defillama'
     ) AS options_read,
     SYSDATE() AS _inserted_timestamp
 )

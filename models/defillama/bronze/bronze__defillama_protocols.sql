@@ -8,7 +8,7 @@ WITH protocol_base AS (
 
 SELECT
     live.udf_api(
-        'GET','https://api.llama.fi/protocols',{},{}
+        'GET','https://pro-api.llama.fi/{api_key}/api/protocols',{},{},'Vault/prod/defillama'
     ) AS read,
     SYSDATE() AS _inserted_timestamp
 )

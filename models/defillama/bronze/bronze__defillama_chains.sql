@@ -8,7 +8,7 @@ WITH chain_base AS (
 
 SELECT
     live.udf_api(
-        'GET','https://api.llama.fi/chains',{},{}
+        'GET','https://pro-api.llama.fi/{api_key}/api/chains',{},{},'Vault/prod/defillama'
     ) AS read,
     SYSDATE() AS _inserted_timestamp
 ),
