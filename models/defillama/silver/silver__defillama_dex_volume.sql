@@ -19,6 +19,7 @@ WITH api_pull AS (
 lat_flat AS (
     SELECT
         r.value AS VALUE,
+        r.value :displayName :: STRING AS protocol,
         _inserted_timestamp
     FROM
         api_pull,
@@ -30,7 +31,7 @@ chain_breakdown AS (
     SELECT
         k.key AS chain,
         SYSDATE() :: DATE AS TIMESTAMP,
-        v.key AS protocol,
+        protocol,
         k.value AS dex_object,
         v.value :: INTEGER AS daily_volume,
         _inserted_timestamp
@@ -55,4 +56,3 @@ SELECT
     ) }} AS id
 FROM
     chain_breakdown
-QUALIFY ROW_NUMBER() OVER (PARTITION BY id ORDER BY _inserted_timestamp, daily_volume DESC) = 1
