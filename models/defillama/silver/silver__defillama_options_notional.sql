@@ -1,7 +1,6 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'id',
-    enabled = false,
     full_refresh = false,
     tags = ['defillama']
 ) }}
@@ -15,7 +14,7 @@ SELECT
 FROM (
     SELECT
         live.udf_api(
-            'GET','https://api.llama.fi/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyNotionalVolume',{},{}
+            'GET','https://pro-api.llama.fi/{api_key}/api/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyNotionalVolume',{},{},'Vault/prod/defillama'
             ) AS read,
         SYSDATE() AS _inserted_timestamp
     ),
@@ -29,7 +28,7 @@ options_base AS (
 SELECT
     chain,
     live.udf_api(
-        'GET',CONCAT('https://api.llama.fi/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyNotionalVolume'),{},{}
+        'GET',CONCAT('https://pro-api.llama.fi/{api_key}/api/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyNotionalVolume'),{},{},'Vault/prod/defillama'
     ) AS read,
     SYSDATE() AS _inserted_timestamp
 FROM (

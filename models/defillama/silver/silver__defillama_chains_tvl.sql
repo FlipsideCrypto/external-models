@@ -13,7 +13,7 @@ SELECT
     chain_id,
     chain,
     live.udf_api(
-        'GET',CONCAT('https://api.llama.fi/charts/',chain),{},{}
+        'GET',CONCAT('https://pro-api.llama.fi/{api_key}/api/charts/',chain),{},{},'Vault/prod/defillama'
     ) AS read,
     SYSDATE() AS _inserted_timestamp
 FROM (

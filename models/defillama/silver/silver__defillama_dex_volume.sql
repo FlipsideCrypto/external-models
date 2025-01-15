@@ -11,7 +11,7 @@ WITH api_pull AS (
         PARSE_JSON(
             live.udf_api(
                 'GET',
-                'https://api.llama.fi/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{}
+                'https://pro-api.llama.fi/{api_key}/api/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{},'Vault/prod/defillama'
             )
         ) :data :protocols AS response,
         SYSDATE() AS _inserted_timestamp
@@ -55,3 +55,4 @@ SELECT
     ) }} AS id
 FROM
     chain_breakdown
+QUALIFY ROW_NUMBER() OVER (PARTITION BY id ORDER BY _inserted_timestamp, daily_volume DESC) = 1
