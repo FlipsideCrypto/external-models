@@ -26,7 +26,7 @@ FROM
     {{ ref('bronze__bitquery_FR') }}
 {% endif %}
 WHERE
-    DATA :ok = TRUE
+    len(DATA :data) > 10
 
 {% if is_incremental() %}
 AND _inserted_timestamp >= (
@@ -38,9 +38,9 @@ AND _inserted_timestamp >= (
     {% endif %}
 
     qualify ROW_NUMBER() over (
-        PARTITION BY sequence_number,
-        shard,
-        workchain
+        PARTITION BY date_day,
+        blockchain,
+        metric,
         ORDER BY
             _inserted_timestamp DESC
     ) = 1
