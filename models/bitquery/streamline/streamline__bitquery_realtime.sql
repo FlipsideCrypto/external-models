@@ -58,7 +58,7 @@ SELECT
             'variables',
             variables
         ),
-        'Vault/prod/bitquery'
+        'Vault/prod/external/bitquery'
     ) AS request
 FROM
     metrics

@@ -19,11 +19,12 @@ WITH metrics AS (
     SELECT
         'hedera' AS blockchain,
         'active_users' AS metric,
-        'query ($network: HederaNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) count: countBigInt(uniq: payer_account)}}}' AS query_text {# UNION ALL
+        'query ($network: HederaNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(date: {since: $from, till: $till}) { countBigInt(uniq: payer_account)}}}' AS query_text
+    UNION ALL
     SELECT
         'ripple' AS blockchain,
         'active_users' AS metric,
-        '' AS query_text #}
+        '' AS query_text
 )
 SELECT
     date_day,
