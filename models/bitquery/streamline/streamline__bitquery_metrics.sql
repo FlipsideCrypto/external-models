@@ -8,23 +8,27 @@ WITH metrics AS (
     SELECT
         'hedera' AS blockchain,
         'tx_count' AS metric,
-        'query ($network: HederaNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) {date {date(format: $dateFormat)} count: countBigInt}}}' AS query_text
+        'query ($network: HederaNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) {date {date(format: $dateFormat)} count: countBigInt}}}' AS query_text,
+        'Count of tx hashes by day' AS description
     UNION ALL
     SELECT
         'ripple' AS blockchain,
         'tx_count' AS metric,
-        '' AS query_text
+        '' AS query_text,
+        'Count of tx hashes by day' AS description
     UNION ALL
         --idk how we're defining active users - thinking it will just be the unique count over the last 30 days
     SELECT
         'hedera' AS blockchain,
         'active_users' AS metric,
-        'query ($network: HederaNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(date: {since: $from, till: $till}) { countBigInt(uniq: payer_account)}}}' AS query_text
+        'query ($network: HederaNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(date: {since: $from, till: $till}) { countBigInt(uniq: payer_account)}}}' AS query_text,
+        'distinct counts of payer accounts over the last 30 days' AS description
     UNION ALL
     SELECT
         'ripple' AS blockchain,
         'active_users' AS metric,
-        '' AS query_text
+        '' AS query_text,
+        'distinct counts of senders over the last 30 days' AS description
 )
 SELECT
     date_day,
@@ -60,7 +64,8 @@ SELECT
             'dateFormat',
             '%Y-%m-%d'
         )
-    END AS variables
+    END AS variables,
+    description
 FROM
     {{ source(
         'crosschain_core',

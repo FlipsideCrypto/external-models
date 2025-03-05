@@ -52,7 +52,7 @@ vars:
   "dbt_date:time_zone": GMT
   OBSERV_FULL_TEST: False
   START_GHA_TASKS: False
-  STREAMLINE_INVOKE_STREAMS: True
+  STREAMLINE_INVOKE_STREAMS: False
   STREAMLINE_USE_DEV_FOR_EXTERNAL_TABLES: True
   STREAMLINE_RUN_HISTORY: False
   STREAMLINE_RETRY_UNKNOWN: False
@@ -75,7 +75,7 @@ vars:
 
     prod:
       API_INTEGRATION: AWS_EXTERNAL_API_PRO_V2
-      EXTERNAL_FUNCTION_URI: 
+      EXTERNAL_FUNCTION_URI:  zv7a5qfhv9.execute-api.us-east-1.amazonaws.com/prod/
       ROLES:
         - AWS_LAMBDA_EXTERNAL_API
         - INTERNAL_DEV

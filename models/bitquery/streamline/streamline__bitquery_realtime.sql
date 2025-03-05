@@ -23,20 +23,13 @@ WITH metrics AS (
         query_text,
         variables
     FROM
-        {{ ref("streamline__bitquery_metrics") }}
-        qualify ROW_NUMBER() over (
-            PARTITION BY blockchain,
-            metric
-            ORDER BY
-                date_day DESC
-        ) = 3 {# EXCEPT
-    SELECT
-        date_day,
-        blockchain,
-        metric
-    FROM
-        {{ ref("streamline__blocks_complete") }}
-        #}
+        {{ ref("streamline__bitquery_metrics") }} A
+        LEFT JOIN {{ ref("streamline__bitquery_metrics") }}
+        b USING (
+            blockchain,
+            metric,
+            date_day
+        )
 )
 SELECT
     TO_NUMBER(to_char(date_day, 'YYYYMMDD')) AS date_day,

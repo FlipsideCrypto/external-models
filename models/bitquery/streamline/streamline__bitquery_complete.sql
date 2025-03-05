@@ -4,8 +4,7 @@
     materialized = "incremental",
     unique_key = [' date_day','blockchain','metric'],
     merge_exclude_columns = ["inserted_timestamp"],
-    tags = ['streamline_realtime'],
-    enabled = false
+    tags = ['streamline_realtime']
 ) }}
 
 SELECT
@@ -26,7 +25,7 @@ FROM
     {{ ref('bronze__bitquery_FR') }}
 {% endif %}
 WHERE
-    len(DATA :data) > 10
+    DATA :errors IS NULL
 
 {% if is_incremental() %}
 AND _inserted_timestamp >= (
@@ -34,13 +33,12 @@ AND _inserted_timestamp >= (
         COALESCE(MAX(_INSERTED_TIMESTAMP), '1970-01-01' :: DATE) max_INSERTED_TIMESTAMP
     FROM
         {{ this }})
-        AND DATA IS NOT NULL
     {% endif %}
 
     qualify ROW_NUMBER() over (
         PARTITION BY date_day,
         blockchain,
-        metric,
+        metric
         ORDER BY
             _inserted_timestamp DESC
     ) = 1

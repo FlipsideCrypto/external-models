@@ -1,7 +1,7 @@
 -- depends_on: {{ ref('bronze__bitquery') }}
 {{ config(
     materialized = 'incremental',
-    unique_key = ['blockchain', 'metric', 'block_date'],
+    unique_key = ['blockchain', 'metric', 'as_of_date'],
     tags = ['bitquery']
 ) }}
 
@@ -10,8 +10,8 @@ WITH ripple AS (
     SELECT
         A.blockchain,
         A.metric,
-        b.value :date :date :: DATE AS block_date,
-        b.value :countBigInt AS tx_count,
+        A.date_Day AS as_of_date,
+        b.value :countBigInt AS active_users,
         A._inserted_timestamp
     FROM
 
@@ -27,7 +27,7 @@ LATERAL FLATTEN(
 ) b
 WHERE
     A.data :errors IS NULL
-    AND A.metric = 'tx_count'
+    AND A.metric = 'active_users'
     AND A.blockchain = 'ripple'
 
 {% if is_incremental() %}
@@ -43,8 +43,8 @@ hedera AS (
     SELECT
         A.blockchain,
         A.metric,
-        b.value :date :date :: DATE AS block_date,
-        b.value :count AS tx_count,
+        A.date_Day AS as_of_date,
+        b.value :countBigInt AS active_users,
         A._inserted_timestamp
     FROM
 
@@ -60,7 +60,7 @@ LATERAL FLATTEN(
 ) b
 WHERE
     A.data :errors IS NULL
-    AND A.metric = 'tx_count'
+    AND A.metric = 'active_users'
     AND A.blockchain = 'hedera'
 
 {% if is_incremental() %}
@@ -86,11 +86,11 @@ ua AS (
 SELECT
     blockchain,
     metric,
-    block_date,
-    tx_count,
+    as_of_date,
+    active_users,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
-        ['blockchain','metric','block_date']
+        ['blockchain','metric','as_of_date']
     ) }} AS accounts_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
@@ -99,7 +99,7 @@ FROM
     ua qualify ROW_NUMBER() over (
         PARTITION BY blockchain,
         metric,
-        block_date
+        as_of_date
         ORDER BY
             _inserted_timestamp DESC
     ) = 1
