@@ -31,6 +31,8 @@ SELECT
     VALUE:audit_note::STRING AS audit_note,
     VALUE:category::STRING AS category,
     VALUE:chains AS chains,
+    VALUE:url::STRING AS url,
+    VALUE:logo::STRING AS logo,
     _inserted_timestamp
 FROM protocol_base,
     LATERAL FLATTEN (input=> read:data)
