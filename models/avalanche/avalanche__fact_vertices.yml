@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: avalanche__fact_vertices
+    description: "Avalanche Vertices."
+    columns:
+      - name: TRANSACTION_COUNT
+        description: "Number of transactions contained in the vertex"
+
+      - name: VERTEX_TIMESTAMP
+        description: "Timestamp when the vertex was created"
+
+      - name: VERTEX_INDEX
+        description: ""
+
+      - name: IS_STOP_VERTEX
+        description: "Indicates if this is a stop vertex in the DAG"
+
+      - name: LOAD_TIMESTAMP
+        description: "Timestamp when data was loaded into Snowflake"
+
+      - name: LAST_UPDATED
+        description: ""
+
+      - name: VERTEX_SIZE
+        description: ""
+
+      - name: VERTEX_HEIGHT
+        description: ""
+
+      - name: PARENT_HASH
+        description: "Hash of the parent vertex"
+
+      - name: VERTEX_HASH
+        description: "Unique identifier hash for the vertex"

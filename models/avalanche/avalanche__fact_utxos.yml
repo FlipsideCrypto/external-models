@@ -1,0 +1,101 @@
+version: 2
+
+models:
+  - name: avalanche__fact_utxos
+    description: "Avalanche UTXOs."
+    columns:
+      - name: OUTPUT_TYPE
+        description: ""
+
+      - name: PLATFORM_LOCKTIME
+        description: ""
+
+      - name: CONSUMED_ON
+        description: "Blockchain ID on which the UTXO was consumed"
+
+      - name: CREATED_ON
+        description: "Blockchain ID on which the UTXO was created"
+
+      - name: FX_ID
+        description: ""
+        
+      - name: PAYLOAD
+        description: "Additional payload data associated with the UTXO"
+
+      - name: STAKEABLE_LOCKTIME
+        description: ""
+
+      - name: GROUP_ID
+        description: ""
+
+      - name: AMOUNT
+        description: "Amount of the asset stored in the UTXO"
+
+      - name: SIGNATURE
+        description: ""
+
+      - name: PUBLIC_KEY
+        description: ""
+
+      - name: LOCKTIME
+        description: ""
+
+      - name: STAKED
+        description: ""
+
+      - name: CONSUMING_TRANSACTION_HASH
+        description: "Transaction hash that consumed the UTXO"
+
+      - name: ASSET_ID
+        description: "Asset identifier associated with the UTXO"
+
+      - name: ADDRESS
+        description: "Blockchain address associated with the UTXO"
+
+      - name: REWARD
+        description: "Indicates if the UTXO was part of a staking reward"
+
+      - name: TX_TYPE
+        description: "Type of transaction that generated the UTXO"
+
+      - name: TIMESTAMP
+        description: "Timestamp when the UTXO was created"
+
+      - name: OUTPUT_INDEX
+        description: "Ordering of the UTXOs within a transaction"
+
+      - name: BLOCK_INDEX
+        description: "Index of the block where the UTXO was created"
+
+      - name: TRANSACTION_HASH
+        description: "Transaction hash associated with the UTXO"
+
+      - name: UTXO_ID
+        description: "Unique identifier for the UTXO"
+
+      - name: CONSUMING_BLOCK_HEIGHT
+        description: "Block height at which the UTXO was consumed"
+
+      - name: REWARD_ADDRESSES
+        description: "List of addresses receiving staking rewards"
+
+      - name: NODE_ID
+        description: "Validator node ID associated with staking UTXOs"
+
+      - name: STAKING_END_TIME
+        description: "End time for staking period"
+
+      - name: STAKING_START_TIME
+        description: "Start time for staking period"
+
+      - name: CONSUMING_TRANSACTION_TIMESTAMP
+        description: "Timestamp when the UTXO was consumed"
+
+      - name: LOAD_TIMESTAMP
+        description: "Timestamp when data was loaded into Snowflake"
+
+      - name: LAST_UPDATED
+        description: ""
+
+      - name: THRESHOLD
+        description: ""

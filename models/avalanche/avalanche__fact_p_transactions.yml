@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  - name: avalanche__fact_p_transactions
+    description: "Avalanche P-Chain Transactions."
+    columns:
+      - name: BLOCK_HASH
+        description: "Hash of the block containing the transaction"
+
+      - name: L1_VALIDATOR_WEIGHT
+        description: "Stake weight of the validator"
+
+      - name: L1_VALIDATOR_END_ACCUMULATED_FEE
+        description: "The value of the accrued fee for a given L1 Validator when its full balance has been reached."
+
+      - name: L1_VALIDATOR_ACCRUED_FEES
+        description: "A fee counter that applies to the balance of all active Avalanche L1 Validators (non-primary network)"
+
+      - name: L1_VALIDATOR_ACTIVE_COUNT
+        description: "Active validators at the time of transaction"
+
+      - name: GAS_USED
+        description: "The total amount of gas or computational units expended by a transaction. Data provided post Etna Upgrade (12/16/24)"
+
+      - name: TRANSACTION_HASH
+        description: "Unique identifier for the transaction"
+
+      - name: TIMESTAMP
+        description: "Timestamp of the transaction"
+
+      - name: TYPE
+        description: "Type of transaction (e.g. import, export, reward, etc.)"
+
+      - name: REMOVAL_TIME
+        description: "Timestamp of the removal of the validator"
+
+      - name: L1_VALIDATOR_PAYG_BALANCE
+        description: "Registered Avalanche L1 Validator (not primary network) pay-as-you-go balance in the transaction"
+
+      - name: BLOCK_HEIGHT
+        description: "Height of the block in the blockchain"
+
+      - name: MEMO
+        description: "Optional memo associated with the transaction"
+
+      - name: FEE
+        description: "Minimum amount of nAVAX that must be burned for a transaction to be accepted"
+
+      - name: SOURCE_CHAIN
+        description: "Source chain for cross-chain transactions"
+
+      - name: DESTINATION_CHAIN
+        description: "Destination chain for cross-chain transactions"
+
+      - name: REWARDED
+        description: "Indicates if the transaction earned staking rewards"
+
+      - name: REMOVAL_TX_HASH
+        description: "Hash of the removal transaction"
+
+      - name: TX_BLOCK_POSITION
+        description: "Position of the transaction in the block"
+
+      - name: END_TIME
+        description: "Timestamp of the end of the transaction"
+
+      - name: STAKING_TX_HASH
+        description: "Hash of the staking transaction"
+
+      - name: NODE_ID
+        description: "Validator node ID associated with staking transactions"
+
+      - name: REWARD_ADDRESSES
+        description: "List of addresses receiving staking rewards"
+
+      - name: L1_VALIDATOR_REMAINING_BALANCE_OWNER_BYTES
+        description: "Binary representation of the remaining balance owner"
+
+      - name: L1_MANAGER_BLOCKCHAIN_ID
+        description: "Blockchain ID of the L1 manager"
+
+      - name: POTENTIAL_REWARD
+        description: "Potential reward amount for staking transactions"
+
+      - name: SUBNET_ID
+        description: "Subnet ID associated with the transaction"
+
+      - name: START_TIME
+        description: "Timestamp of the start of the transaction"
+
+      - name: IS_LINEAR
+        description: "Indicates if the transaction is linear"
+
+      - name: METADATA
+        description: "Metadata associated with the transaction"
+
+      - name: BYTES
+        description: "Binary data associated with the transaction"
+
+      - name: LAST_UPDATED
+        description: "Timestamp of the last update to this record"
+
+      - name: LOAD_TIMESTAMP
+        description: "Timestamp when data was loaded into Snowflake"
+
+      - name: BLOCK_INDEX
+        description: "Index of the block in which the transaction occured"
+
+      - name: L1_MANAGER_CONTRACT_ADDRESS 
+        description: "Address of the L1 manager contract"
+
+      - name: L1_VALIDATION_ID
+        description: "Unique identifier for an Avalanche L1 Valdiator (not primary network)"
+
+      - name: L1_VALIDATOR_IS_ACTIVE
+        description: "Indicates if the validator is currently active"
