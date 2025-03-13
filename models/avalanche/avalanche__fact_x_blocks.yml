@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_x_blocks
-    description: "Avalanche X-Chain Blocks."
+    description: "Avalanche X-Chain Blocks. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: PROPOSER_PARENT_ID
         description: ""

@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_c_messages
-    description: "Avalanche C-Chain Messages."
+    description: "Avalanche C-Chain Messages. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: blockhash
         description: "Hash of the block containing this message."

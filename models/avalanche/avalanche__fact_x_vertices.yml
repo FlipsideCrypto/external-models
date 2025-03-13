@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_x_vertices
-    description: "Avalanche X-Chain Vertices."
+    description: "Avalanche X-Chain Vertices. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: TRANSACTION_COUNT
         description: "Number of transactions contained in the vertex"

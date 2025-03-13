@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_p_transactions
-    description: "Avalanche P-Chain Transactions."
+    description: "Avalanche P-Chain Transactions. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: BLOCK_HASH
         description: "Hash of the block containing the transaction"
