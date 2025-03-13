@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: avalanche__fact_x_ertices
+  - name: avalanche__fact_x_vertices
     description: "Avalanche X-Chain Vertices."
     columns:
       - name: TRANSACTION_COUNT
