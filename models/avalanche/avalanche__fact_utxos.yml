@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_utxos
-    description: "Avalanche UTXOs."
+    description: "Avalanche UTXOs. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: OUTPUT_TYPE
         description: ""

@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_x_transactions
-    description: "Avalanche X-Chain Transactions."
+    description: "Avalanche X-Chain Transactions. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: TYPE
         description: "Type of transaction (e.g. import, export, operation)"

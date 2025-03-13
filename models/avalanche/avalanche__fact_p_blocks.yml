@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: avalanche__fact_p_blocks
-    description: "Avalanche P-Chain Blocks."
+    description: "Avalanche P-Chain Blocks. Please visit https://discord.gg/avax for any questions."
     columns:
       - name: L1_VALIDATOR_ACTIVE_COUNT
         description: "Count of active validators on the L1 at the time of block creation"

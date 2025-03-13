@@ -1,0 +1,5 @@
+version: 2
+
+models:
+  - name: avalanche__dim_data_dictionary
+    description: "Avalanche Data Dictionary. Please visit https://discord.gg/avax for any questions."
