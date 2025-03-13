@@ -8,16 +8,45 @@ WITH metrics AS (
     SELECT
         'hedera' AS blockchain,
         'tx_count' AS metric,
-        'query ($network: HederaNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) {date {date(format: $dateFormat)} count: countBigInt}}}' AS query_text,
+        'query ($network: HederaNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { hedera(network: $network) { transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) {  date {date(format: $dateFormat) } countBigInt}} }' AS query_text,
         'Count of tx hashes by day' AS description
     UNION ALL
     SELECT
         'ripple' AS blockchain,
         'tx_count' AS metric,
-        '' AS query_text,
+        'query ($network: RippleNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { ripple(network: $network){ transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
         'Count of tx hashes by day' AS description
     UNION ALL
-        --idk how we're defining active users - thinking it will just be the unique count over the last 30 days
+    SELECT
+        'moonbeam' AS blockchain,
+        'tx_count' AS metric,
+        'query ($network: EthereumNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { ethereum(network: $network){ transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
+        'Count of tx hashes by day' AS description
+    UNION ALL
+    SELECT
+        'celo_mainnet' AS blockchain,
+        'tx_count' AS metric,
+        'query ($network: EthereumNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { ethereum(network: $network){ transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
+        'Count of tx hashes by day' AS description
+    UNION ALL
+    SELECT
+        'algorand' AS blockchain,
+        'tx_count' AS metric,
+        'query ($network: AlgorandNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { algorand(network: $network) { transactions(options: {asc: "date.date"}, date: {till: $till, since: $from} ) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
+        'Count of tx hashes by day' AS description
+    UNION ALL
+    SELECT
+        'filecoin' AS blockchain,
+        'tx_count' AS metric,
+        'query ($network: FilecoinNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { filecoin(network: $network) { messages(options: {asc: "date.date"}, date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
+        'Count of messages by day' AS description
+    UNION ALL
+    SELECT
+        'cardano' AS blockchain,
+        'tx_count' AS metric,
+        'query ($network: CardanoNetwork!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) { cardano(network: $network) { transactions(options: {asc: "date.date"}, date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt }} }' AS query_text,
+        'Count of messages by day' AS description
+    UNION ALL
     SELECT
         'hedera' AS blockchain,
         'active_users' AS metric,
@@ -29,6 +58,36 @@ WITH metrics AS (
         'active_users' AS metric,
         '' AS query_text,
         'distinct counts of senders over the last 30 days' AS description
+    UNION ALL
+    SELECT
+        'moonbeam' AS blockchain,
+        'active_users' AS metric,
+        'query ($network: EthereumNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) { ethereum(network: $network){ transactions(date: {since: $from, till: $till}) { countBigInt(uniq: senders) }} }' AS query_text,
+        'distinct counts of senders over the last 30 days' AS description
+    UNION ALL
+    SELECT
+        'celo_mainnet' AS blockchain,
+        'active_users' AS metric,
+        'query ($network: EthereumNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) { ethereum(network: $network){ transactions(date: {since: $from, till: $till}) { countBigInt(uniq: senders) }} }' AS query_text,
+        'distinct counts of senders over the last 30 days' AS description
+    UNION ALL
+    SELECT
+        'algorand' AS blockchain,
+        'active_users' AS metric,
+        'query ($network: AlgorandNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) { algorand(network: $network) { transactions( date: {since: $from, till: $till} ) { countBigInt(uniq: senders) }} }' AS query_text,
+        'distinct counts of senders over the last 30 days' AS description
+    UNION ALL
+    SELECT
+        'filecoin' AS blockchain,
+        'active_users' AS metric,
+        'query ($network: FilecoinNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) { filecoin(network: $network) { messages(date: {since: $from, till: $till}) {senders: countBigInt(uniq: senders) }} }' AS query_text,
+        'distinct counts of message senders over the last 30 days' AS description
+    UNION ALL
+    SELECT
+        'cardano' AS blockchain,
+        'active_users' AS metric,
+        'query ($network: CardanoNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) { cardano(network: $network) { activeAddresses(date: {since: $from, till: $till}) { countBigInt(uniq: address) }} }' AS query_text,
+        'distinct counts of addresses over the last 30 days' AS description
 )
 SELECT
     date_day,
@@ -41,9 +100,9 @@ SELECT
     metric,
     CASE
         WHEN blockchain = 'ripple'
-        AND metric = 'tx_count' THEN '{ripple(network: ripple) {transactions(date: {after: "' || date_day || '"}) {countBigInt(hash: {}, date: {after: "' || date_day || '"}) date {date}}}}'
+        AND metric = 'tx_count' THEN '{ripple(network: ripple) {transactions(date: {after: "' || date_day || '"}) {countBigInt date {date}}}}'
         WHEN blockchain = 'ripple'
-        AND metric = 'active_users' THEN '{ripple(network: ripple) {transactions(date: {after: "' || date_day_minus_30 || '"}) {countBigInt(date: {after: "' || date_day_minus_30 || '"}, uniq: senders) }}}'
+        AND metric = 'active_users' THEN '{ripple(network: ripple) {transactions(date: {after: "' || date_day_minus_30 || '"}) {countBigInt( uniq: senders) }}}'
         ELSE query_text
     END AS query_text,
     CASE
