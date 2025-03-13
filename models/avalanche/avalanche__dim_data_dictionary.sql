@@ -1,6 +1,6 @@
 {{ config (
     materialized = "view",
-    tags = ['avalanche_core']
+    tags = ['avalanche_share']
 ) }}
 
 select * 
