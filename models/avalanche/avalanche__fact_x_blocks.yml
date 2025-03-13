@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: avalanche__fact_x_blocks
+    description: "Avalanche X-Chain Blocks."
+    columns:
+      - name: PROPOSER_PARENT_ID
+        description: ""
+
+      - name: BLOCK_HEIGHT
+        description: "Block height on the chain indicating its position in the ledger"
+
+      - name: LOAD_TIMESTAMP
+        description: "Timestamp when the block data was loaded into Snowflake"
+
+      - name: LAST_UPDATED
+        description: "Timestamp of the last update to this record"
+
+      - name: PROPOSER_NODE_ID
+        description: "Unique node ID of the block proposer"
+
+      - name: PROPOSER_P_CHAIN_HEIGHT
+        description: ""
+
+      - name: PROPOSER_TIMESTAMP
+        description: "Timestamp recorded by the proposer when creating the block"
+
+      - name: TYPE
+        description: "Type of block (e.g., proposal, decision, etc.)"
+
+      - name: TX_COUNT
+        description: "Number of transactions included in the block"
+
+      - name: BLOCK_SIZE
+        description: ""
+
+      - name: PARENT_HASH
+        description: "Hash of the parent block in the chain"
+
+      - name: PROPOSER_ID
+        description: "Identifier for the entity that proposed the block"
+
+      - name: BLOCK_HASH
+        description: "Unique identifier (hash) for the block"
+
+      - name: BLOCK_INDEX
+        description: "Sequential index of the block within the chain"
+
+      - name: TIMESTAMP
+        description: "Timestamp when the block was produced"
