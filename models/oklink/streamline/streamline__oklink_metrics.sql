@@ -83,6 +83,6 @@ FROM
     ) }}
     CROSS JOIN metrics
 WHERE
-    (metric = 'address_count' AND date_day = CURRENT_DATE())
+    (metric = 'address_count' AND date_day = SYSDATE())
     OR 
-    (metric = 'blockchain_stats' AND date_day >= '2025-01-01' AND date_day < CURRENT_DATE())
+    (metric = 'blockchain_stats' AND date_day >= '2025-01-01' AND date_day < SYSDATE())

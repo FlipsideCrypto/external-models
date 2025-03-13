@@ -10,8 +10,7 @@
         "worker_batch_size": "1",
         "async_concurrent_requests": "1",
         "sql_source": "{{this.identifier}}",
-        "order_by_column": "date_day", 
-        "request_delay_ms": "1000"}
+        "order_by_column": "date_day"}
     ),
     tags = ['streamline_realtime']
 ) }}
