@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: avalanche__fact_c_messages
+    description: "Avalanche C-Chain Messages. Please visit https://discord.gg/avax for any questions."
+    columns:
+      - name: blockhash
+        description: "Hash of the block containing this message."
+
+      - name: blocknumber
+        description: "Block number as a string"
+
+      - name: blocktimestamp
+        description: "Block timestamp"
+
+      - name: transactionhash
+        description: "Hash of the transaction that included this message."
+
+      - name: transactionmessagefrom
+        description: "Sender address for the message."
+
+      - name: transactionmessageto
+        description: "Recipient address for the message."
+
+      - name: transactionmessagegasprice
+        description: "Gas price applied to the message transaction."
+
+      - name: partition_date
+        description: "This date is derived from the block timestamp"

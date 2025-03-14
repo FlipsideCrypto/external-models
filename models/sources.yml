@@ -1,6 +1,11 @@
 version: 2
 
 sources:
+  - name: bronze_streamline
+    database: streamline
+    schema: "{{ 'external' if target.database == 'EXTERNAL' else 'external_dev' }}"
+    tables:
+      - name: bitquery
   - name: tokenflow_starknet_l1_data
     database: tokenflow_starknet
     schema: l1_data
@@ -37,6 +42,11 @@ sources:
     schema: silver
     tables:
       - name: apis_keys
+  - name: crosschain_core
+    database: crosschain
+    schema: core
+    tables:
+      - name: dim_dates
   - name: ethereum_silver
     database: ethereum
     schema: silver
@@ -88,3 +98,19 @@ sources:
       - name: farcaster_channel_follows
       - name: farcaster_profile_with_addresses
       - name: farcaster_warpcast_power_users
+  - name: avalanche_share
+    database: ava_labs_share
+    schema: primary
+    tables:
+      - name: c_blocks
+      - name: c_messages
+      - name: c_transactions
+      - name: c_internal_transactions
+      - name: c_receipts
+      - name: data_dictionary
+      - name: p_blocks
+      - name: p_transactions
+      - name: utxos
+      - name: vertices
+      - name: x_blocks
+      - name: x_transactions

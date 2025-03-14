@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: avalanche__fact_x_transactions
+    description: "Avalanche X-Chain Transactions. Please visit https://discord.gg/avax for any questions."
+    columns:
+      - name: TYPE
+        description: "Type of transaction (e.g. import, export, operation)"
+
+      - name: TX_BLOCK_POSITION
+        description: "Position of the transaction in the block"
+
+      - name: IS_LINEAR
+        description: ""
+
+      - name: LOAD_TIMESTAMP
+        description: "Timestamp when data was loaded into Snowflake"
+
+      - name: LAST_UPDATED
+        description: "Last update timestamp"
+
+      - name: BYTES
+        description: ""
+
+      - name: METADATA
+        description: ""
+
+      - name: DESTINATION_CHAIN
+        description: "Destination chain for cross-chain transactions"
+
+      - name: SOURCE_CHAIN
+        description: "Source chain for cross-chain transactions"
+
+      - name: DENOMINATION
+        description: "Denomination of the asset (10^denomination)"
+
+      - name: TIMESTAMP
+        description: "Timestamp when the transaction was processed"
+
+      - name: BLOCK_HASH
+        description: "Hash of the block containing the transaction"
+
+      - name: BLOCK_INDEX
+        description: "Index of the block in which the transaction occured"
+
+      - name: BLOCK_HEIGHT
+        description: "Height of the block in the blockchain"
+
+      - name: FEE
+        description: "Transaction fee in smallest denomination"
+
+      - name: ASSET_NAME
+        description: "Name of the asset involved in the transaction"
+
+      - name: SYMBOL
+        description: "Symbol of the asset"
+
+      - name: TRANSACTION_HASH
+        description: "Unique identifier for the transaction"
+
+      - name: MEMO
+        description: "Optional memo associated with the transaction"

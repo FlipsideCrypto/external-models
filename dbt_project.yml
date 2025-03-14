@@ -50,9 +50,33 @@ on-run-end:
 
 vars:
   "dbt_date:time_zone": GMT
-  UPDATE_UDFS_AND_SPS: False
+  OBSERV_FULL_TEST: False
+  START_GHA_TASKS: False
+  STREAMLINE_INVOKE_STREAMS: False
+  STREAMLINE_USE_DEV_FOR_EXTERNAL_TABLES: False
+  STREAMLINE_RUN_HISTORY: False
+  STREAMLINE_RETRY_UNKNOWN: False
   UPDATE_SNOWFLAKE_TAGS: True
+  UPDATE_UDFS_AND_SPS: False 
+  
   API_INTEGRATION: '{{ var("config")[target.name]["API_INTEGRATION"] if var("config")[target.name] else var("config")["dev"]["API_INTEGRATION"] }}' 
   EXTERNAL_FUNCTION_URI: '{{ var("config")[target.name]["EXTERNAL_FUNCTION_URI"] if var("config")[target.name] else var("config")["dev"]["EXTERNAL_FUNCTION_URI"] }}'
   ROLES: |
       ["INTERNAL_DEV"]
+
+
+  config:
+    dev:
+      API_INTEGRATION: AWS_EXTERNAL_API_STG_V2
+      EXTERNAL_FUNCTION_URI: qoupd0givh.execute-api.us-east-1.amazonaws.com/stg/
+      ROLES:
+        - AWS_LAMBDA_EXTERNAL_API
+        - INTERNAL_DEV
+
+    prod:
+      API_INTEGRATION: AWS_EXTERNAL_API_PROD_V2
+      EXTERNAL_FUNCTION_URI:  zv7a5qfhv9.execute-api.us-east-1.amazonaws.com/prod/
+      ROLES:
+        - AWS_LAMBDA_EXTERNAL_API
+        - INTERNAL_DEV
+        - DBT_CLOUD_EXTERNAL
