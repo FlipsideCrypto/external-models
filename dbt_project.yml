@@ -74,7 +74,7 @@ vars:
         - INTERNAL_DEV
 
     prod:
-      API_INTEGRATION: AWS_EXTERNAL_API_PRO_V2
+      API_INTEGRATION: AWS_EXTERNAL_API_PROD_V2
       EXTERNAL_FUNCTION_URI:  zv7a5qfhv9.execute-api.us-east-1.amazonaws.com/prod/
       ROLES:
         - AWS_LAMBDA_EXTERNAL_API
