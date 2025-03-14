@@ -4,9 +4,9 @@
         func = 'streamline.udf_bulk_rest_api_v2',
         target = "{{this.schema}}.{{this.identifier}}",
         params ={ "external_table": "oklink",
-        "sql_limit": "1",
-        "producer_batch_size": "1",
-        "worker_batch_size": "1",
+        "sql_limit": "100",
+        "producer_batch_size": "100",
+        "worker_batch_size": "100",
         "async_concurrent_requests": "1",
         "sql_source": "{{this.identifier}}",
         "order_by_column": "date_day" }
@@ -26,7 +26,7 @@ WITH metrics AS (
         END AS full_endpoint
     FROM
         {{ ref("streamline__oklink_metrics") }} A
-        LEFT JOIN {{ ref("streamline__bitquery_complete") }}
+        LEFT JOIN {{ ref("streamline__oklink_complete") }}
         b USING (
             blockchain,
             metric,
