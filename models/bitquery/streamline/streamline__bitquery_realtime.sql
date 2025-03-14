@@ -30,6 +30,8 @@ WITH metrics AS (
             metric,
             date_day
         )
+    WHERE
+        b._invocation_id IS NULL
 )
 SELECT
     TO_NUMBER(to_char(date_day, 'YYYYMMDD')) AS date_day,
