@@ -24,7 +24,7 @@ WITH metrics AS (
         variables
     FROM
         {{ ref("streamline__bitquery_metrics") }} A
-        LEFT JOIN {{ ref("streamline__bitquery_metrics") }}
+        LEFT JOIN {{ ref("streamline__bitquery_complete") }}
         b USING (
             blockchain,
             metric,

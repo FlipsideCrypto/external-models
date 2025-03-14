@@ -61,7 +61,7 @@ SELECT
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['blockchain','metric','as_of_date']
-    ) }} AS accounts_id,
+    ) }} AS active_users_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id

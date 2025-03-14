@@ -79,4 +79,4 @@ vars:
       ROLES:
         - AWS_LAMBDA_EXTERNAL_API
         - INTERNAL_DEV
-        - DBT_CLOUD_TON
+        - DBT_CLOUD_EXTERNAL
