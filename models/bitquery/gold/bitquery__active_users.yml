@@ -1,0 +1,37 @@
+version: 2
+models:
+  - name: bitquery__active_users
+    description: >
+      This model returns the number of active users for each blockchain and as of date. The distinct number of users is from the 30 days prior to the as of date.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - BLOCKCHAIN
+              - METRIC
+              - AS_OF_DATE
+    
+    columns:
+      - name: BLOCKCHAIN
+        description: >
+          The blockchain where the active users are from.
+        tests:
+          - not_null
+      - name: METRIC
+        description: >
+          The metric name - always 'active_users'.
+        tests:
+          - not_null
+      - name: AS_OF_DATE
+        description: >
+          The date when the active users are counted.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: ACTIVE_USERS
+        description: >
+          The number of active users. The distinct number of users is from the 30 days prior to the as of date.
+        tests:
+          - not_null
+          
