@@ -1,12 +1,12 @@
 version: 2
 models:
-  - name: silver__bitquery_active_users
+  - name: bitquery__tx_count
     tests:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
               - BLOCKCHAIN
               - METRIC
-              - AS_OF_DATE
+              - BLOCK_DATE
     
     columns:
       - name: BLOCKCHAIN
@@ -15,13 +15,13 @@ models:
       - name: METRIC
         tests:
           - not_null
-      - name: AS_OF_DATE
+      - name: BLOCK_DATE
         tests:
           - not_null
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 2
-      - name: ACTIVE_USERS
+      - name: TX_COUNT
         tests:
           - not_null
       - name: _INSERTED_TIMESTAMP

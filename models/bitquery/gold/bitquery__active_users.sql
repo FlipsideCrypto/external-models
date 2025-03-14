@@ -5,13 +5,30 @@
     tags = ['bitquery']
 ) }}
 
-WITH ripple AS (
+WITH base AS(
 
     SELECT
         A.blockchain,
         A.metric,
         A.date_Day AS as_of_date,
-        b.value :countBigInt AS active_users,
+        COALESCE(
+            REGEXP_SUBSTR(
+                A.data,
+                '"countBigInt"\\s*:\\s*"([^"]+)"',
+                1,
+                1,
+                'e',
+                1
+            ),
+            REGEXP_SUBSTR(
+                A.data,
+                '"senders"\\s*:\\s*"([^"]+)"',
+                1,
+                1,
+                'e',
+                1
+            )
+        ) active_users,
         A._inserted_timestamp
     FROM
 
@@ -21,67 +38,20 @@ WITH ripple AS (
     {{ ref('bronze__bitquery_FR') }}
 {% endif %}
 
-A,
-LATERAL FLATTEN(
-    A.data :data :ripple :transactions
-) b
+A
 WHERE
     A.data :errors IS NULL
     AND A.metric = 'active_users'
-    AND A.blockchain = 'ripple'
+    AND active_users IS NOT NULL
 
 {% if is_incremental() %}
-AND _inserted_timestamp :: DATE > (
+AND _inserted_timestamp > (
     SELECT
-        MAX(_inserted_timestamp) :: DATE
+        MAX(_inserted_timestamp)
     FROM
         {{ this }}
 )
 {% endif %}
-),
-hedera AS (
-    SELECT
-        A.blockchain,
-        A.metric,
-        A.date_Day AS as_of_date,
-        b.value :countBigInt AS active_users,
-        A._inserted_timestamp
-    FROM
-
-{% if is_incremental() %}
-{{ ref('bronze__bitquery_FR') }}
-{% else %}
-    {{ ref('bronze__bitquery_FR') }}
-{% endif %}
-
-A,
-LATERAL FLATTEN(
-    A.data :data :hedera :transactions
-) b
-WHERE
-    A.data :errors IS NULL
-    AND A.metric = 'active_users'
-    AND A.blockchain = 'hedera'
-
-{% if is_incremental() %}
-AND _inserted_timestamp :: DATE > (
-    SELECT
-        MAX(_inserted_timestamp) :: DATE
-    FROM
-        {{ this }}
-)
-{% endif %}
-),
-ua AS (
-    SELECT
-        *
-    FROM
-        ripple
-    UNION ALL
-    SELECT
-        *
-    FROM
-        hedera
 )
 SELECT
     blockchain,
@@ -96,7 +66,7 @@ SELECT
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-    ua qualify ROW_NUMBER() over (
+    base qualify ROW_NUMBER() over (
         PARTITION BY blockchain,
         metric,
         as_of_date

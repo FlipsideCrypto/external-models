@@ -50,7 +50,7 @@ WITH metrics AS (
     SELECT
         'hedera' AS blockchain,
         'active_users' AS metric,
-        'query ($network: HederaNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(date: {since: $from, till: $till}) { date: date { date(format: $dateFormat) } countBigInt(uniq: payer_account) } } }' AS query_text,
+        'query ($network: HederaNetwork!, $from: ISO8601DateTime, $till: ISO8601DateTime) {hedera(network: $network) {transactions(date: {since: $from, till: $till}) { countBigInt(uniq: payer_account) } } }' AS query_text,
         'distinct counts of payer accounts over the last 30 days' AS description
     UNION ALL
     SELECT
