@@ -1,80 +1,72 @@
-{{
-    config(
-        materialized = 'view',
-        tags = ['streamline_view']
-    )
-}}
-
--- Chains: SCROLL, SUI, FTM, LINEA, RONIN (Flipside Supported)
+{{ config(
+    materialized = 'view',
+    tags = ['streamline_view']
+) }}
+-- Chains: SCROLL, SUI, FTM, LINEA
 -- Address: LINEA, SCROLL, RONIN (Only `newActiveAddresses`), FTM
 -- Stats: FTM
+WITH chains AS (
 
-WITH metrics AS (
+    SELECT
+        'SCROLL' AS chain_short_name,
+        'scroll' AS blockchain
+    UNION ALL
+    SELECT
+        'SUI',
+        'sui'
+    UNION ALL
+    SELECT
+        'FTM',
+        'fantom'
+    UNION ALL
+    SELECT
+        'LINEA',
+        'linea'
+    UNION ALL
+    SELECT
+        'RONIN',
+        'ronin'
+    UNION ALL
+    SELECT
+        'ZKSYNC',
+        'zksync'
+),
+metrics AS (
     -- Addresses count metrics (no date params)
     SELECT
-        'Linea' AS blockchain,
-        'LINEA' AS chain_short_name,
-        'address_count' AS metric,
-        'https://www.oklink.com/api/v5/explorer/blockchain/address' AS endpoint,
+        blockchain,
+        chain_short_name,
+        'address' AS metric,
+        'blockchain/address' AS endpoint,
         FALSE AS historical_data,
-        'Count of addresses on Linea blockchain' AS description
+        'Count of addresses on ' || blockchain AS description,
+        NULL :: DATE AS chain_start_date
+    FROM
+        chains
     UNION ALL
     SELECT
-        'Scroll' AS blockchain,
-        'SCROLL' AS chain_short_name,
-        'address_count' AS metric,
-        'https://www.oklink.com/api/v5/explorer/blockchain/address' AS endpoint,
-        FALSE AS historical_data,
-        'Count of addresses on Scroll blockchain' AS description
-    UNION ALL
-    -- Only `activeAddresses`/`newActiveAddresses` available for Ronin
-    SELECT
-        'Ronin' AS blockchain,
-        'RONIN' AS chain_short_name,
-        'address_count' AS metric,
-        'https://www.oklink.com/api/v5/explorer/blockchain/address' AS endpoint,
-        FALSE AS historical_data,
-        'Count of addresses on Ronin blockchain' AS description
-    UNION ALL
-    SELECT
-        'Fantom' AS blockchain,
-        'FTM' AS chain_short_name,
-        'address_count' AS metric,
-        'https://www.oklink.com/api/v5/explorer/blockchain/address' AS endpoint,
-        FALSE AS historical_data,
-        'Count of addresses on Ronin blockchain' AS description
-    UNION ALL
-    -- Blockchain stats metrics (can use StartTime and endTime)
-        SELECT
-        'Fantom' AS blockchain, 
-        'FTM' AS chain_short_name,
-        'blockchain_stats' AS metric,
-        'https://www.oklink.com/api/v5/explorer/blockchain/stats' AS endpoint,
+        blockchain,
+        chain_short_name,
+        'stats' AS metric,
+        'blockchain/stats' AS endpoint,
         TRUE AS historical_data,
-        'Blockchain statistics for Fantom' AS description
+        'Blockchain statistics for ' || blockchain AS description,
+        CASE
+            blockchain
+            WHEN 'fantom' THEN '2019-12-27'
+        END AS chain_start_date
+    FROM
+        chains
+    WHERE
+        blockchain IN ('fantom')
 )
-
 SELECT
     date_day,
     blockchain,
     metric,
     endpoint,
-    CASE
-        WHEN metric IN ('address_count') THEN
-            -- For endpoints without look-back functionality (i.e. address)
-            OBJECT_CONSTRUCT(
-                'chainShortName', chain_short_name
-            )
-        ELSE
-            -- For endpoints with look-back functionality (i.e. stats)
-            OBJECT_CONSTRUCT(
-                'chainShortName', chain_short_name,
-                'startTime', ((DATE_PART('EPOCH', date_day)) * 1000)::STRING,
-                'endTime', ((DATE_PART('EPOCH', DATEADD(SECOND, -1, DATEADD(DAY, 1, date_day)))) * 1000)::STRING,
-                'limit', '1',
-                'page', '1'
-            )
-    END AS variables,
+    chain_short_name,
+    (DATE_PART('EPOCH', date_day) * 1000) :: STRING AS xtime,
     description
 FROM
     {{ source(
@@ -83,6 +75,12 @@ FROM
     ) }}
     CROSS JOIN metrics
 WHERE
-    (metric = 'address_count' AND date_day = SYSDATE())
-    OR 
-    (metric = 'blockchain_stats' AND date_day >= '2025-01-01' AND date_day < SYSDATE())
+    (
+        metric = 'address'
+        AND date_day = SYSDATE() :: DATE
+    )
+    OR (
+        metric = 'stats'
+        AND date_day >= chain_start_date
+        AND date_day < SYSDATE() :: DATE
+    )
