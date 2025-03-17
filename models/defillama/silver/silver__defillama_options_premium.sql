@@ -14,7 +14,7 @@ SELECT
 FROM (
     SELECT
         live.udf_api(
-            'GET','https://pro-api.llama.fi/{api_key}/api/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{},'Vault/prod/defillama'
+            'GET','https://pro-api.llama.fi/{api_key}/api/overview/options?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyPremiumVolume',{},{},'Vault/prod/external/defillama'
             ) AS read,
         SYSDATE() AS _inserted_timestamp
     ),
@@ -28,7 +28,7 @@ options_base AS (
 SELECT
     chain,
     live.udf_api(
-        'GET',CONCAT('https://pro-api.llama.fi/{api_key}/api/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyPremiumVolume'),{},{},'Vault/prod/defillama'
+        'GET',CONCAT('https://pro-api.llama.fi/{api_key}/api/overview/options/',chain,'?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=false&dataType=dailyPremiumVolume'),{},{},'Vault/prod/external/defillama'
     ) AS read,
     SYSDATE() AS _inserted_timestamp
 FROM (
