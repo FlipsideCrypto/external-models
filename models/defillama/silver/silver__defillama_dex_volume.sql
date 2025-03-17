@@ -11,7 +11,7 @@ WITH api_pull AS (
         PARSE_JSON(
             live.udf_api(
                 'GET',
-                'https://pro-api.llama.fi/{api_key}/api/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{},'Vault/prod/defillama'
+                'https://pro-api.llama.fi/{api_key}/api/overview/dexs?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume',{},{},'Vault/prod/external/defillama'
             )
         ) :data :protocols AS response,
         SYSDATE() AS _inserted_timestamp
