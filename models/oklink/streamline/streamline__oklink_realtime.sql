@@ -9,7 +9,7 @@
         "worker_batch_size": "100",
         "async_concurrent_requests": "1",
         "sql_source": "{{this.identifier}}",
-        "order_by_column": "date_day" }
+        "order_by_column": "date_day desc" }
     ),
     tags = ['streamline_realtime']
 ) }}
