@@ -7,10 +7,12 @@ models:
     columns:
       - name: BLOCKCHAIN
         description: "The blockchain where tx count is counted from."
-        tests: not_null
+        tests:
+          - not_null
       - name: METRIC
         description: "The metric name is always set as 'tx_count'"
-        tests: not_null
+        tests:
+          - not_null
       - name: AS_OF_DATE
         description: "The date as of which the tx count is counted."
         tests:
@@ -19,9 +21,9 @@ models:
               days_back: 2
       - name: TX_COUNT
         description: "The number of tx count for the given blockchain and as of date."
-        tests: not_null
+        tests:
+          - not_null
       - name: TX_COUNT_ID
         description: "The surrogate key for the tx count."
-        tests: unique
-        
-
+        tests:
+          - unique
