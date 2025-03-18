@@ -11,8 +11,8 @@ WITH source AS (
         date_day :: DATE AS as_of_date,
         blockchain,
         TRY_CAST(
-            DATA :data [0] :activeAddresses :: STRING AS INT
-        ) AS active_users,
+            DATA :data [0] :contractAddresses :: STRING AS INT
+        ) AS contract_count,
         _inserted_timestamp
     FROM
 
@@ -23,7 +23,7 @@ WITH source AS (
 {% endif %}
 WHERE
     metric = 'address'
-    AND active_users IS NOT NULL
+    AND contract_count IS NOT NULL
 
 {% if is_incremental() %}
 AND _inserted_timestamp > (
@@ -36,12 +36,12 @@ AND _inserted_timestamp > (
 )
 SELECT
     blockchain,
-    'active_users' AS metric,
-    'The reported number of activeAddresses as of the as_of_date' AS description,
+    'contract_count' AS metric,
+    'The reported number of contractAddresses as of the as_of_date' AS description,
     as_of_date,
-    active_users,
+    contract_count,
     _inserted_timestamp,
-    {{ dbt_utils.generate_surrogate_key(['blockchain', 'metric', 'as_of_date']) }} AS active_users_id,
+    {{ dbt_utils.generate_surrogate_key(['blockchain', 'metric', 'as_of_date']) }} AS contracts_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp
 FROM

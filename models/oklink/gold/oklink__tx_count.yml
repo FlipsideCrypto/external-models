@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: oklink__tx_count
-    description: "This model returns the tx count for each blockchain for the last 24 hours from the as of date."
+    description: "This model returns the number of transactions for each blockchain and block date"
       
     columns:
       - name: BLOCKCHAIN
@@ -11,9 +11,9 @@ models:
           - not_null
       - name: METRIC
         description: "The metric name is always set as 'tx_count'"
-        tests:
-          - not_null
-      - name: AS_OF_DATE
+      - name: DESCRIPTION
+        description: "The metric description"
+      - name: BLOCK_DATE
         description: "The date as of which the tx count is counted."
         tests:
           - not_null
