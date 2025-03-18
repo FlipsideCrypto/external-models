@@ -18,7 +18,8 @@ models:
         tests:
           - not_null
           - dbt_expectations.expect_row_values_to_have_recent_data:
-              days_back: 2
+              datepart: day
+              interval: 2
       - name: ACTIVE_USERS
         description: "The number of active users for the given blockchain and as of date."
         tests:

@@ -18,7 +18,8 @@ models:
         tests:
           - not_null
           - dbt_expectations.expect_row_values_to_have_recent_data:
-              days_back: 2
+              datepart: day
+              interval: 2
       - name: TX_COUNT
         description: "The number of tx count for the given blockchain and as of date."
         tests:
