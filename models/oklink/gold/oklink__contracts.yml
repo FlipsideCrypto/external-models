@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: oklink__contracts
+    description: "This model returns the total deployed contracts for each blockchain from as of date."
+      
+    columns:
+      - name: BLOCKCHAIN
+        description: "The blockchain where metric is from."
+        tests:
+          - not_null
+      - name: METRIC
+        description: "The metric name is always set as 'contract_count'"
+      - name: DESCRIPTION
+        description: "The metric description"
+      - name: AS_OF_DATE
+        description: "The date as of which the active users are counted."
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: CONTRACT_COUNT
+        description: "The number of deployed contracts for the given blockchain and as of date."
+        tests:
+          - not_null
+      - name: CONTRACTS_ID
+        description: "The surrogate key for the contracts"
+        tests:
+          - unique

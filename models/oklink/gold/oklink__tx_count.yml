@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: oklink__tx_count
+    description: "This model returns the number of transactions for each blockchain and block date"
+      
+    columns:
+      - name: BLOCKCHAIN
+        description: "The blockchain where tx count is counted from."
+        tests:
+          - not_null
+      - name: METRIC
+        description: "The metric name is always set as 'tx_count'"
+      - name: DESCRIPTION
+        description: "The metric description"
+      - name: BLOCK_DATE
+        description: "The date as of which the tx count is counted."
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: TX_COUNT
+        description: "The number of tx count for the given blockchain and as of date."
+        tests:
+          - not_null
+      - name: TX_COUNT_ID
+        description: "The surrogate key for the tx count."
+        tests:
+          - unique

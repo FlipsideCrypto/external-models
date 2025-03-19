@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: oklink__tam
+    description: "This model returns the total addressable market for each blockchain from as of date."
+      
+    columns:
+      - name: BLOCKCHAIN
+        description: "The blockchain where tam is counted from."
+        tests:
+          - not_null
+      - name: METRIC
+        description: "The metric name is always set as 'tam'"
+      - name: DESCRIPTION
+        description: "The metric description"
+      - name: AS_OF_DATE
+        description: "The date as of which the tam is counted."
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: TOTAL_ADDRESSES
+        description: "The number of addresses for the given blockchain and as of date."
+        tests:
+          - not_null
+      - name: TAM_ID
+        description: "The surrogate key for the tam"
+        tests:
+          - unique
