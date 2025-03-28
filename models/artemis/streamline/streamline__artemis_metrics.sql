@@ -111,3 +111,4 @@ FROM
         'dim_dates'
     ) }}
     CROSS JOIN metrics
+WHERE date_day >= '2025-01-01'

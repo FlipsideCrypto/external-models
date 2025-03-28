@@ -25,6 +25,14 @@ WITH metrics AS (
         TO_CHAR(date_day, 'YYYY-MM-DD') AS query_date
     FROM
         {{ ref("streamline__artemis_metrics") }}
+    LEFT JOIN {{ ref("streamline__oklink_complete") }}
+        b USING (
+            blockchain,
+            metric,
+            date_day
+        )
+    WHERE
+        b._invocation_id IS NULL
 )
 SELECT
     TO_NUMBER(to_char(date_day, 'YYYYMMDD')) AS date_day,
