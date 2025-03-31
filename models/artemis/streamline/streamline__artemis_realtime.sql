@@ -4,10 +4,10 @@
         func = 'streamline.udf_bulk_rest_api_v2',
         target = "{{this.schema}}.{{this.identifier}}",
         params ={ "external_table" :"artemis",
-        "sql_limit" :"100",
-        "producer_batch_size" :"100",
-        "worker_batch_size" :"100",
-        "async_concurrent_requests": "10",
+        "sql_limit" :"10",
+        "producer_batch_size" :"10",
+        "worker_batch_size" :"10",
+        "async_concurrent_requests": "1",
         "sql_source" :"{{this.identifier}}",
         "order_by_column": "date_day" }
     ),
@@ -22,10 +22,13 @@ WITH metrics AS (
         metric,
         url,
         endpoint,
-        TO_CHAR(date_day, 'YYYY-MM-DD') AS query_date
+        to_char(
+            date_day,
+            'YYYY-MM-DD'
+        ) AS query_date
     FROM
         {{ ref("streamline__artemis_metrics") }}
-    LEFT JOIN {{ ref("streamline__oklink_complete") }}
+        LEFT JOIN {{ ref("streamline__oklink_complete") }}
         b USING (
             blockchain,
             metric,
@@ -41,9 +44,7 @@ SELECT
     TO_NUMBER(to_char(SYSDATE() :: DATE, 'YYYYMMDD')) AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
-        url || endpoint || '?APIKey={Authentication}' || '&artemisIds=' || blockchain || '&startDate=' || query_date || '&endDate=' || query_date,
-        {},     
-        {},
+        url || endpoint || '?APIKey={Authentication}' || '&artemisIds=' || blockchain || '&startDate=' || query_date || '&endDate=' || query_date,{},{},
         'Vault/prod/external/artemis'
     ) AS request
 FROM
