@@ -11,7 +11,7 @@ SELECT
     date_day,
     blockchain,
     metric,
-    patition_key,
+    partition_key,
     _inserted_timestamp,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
