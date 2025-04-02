@@ -102,8 +102,6 @@ SELECT
     metric,
     endpoint,
     url,
-    TO_CHAR(date_day, 'YYYY-MM-DD') AS start_date,
-    TO_CHAR(date_day + INTERVAL '1 day', 'YYYY-MM-DD') AS end_date,
     description
 FROM
     {{ source(
@@ -111,4 +109,4 @@ FROM
         'dim_dates'
     ) }}
     CROSS JOIN metrics
-WHERE date_day >= '2025-01-01'
+WHERE date_day between '2025-01-01' and '2025-01-03'
