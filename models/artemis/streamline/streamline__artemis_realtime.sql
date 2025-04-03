@@ -21,7 +21,7 @@ WITH metrics AS (
         blockchain,
         metric,
         url,
-        endpoint,
+        endpoint
     FROM
         {{ ref("streamline__artemis_metrics") }}
         LEFT JOIN {{ ref("streamline__artemis_complete") }}
