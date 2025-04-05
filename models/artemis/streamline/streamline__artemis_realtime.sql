@@ -14,16 +14,35 @@
     tags = ['streamline_realtime']
 ) }}
 
-WITH metrics AS (
-
+WITH complete_data AS (
+    
+    SELECT
+        *,
+        MAX(date_day) OVER () AS max_complete_date
+    FROM
+        {{ ref("streamline__artemis_complete") }}
+),
+date_params AS (
+    SELECT
+        COALESCE(
+            DATEADD(day, 1, (SELECT MAX(max_complete_date) FROM complete_data)),
+            '2025-01-01'::DATE  -- Default backfill start date
+        ) AS min_date,
+        DATEADD(day, -1, CURRENT_DATE()) AS max_date
+    FROM
+        complete_data
+),
+metrics AS (
     SELECT
         date_day,
         blockchain,
         metric,
         url,
-        endpoint
+        endpoint,
+        TO_CHAR(p.min_date, 'YYYY-MM-DD') AS start_date,
+        TO_CHAR(p.max_date, 'YYYY-MM-DD') AS end_date
     FROM
-        {{ ref("streamline__artemis_metrics") }}
+        {{ ref("streamline__artemis_metrics") }} m
         LEFT JOIN {{ ref("streamline__artemis_complete") }}
         b USING (
             blockchain,

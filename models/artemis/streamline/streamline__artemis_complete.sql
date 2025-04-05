@@ -2,21 +2,20 @@
 -- depends_on: {{ ref("bronze__artemis_FR")}}
 {{ config (
     materialized = "incremental",
-    unique_key = [' date_day','blockchain','metric'],
+    unique_key = ['date_day'],
     merge_exclude_columns = ["inserted_timestamp"],
     tags = ['streamline_realtime']
 ) }}
 
 SELECT
     date_day,
-    blockchain,
-    metric,
+    data,
     partition_key,
     _inserted_timestamp,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
     file_name,
-    '{{ invocation_id }}' AS _invocation_id,
+    '{{ invocation_id }}' AS _invocation_id
 FROM
 
 {% if is_incremental() %}
@@ -25,7 +24,7 @@ FROM
     {{ ref('bronze__artemis_FR') }}
 {% endif %}
 WHERE
-    DATA :errors IS NULL
+    DATA IS NOT NULL
 
 {% if is_incremental() %}
 AND _inserted_timestamp >= (
@@ -36,9 +35,7 @@ AND _inserted_timestamp >= (
     {% endif %}
 
     qualify ROW_NUMBER() over (
-        PARTITION BY date_day,
-        blockchain,
-        metric
+        PARTITION BY date_day
         ORDER BY
             _inserted_timestamp DESC
     ) = 1
