@@ -16,11 +16,19 @@
 
 WITH complete_data AS (
     
+    {% if is_incremental() %}
     SELECT
-        *,
+        date_day,
+        _invocation_id,
         MAX(date_day) OVER () AS max_complete_date
     FROM
         {{ ref("streamline__artemis_complete") }}
+    {% else %}
+    SELECT
+        null as date_day,
+        null as _invocation_id,
+        '2025-01-01'::DATE AS max_complete_date
+    {% endif %}
 ),
 date_params AS (
     SELECT

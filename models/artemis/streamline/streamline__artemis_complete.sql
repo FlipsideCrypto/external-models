@@ -34,7 +34,7 @@ WITH bronze AS (
         {% endif %}
 ),
 extracted_dates AS (
-    SELECT DISTINCT
+    SELECT
         request_date_day,
         TO_DATE(date_vals.value:date::STRING) AS extracted_date,
         data,
@@ -49,7 +49,7 @@ extracted_dates AS (
     WHERE
         data:data:artemis_ids IS NOT NULL
 )
-SELECT DISTINCT
+SELECT
     extracted_date AS date_day,
     data,
     partition_key,
@@ -60,6 +60,7 @@ SELECT DISTINCT
     '{{ invocation_id }}' AS _invocation_id
 FROM
     extracted_dates
+
 QUALIFY ROW_NUMBER() OVER (
     PARTITION BY extracted_date
     ORDER BY
