@@ -28,47 +28,47 @@ date_params AS (
             DATEADD(day, 1, (SELECT MAX(max_complete_date) FROM complete_data)),
             '2025-01-01'::DATE  -- Default backfill start date
         ) AS min_date,
-        DATEADD(day, -1, CURRENT_DATE()) AS max_date
+        DATEADD(day, -2, SYSDATE()) AS max_date
     FROM
         complete_data
 ),
 metrics AS (
     SELECT
-        date_day,
-        blockchain,
-        metric,
-        url,
-        endpoint,
+        m.date_day,
+        m.blockchain,
+        m.metric,
+        m.url,
+        m.endpoint,
         TO_CHAR(p.min_date, 'YYYY-MM-DD') AS start_date,
         TO_CHAR(p.max_date, 'YYYY-MM-DD') AS end_date
     FROM
         {{ ref("streamline__artemis_metrics") }} m
-        LEFT JOIN {{ ref("streamline__artemis_complete") }}
-        b USING (
-            blockchain,
-            metric,
-            date_day
-        )
+        CROSS JOIN date_params p
+        LEFT JOIN complete_data c
+            ON m.date_day = c.date_day
     WHERE
-        b._invocation_id IS NULL
+        m.date_day between p.min_date and p.max_date
+        AND c._invocation_id IS NULL
 ),
 batch_data AS (
     SELECT 
-        date_day,
+        MIN(date_day) AS first_day,
         url,
         REPLACE(LISTAGG(DISTINCT endpoint, ',') WITHIN GROUP (ORDER BY endpoint), ',', '%2C') AS encoded_endpoints,
         REPLACE(LISTAGG(DISTINCT blockchain, ',') WITHIN GROUP (ORDER BY blockchain), ',', '%2C') AS encoded_ids,
+        MIN(start_date) AS min_start_date,
+        MAX(end_date) AS max_end_date
     FROM 
         metrics
     GROUP BY 
-        1,2
+        2
 )
 SELECT
-    TO_NUMBER(to_char(date_day, 'YYYYMMDD')) AS date_day,
-    TO_NUMBER(to_char(SYSDATE() :: DATE, 'YYYYMMDD')) AS partition_key,
+    TO_NUMBER(TO_CHAR(first_day, 'YYYYMMDD')) AS DATE_DAY,
+    TO_NUMBER(TO_CHAR(SYSDATE(), 'YYYYMMDD')) AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
-        url || encoded_endpoints || '?APIKey={Authentication}' || '&artemisIds=' || encoded_ids || '&startDate=' || date_day || '&endDate=' || date_day, {}, {},
+        url || encoded_endpoints || '?APIKey={Authentication}' || '&artemisIds=' || encoded_ids || '&startDate=' || min_start_date || '&endDate=' || max_end_date, {}, {},
         'Vault/prod/external/artemis'
     ) AS request
 FROM

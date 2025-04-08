@@ -7,8 +7,50 @@
     tags = ['streamline_realtime']
 ) }}
 
-SELECT
-    date_day,
+WITH bronze AS (
+    
+    SELECT
+        date_day AS request_date_day,
+        data,
+        partition_key,
+        _inserted_timestamp,
+        file_name
+    FROM
+
+    {% if is_incremental() %}
+    {{ ref('bronze__artemis') }}
+    {% else %}
+        {{ ref('bronze__artemis_FR') }}
+    {% endif %}
+    WHERE
+        DATA IS NOT NULL
+
+    {% if is_incremental() %}
+    AND _inserted_timestamp >= (
+        SELECT
+            COALESCE(MAX(_INSERTED_TIMESTAMP), '1970-01-01' :: DATE) max_INSERTED_TIMESTAMP
+        FROM
+            {{ this }})
+        {% endif %}
+),
+extracted_dates AS (
+    SELECT DISTINCT
+        request_date_day,
+        TO_DATE(date_vals.value:date::STRING) AS extracted_date,
+        data,
+        partition_key,
+        _inserted_timestamp,
+        file_name
+    FROM
+        bronze,
+        LATERAL FLATTEN(INPUT => data:data:artemis_ids) AS blockchain_flat,
+        LATERAL FLATTEN(INPUT => blockchain_flat.value) AS metric_flat,
+        LATERAL FLATTEN(INPUT => metric_flat.value) AS date_vals
+    WHERE
+        data:data:artemis_ids IS NOT NULL
+)
+SELECT DISTINCT
+    extracted_date AS date_day,
     data,
     partition_key,
     _inserted_timestamp,
@@ -17,25 +59,9 @@ SELECT
     file_name,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-
-{% if is_incremental() %}
-{{ ref('bronze__artemis') }}
-{% else %}
-    {{ ref('bronze__artemis_FR') }}
-{% endif %}
-WHERE
-    DATA IS NOT NULL
-
-{% if is_incremental() %}
-AND _inserted_timestamp >= (
-    SELECT
-        COALESCE(MAX(_INSERTED_TIMESTAMP), '1970-01-01' :: DATE) max_INSERTED_TIMESTAMP
-    FROM
-        {{ this }})
-    {% endif %}
-
-    qualify ROW_NUMBER() over (
-        PARTITION BY date_day
-        ORDER BY
-            _inserted_timestamp DESC
-    ) = 1
+    extracted_dates
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY extracted_date
+    ORDER BY
+        _inserted_timestamp DESC
+) = 1
