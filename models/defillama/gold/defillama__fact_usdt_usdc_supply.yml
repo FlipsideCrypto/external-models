@@ -1,0 +1,42 @@
+version: 2
+models:
+  - name: defillama__fact_usdt_usdc_supply
+    description: "Daily USDT and USDC supply metrics across different blockchains"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - defillama_fact_usdt_usdc_supply_id
+    
+    columns:
+      - name: date
+        description: "Date of the supply data point"
+
+      - name: stablecoin_id
+        description: "Unique identifier for the stablecoin from DefiLlama"
+
+      - name: stablecoin
+        description: "Name of the stablecoin"
+
+      - name: symbol
+        description: "Token symbol (USDC or USDT)"
+          
+      - name: chain
+        description: "Blockchain network where the stablecoin is deployed"
+
+      - name: total_bridged_usd
+        description: "Total value of bridged stablecoins in USD"
+
+      - name: total_circulating
+        description: "Total circulating supply of the stablecoin"
+
+      - name: total_circulating_usd
+        description: "Total circulating supply in USD value"
+
+      - name: defillama_fact_usdt_usdc_supply_id
+        description: "Unique identifier for this record"
+
+      - name: inserted_timestamp
+        description: "Timestamp when the record was inserted"
+
+      - name: modified_timestamp
+        description: "Timestamp when the record was last modified"

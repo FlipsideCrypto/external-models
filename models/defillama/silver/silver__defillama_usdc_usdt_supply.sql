@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = ['chain', 'date', 'stablecoin_id'],
+    unique_key = 'defillama_usdc_usdt_supply_id',
     tags = ['defillama']
 ) }}
 
@@ -39,21 +39,27 @@ flattened_supply AS (
 
 )
 SELECT
-    chain,
-    stablecoin_id,
-    date,
-    total_bridged_usd,
-    total_circulating,
-    total_circulating_usd,
-    _inserted_timestamp,
+    a.date,
+    a.stablecoin_id,
+    b.stablecoin,
+    b.symbol,
+    a.chain,
+    a.total_bridged_usd,
+    a.total_circulating,
+    a.total_circulating_usd,
+    a._inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
-        ['chain','date','stablecoin_id']
+        ['chain','date','a.stablecoin_id']
     ) }} AS defillama_usdc_usdt_supply_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-    flattened_supply
+    flattened_supply a
+LEFT JOIN
+    {{ ref('bronze__defillama_stablecoins') }} b
+ON
+    a.stablecoin_id = b.stablecoin_id
 
 {% if is_incremental() %}
 WHERE
