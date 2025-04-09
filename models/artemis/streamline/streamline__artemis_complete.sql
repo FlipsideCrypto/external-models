@@ -50,7 +50,6 @@ extracted_dates AS (
         data:data:artemis_ids IS NOT NULL
 )
 SELECT
-    extracted_date AS date_day,
     data,
     partition_key,
     _inserted_timestamp,
