@@ -19,6 +19,7 @@ FROM
     {{ ref('silver__artemis') }}
 WHERE
     metric = 'daily_txns'
+    AND metric_value IS NOT NULL
 
     {% if is_incremental() %}
     AND _inserted_timestamp >= (

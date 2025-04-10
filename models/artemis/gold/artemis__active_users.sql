@@ -19,6 +19,8 @@ FROM
     {{ ref('silver__artemis') }}
 WHERE
     metric = 'dau'
+    AND metric_value IS NOT NULL
+    
     {% if is_incremental() %}
     AND _inserted_timestamp >= (
         SELECT COALESCE(MAX(_inserted_timestamp), '1970-01-01'::TIMESTAMP_NTZ)
