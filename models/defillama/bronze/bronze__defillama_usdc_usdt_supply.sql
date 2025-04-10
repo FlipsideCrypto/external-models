@@ -107,6 +107,17 @@ usdt_supply AS (
         chains C
     WHERE
         bytes > 2
+{% if is_incremental() %}
+AND
+    chain IN (
+        SELECT
+            DISTINCT chain
+        FROM
+            {{ this }}
+    where stablecoin_id = 1
+    )
+{% endif %}
+
 ),
 usdc_supply AS (
     SELECT
@@ -124,6 +135,17 @@ usdc_supply AS (
         chains C
     WHERE
         bytes > 2
+{% if is_incremental() %}
+AND
+    chain IN (
+        SELECT
+            DISTINCT chain
+        FROM
+            {{ this }}
+    where stablecoin_id =2
+    )
+{% endif %}
+
 )
 SELECT
     chain,
