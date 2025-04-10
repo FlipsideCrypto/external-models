@@ -7,7 +7,11 @@
 WITH usdc_supply AS (
 
     SELECT
-        *
+        chain,
+        stablecoin_id,
+        read,
+        bytes,
+        _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_usdc_usdt_supply') }}
 {% if is_incremental() %}

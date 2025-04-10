@@ -5,38 +5,38 @@ models:
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
-            - defillama_fact_usdt_usdc_supply_id
+            - DEFILLAMA_FACT_USDT_USDC_SUPPLY_ID
     
     columns:
-      - name: date
+      - name: DATE
         description: "Date of the supply data point"
 
-      - name: stablecoin_id
+      - name: STABLECOIN_ID
         description: "Unique identifier for the stablecoin from DefiLlama"
 
-      - name: stablecoin
+      - name: STABLECOIN
         description: "Name of the stablecoin"
 
-      - name: symbol
+      - name: SYMBOL
         description: "Token symbol (USDC or USDT)"
           
-      - name: chain
+      - name: CHAIN
         description: "Blockchain network where the stablecoin is deployed"
 
-      - name: total_bridged_usd
+      - name: TOTAL_BRIDGED_USD
         description: "Total value of bridged stablecoins in USD"
 
-      - name: total_circulating
+      - name: TOTAL_CIRCULATING
         description: "Total circulating supply of the stablecoin"
 
-      - name: total_circulating_usd
+      - name: TOTAL_CIRCULATING_USD
         description: "Total circulating supply in USD value"
 
-      - name: defillama_fact_usdt_usdc_supply_id
+      - name: DEFILLAMA_FACT_USDT_USDC_SUPPLY_ID
         description: "Unique identifier for this record"
 
-      - name: inserted_timestamp
+      - name: INSERTED_TIMESTAMP
         description: "Timestamp when the record was inserted"
 
-      - name: modified_timestamp
+      - name: MODIFIED_TIMESTAMP
         description: "Timestamp when the record was last modified"

@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'protocol_id',
+    unique_key = ['chain', 'stablecoin_id','_inserted_timestamp'],
     tags = ['defillama']
 ) }}
 
@@ -10,7 +10,6 @@ WITH chains AS (
         DISTINCT REPLACE(LOWER(chain), ' ', '-') AS chain
     FROM
         {{ ref('bronze__defillama_chains') }}
-
 ),
 usdt_supply AS (
     SELECT
@@ -19,6 +18,7 @@ usdt_supply AS (
         live.udf_api(
             'GET',
             'https://pro-api.llama.fi/{api_key}/stablecoins/stablecoincharts/' || C.chain || '?stablecoin=1',{},{},
+            --usdt
             'Vault/prod/external/defillama'
         ) AS READ,
         READ :bytes :: INT AS bytes,
@@ -34,7 +34,8 @@ usdc_supply AS (
         2 AS stablecoin_id,
         live.udf_api(
             'GET',
-            'https://pro-api.llama.fi/{api_key}/stablecoins/stablecoincharts/' || C.chain || '?stablecoin=1',{},{},
+            'https://pro-api.llama.fi/{api_key}/stablecoins/stablecoincharts/' || C.chain || '?stablecoin=2',{},{},
+            --usdc
             'Vault/prod/external/defillama'
         ) AS READ,
         READ :bytes :: INT AS bytes,
@@ -45,11 +46,19 @@ usdc_supply AS (
         bytes > 2
 )
 SELECT
-    *
+    chain,
+    stablecoin_id,
+    read,
+    bytes,
+    _inserted_timestamp
 FROM
     usdt_supply
 UNION ALL
 SELECT
-    *
+    chain,
+    stablecoin_id,
+    read,
+    bytes,
+    _inserted_timestamp
 FROM
     usdc_supply
