@@ -4,7 +4,7 @@
     tags = ['defillama']
 ) }}
 
-WITH usdc_supply AS (
+WITH base AS (
 
     SELECT
         chain,
@@ -36,7 +36,7 @@ flattened_supply AS (
         VALUE :totalCirculatingUSD :peggedUSD :: FLOAT AS total_circulating_usd,
         _inserted_timestamp
     FROM
-        usdc_supply,
+        base,
         LATERAL FLATTEN(
             input => READ :data
         )
