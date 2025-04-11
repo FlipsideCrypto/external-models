@@ -4,9 +4,10 @@
     materialized = "incremental",
     unique_key = ['metric_date', 'blockchain', 'metric'],
     tags = ['silver', 'artemis']
-)}}
+) }}
 
 WITH source_data AS (
+
     SELECT
         raw_data,
         partition_key,
@@ -15,18 +16,19 @@ WITH source_data AS (
     FROM
 
 {% if is_incremental() %}
-    {{ ref('bronze__artemis') }}
+{{ ref('bronze__artemis') }}
 {% else %}
     {{ ref('bronze__artemis_FR') }}
 {% endif %}
 
 {% if is_incremental() %}
-
-WHERE _inserted_timestamp >= (
-    SELECT
-        MAX(_inserted_timestamp)
-    FROM {{ this }}
-)
+WHERE
+    _inserted_timestamp >= (
+        SELECT
+            MAX(_inserted_timestamp)
+        FROM
+            {{ this }}
+    )
 {% endif %}
 ),
 parsed_data AS (
@@ -34,17 +36,23 @@ parsed_data AS (
         s._inserted_timestamp,
         s.partition_key,
         s.file_name,
-        blockchain_flat.KEY AS blockchain,
-        metric_flat.KEY AS metric,
-        metrics.value:date::STRING AS metric_date,
-        metrics.value:val AS metric_value
+        blockchain_flat.key AS blockchain,
+        metric_flat.key AS metric,
+        metrics.value :date :: STRING AS metric_date,
+        metrics.value :val AS metric_value
     FROM
         source_data s,
-        LATERAL FLATTEN(INPUT => raw_data:data:artemis_ids) AS blockchain_flat,
-        LATERAL FLATTEN(INPUT => blockchain_flat.value) AS metric_flat,
-        LATERAL FLATTEN(INPUT => metric_flat.value) AS metrics
+        LATERAL FLATTEN(
+            input => raw_data :data :artemis_ids
+        ) AS blockchain_flat,
+        LATERAL FLATTEN(
+            input => blockchain_flat.value
+        ) AS metric_flat,
+        LATERAL FLATTEN(
+            input => metric_flat.value
+        ) AS metrics
     WHERE
-        raw_data:data:artemis_ids IS NOT NULL
+        raw_data :data :artemis_ids IS NOT NULL
 )
 SELECT
     TO_DATE(metric_date) AS metric_date,
@@ -59,4 +67,6 @@ SELECT
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-    parsed_data
+    parsed_data qualify(ROW_NUMBER() over (PARTITION BY metric_date, blockchain, metric
+ORDER BY
+    _inserted_timestamp DESC) = 1)
