@@ -9,11 +9,12 @@ WITH base AS (
     SELECT
         chain,
         stablecoin_id,
-        read,
+        READ,
         bytes,
         _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_usdc_usdt_supply') }}
+
 {% if is_incremental() %}
 WHERE
     _inserted_timestamp > (
@@ -40,18 +41,17 @@ flattened_supply AS (
         LATERAL FLATTEN(
             input => READ :data
         )
-
 )
 SELECT
-    a.date,
-    a.stablecoin_id,
+    A.date,
+    A.stablecoin_id,
     b.stablecoin,
     b.symbol,
-    a.chain,
-    a.total_bridged_usd,
-    a.total_circulating,
-    a.total_circulating_usd,
-    a._inserted_timestamp,
+    A.chain,
+    A.total_bridged_usd,
+    A.total_circulating,
+    A.total_circulating_usd,
+    A._inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['chain','date','a.stablecoin_id']
     ) }} AS defillama_usdc_usdt_supply_id,
@@ -59,18 +59,24 @@ SELECT
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-    flattened_supply a
-LEFT JOIN
-    {{ ref('bronze__defillama_stablecoins') }} b
-ON
-    a.stablecoin_id = b.stablecoin_id
-
+    flattened_supply A
+    LEFT JOIN {{ ref('bronze__defillama_stablecoins') }}
+    b
+    ON A.stablecoin_id = b.stablecoin_id 
 {% if is_incremental() %}
 WHERE
-    date > (
+    DATE > (
         SELECT
-            MAX(date) :: DATE
+            MAX(DATE) :: DATE
         FROM
             {{ this }}
     )
 {% endif %}
+    qualify ROW_NUMBER() over (
+        PARTITION BY A.chain,
+        A.date,
+        A.stablecoin_id
+        ORDER BY
+            A._inserted_timestamp DESC
+    ) = 1
+

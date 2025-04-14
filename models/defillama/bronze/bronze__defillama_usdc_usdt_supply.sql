@@ -5,6 +5,7 @@
 ) }}
 
 WITH usdt_supply AS (
+
     SELECT
         C.chain,
         1 AS stablecoin_id,
@@ -17,9 +18,9 @@ WITH usdt_supply AS (
         READ :bytes :: INT AS bytes,
         SYSDATE() AS _inserted_timestamp
     FROM
-        {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} c
-    where stablecoin_id = 1
-
+        {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} C
+    WHERE
+        stablecoin_id = 1
 ),
 usdc_supply AS (
     SELECT
@@ -34,14 +35,14 @@ usdc_supply AS (
         READ :bytes :: INT AS bytes,
         SYSDATE() AS _inserted_timestamp
     FROM
-        {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} c
-    where stablecoin_id = 2
-
+        {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} C
+    WHERE
+        stablecoin_id = 2
 )
 SELECT
     chain,
     stablecoin_id,
-    read,
+    READ,
     bytes,
     _inserted_timestamp
 FROM
@@ -50,7 +51,7 @@ UNION ALL
 SELECT
     chain,
     stablecoin_id,
-    read,
+    READ,
     bytes,
     _inserted_timestamp
 FROM
