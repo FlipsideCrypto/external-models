@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: silver__defillama_usdc_usdt_supply
+  - name: silver__defillama_usdt_usdc_supply
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:

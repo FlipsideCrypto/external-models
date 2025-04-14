@@ -25,4 +25,4 @@ SELECT
     inserted_timestamp,
     modified_timestamp
 FROM
-    {{ ref('silver__defillama_usdc_usdt_supply') }} f
+    {{ ref('silver__defillama_usdt_usdc_supply') }} f

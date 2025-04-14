@@ -105,10 +105,8 @@ usdt_supply AS (
         SYSDATE() AS _inserted_timestamp
     FROM
         chains C
-    WHERE
-        bytes > 2
 {% if is_incremental() %}
-AND
+    WHERE
     chain IN (
         SELECT
             DISTINCT chain
@@ -133,10 +131,8 @@ usdc_supply AS (
         SYSDATE() AS _inserted_timestamp
     FROM
         chains C
-    WHERE
-        bytes > 2
 {% if is_incremental() %}
-AND
+    WHERE
     chain IN (
         SELECT
             DISTINCT chain
