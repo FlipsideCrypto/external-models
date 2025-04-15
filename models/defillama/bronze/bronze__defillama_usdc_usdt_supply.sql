@@ -15,7 +15,6 @@ WITH usdt_supply AS (
             --usdt
             'Vault/prod/external/defillama'
         ) AS READ,
-        READ :bytes :: INT AS bytes,
         SYSDATE() AS _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} C
@@ -32,7 +31,6 @@ usdc_supply AS (
             --usdc
             'Vault/prod/external/defillama'
         ) AS READ,
-        READ :bytes :: INT AS bytes,
         SYSDATE() AS _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_usdt_usdc_chain_seed') }} C
