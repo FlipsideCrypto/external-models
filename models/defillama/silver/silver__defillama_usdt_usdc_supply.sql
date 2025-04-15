@@ -11,7 +11,6 @@ WITH base AS (
         chain,
         stablecoin_id,
         READ,
-        bytes,
         _inserted_timestamp
     FROM
         {{ ref('bronze__defillama_usdc_usdt_supply') }}
