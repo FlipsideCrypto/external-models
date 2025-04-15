@@ -1,7 +1,7 @@
 version: 2
 models:
   - name: defillama__fact_usdt_usdc_supply
-    description: "Daily USDT and USDC supply metrics across different blockchains"
+    description: Daily USDT and USDC supply metrics across different blockchains
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
@@ -9,34 +9,34 @@ models:
     
     columns:
       - name: DATE
-        description: "Date of the supply data point"
+        description: Date of the supply data point
 
       - name: STABLECOIN_ID
-        description: "Unique identifier for the stablecoin from DefiLlama"
+        description: Unique identifier for the stablecoin from Defillama
 
       - name: STABLECOIN
-        description: "Name of the stablecoin"
+        description: Name of the stablecoin
 
       - name: SYMBOL
-        description: "Token symbol (USDC or USDT)"
+        description: Token symbol (USDC or USDT)
           
       - name: CHAIN
-        description: "Blockchain network where the stablecoin is deployed"
+        description: Blockchain network where the stablecoin is deployed
 
       - name: TOTAL_BRIDGED_USD
-        description: "Total value of bridged stablecoins in USD"
+        description: Total value of bridged stablecoins in USD
 
       - name: TOTAL_CIRCULATING
-        description: "Total circulating supply of the stablecoin"
+        description: Total circulating supply of the stablecoin
 
       - name: TOTAL_CIRCULATING_USD
-        description: "Total circulating supply in USD value"
+        description: Total circulating supply in USD value
 
       - name: DEFILLAMA_FACT_USDT_USDC_SUPPLY_ID
-        description: "Unique identifier for this record"
+        description: Unique identifier for this record
 
       - name: INSERTED_TIMESTAMP
-        description: "Timestamp when the record was inserted"
+        description: Timestamp when the record was inserted
 
       - name: MODIFIED_TIMESTAMP
-        description: "Timestamp when the record was last modified"
+        description: Timestamp when the record was last modified
