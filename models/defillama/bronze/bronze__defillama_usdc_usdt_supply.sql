@@ -41,7 +41,6 @@ SELECT
     chain,
     stablecoin_id,
     READ,
-    bytes,
     _inserted_timestamp
 FROM
     usdt_supply
@@ -50,7 +49,6 @@ SELECT
     chain,
     stablecoin_id,
     READ,
-    bytes,
     _inserted_timestamp
 FROM
     usdc_supply
