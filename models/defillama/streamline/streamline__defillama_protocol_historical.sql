@@ -18,31 +18,39 @@ WITH base AS (
     SELECT
         protocol_slug,
         protocol_id,
+        'https://pro-api.llama.fi/{api_key}/api/hourly/' || protocol_slug as url,
         row_num
     FROM
         {{ ref('bronze__defillama_protocols') }}
     WHERE
-        protocol_id NOT IN (
+        {# protocol_id NOT IN (
             SELECT
                 protocol_id
             FROM
                 {{ ref('streamline__defillama_protocol_historical_complete') }}
             WHERE
                 protocol_id IS NOT NULL
-        )
+        ) #}
+        protocol_id = 3
     ORDER BY
         row_num ASC
     LIMIT 5
 )
 SELECT
     protocol_id,
+    url,
     ROUND(
         protocol_id,
         -1
     ) AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
-        'https://pro-api.llama.fi/{api_key}/api/hourly/' || protocol_slug,{},{},
+        url,
+        OBJECT_CONSTRUCT(
+            'Content-Type', 'application/json',
+            'Accept', 'application/json'
+        ),
+        {},
         'Vault/prod/external/defillama'
     ) AS request
 FROM
