@@ -8,23 +8,6 @@ sources:
       - name: bitquery
       - name: oklink
       - name: artemis
-  - name: tokenflow_starknet_l1_data
-    database: tokenflow_starknet
-    schema: l1_data
-    tables:
-      - name: blocks
-      - name: contracts
-      - name: messages
-      - name: storage_diffs
-  - name: tokenflow_starknet_decoded
-    database: tokenflow_starknet
-    schema: decoded
-    tables:
-      - name: blocks
-      - name: events
-      - name: messages
-      - name: traces
-      - name: transactions
   - name: tokenflow_eth
     database: flipside_prod_db
     schema: tokenflow_eth
