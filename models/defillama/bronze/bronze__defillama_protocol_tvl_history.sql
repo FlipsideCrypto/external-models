@@ -1,3 +1,5 @@
+  -- depends_on: {{ ref('bronze__defillama_protocol_historical') }}
+  -- depends_on: {{ ref('bronze__defillama_protocol_historical_FR') }}
 {{ config(
     materialized = 'incremental',
     unique_key = ['protocol_id', '_inserted_timestamp'],

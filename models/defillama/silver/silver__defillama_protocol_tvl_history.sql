@@ -16,6 +16,15 @@ WITH lat_flat AS (
     FROM
         {{ ref('bronze__defillama_protocol_tvl_history') }},
         LATERAL FLATTEN (response) AS r
+{% if is_incremental() %}
+WHERE
+    _inserted_timestamp >= (
+        SELECT
+            max(_inserted_timestamp)
+        FROM
+            {{ this }}
+        )
+{% endif %}
 ),
 lat_flat2 AS (
     SELECT

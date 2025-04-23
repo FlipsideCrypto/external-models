@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = ['defillama_tvl_id'],
-    cluster_by = ['chain'],
+    cluster_by = ['timestamp', 'protocol_id'],
     tags = ['defillama']
 ) }}
 

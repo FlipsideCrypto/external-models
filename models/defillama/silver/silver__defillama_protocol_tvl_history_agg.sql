@@ -1,107 +1,83 @@
 {{ config(
   materialized = 'incremental',
-  unique_key = ['date', 'protocol_id', 'chain'],
-  cluster_by = ['date', 'protocol_id'],
+  unique_key = ['defillama_tvl_id'],
+  cluster_by = ['timestamp', 'protocol_id'],
   tags = ['defillama']
 ) }}
 
-WITH daily_close AS (
-
+WITH daily_tvl AS (
   SELECT
-    DATE_TRUNC(
-      'day',
-      DATE
-    ) AS DATE,
+    date,
     protocol_id,
     chain,
-    LAST_VALUE(total_liquidity_usd) over (PARTITION BY DATE_TRUNC('day', DATE), protocol_id, chain
-  ORDER BY
-    DATE rows BETWEEN unbounded preceding
-    AND unbounded following) AS chain_tvl,
+    total_liquidity_usd AS chain_tvl,
     _inserted_timestamp
   FROM
     {{ ref('silver__defillama_protocol_tvl_history') }}
 
-{% if is_incremental() %}
-WHERE
-  DATE >= (
-    SELECT
-      DATE_TRUNC('day', MAX(DATE))
-    FROM
-      {{ this }})
-    {% endif %}
+  {% if is_incremental() %}
+  WHERE
+    _inserted_timestamp >= (
+      SELECT
+        MAX(_inserted_timestamp)
+      FROM
+        {{ this }})
+  {% endif %}
 
-    qualify ROW_NUMBER() over (PARTITION BY DATE_TRUNC('day', DATE), protocol_id, chain
-    ORDER BY
-      DATE DESC) = 1
-  ),
-  daily_tvl AS (
-    SELECT
-      DATE,
-      protocol_id,
-      chain,
-      chain_tvl,
-      LAG(
-        chain_tvl,
-        1
-      ) over (
-        PARTITION BY protocol_id,
-        chain
-        ORDER BY
-          DATE
-      ) AS chain_tvl_prev_day,
-      LAG(
-        chain_tvl,
-        7
-      ) over (
-        PARTITION BY protocol_id,
-        chain
-        ORDER BY
-          DATE
-      ) AS chain_tvl_prev_week,
-      LAG(
-        chain_tvl,
-        30
-      ) over (
-        PARTITION BY protocol_id,
-        chain
-        ORDER BY
-          DATE
-      ) AS chain_tvl_prev_month,
-      _inserted_timestamp
-    FROM
-      daily_close
-  )
+  -- Since data is already at date level, we just need to take the latest record per date/protocol/chain
+  QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY date, protocol_id, chain
+    ORDER BY _inserted_timestamp DESC
+  ) = 1
+),
+
+daily_tvl_with_lags AS (
+  SELECT
+    date as timestamp,
+    protocol_id,
+    chain,
+    chain_tvl,
+    LAG(chain_tvl, 1) OVER (
+      PARTITION BY protocol_id, chain
+      ORDER BY date
+    ) AS chain_tvl_prev_day,
+    LAG(chain_tvl, 7) OVER (
+      PARTITION BY protocol_id, chain
+      ORDER BY date
+    ) AS chain_tvl_prev_week,
+    LAG(chain_tvl, 30) OVER (
+      PARTITION BY protocol_id, chain
+      ORDER BY date
+    ) AS chain_tvl_prev_month,
+    _inserted_timestamp
+  FROM
+    daily_tvl
+)
+
 SELECT
-  d.date,
-  d.chain,
+  d.timestamp,
   d.protocol_id,
   p.category,
   p.protocol,
   p2.market_cap,
   p.symbol,
+  d.chain,
   d.chain_tvl,
   d.chain_tvl_prev_day,
   d.chain_tvl_prev_week,
   d.chain_tvl_prev_month,
-  d._inserted_timestamp
+  d._inserted_timestamp,
+  {{ dbt_utils.generate_surrogate_key(
+      ['d.protocol_id','d.chain','d.timestamp']
+  ) }} AS protocol_tvl_history_agg_id,
+  SYSDATE() AS inserted_timestamp,
+  SYSDATE() AS modified_timestamp,
+  '{{ invocation_id }}' AS _invocation_id
 FROM
-  daily_tvl d
-  LEFT JOIN {{ ref('bronze__defillama_protocols') }}
-  p
-  ON p.protocol_id = d.protocol_id
-  LEFT JOIN {{ ref('silver__defillama_protocol_tvl') }}
-  p2
-  ON p2.protocol_id = d.protocol_id
-  AND p2.chain = d.chain
-  AND p2.timestamp = d.date
-
-{% if is_incremental() %}
-WHERE
-  DATE > (
-    SELECT
-      MAX(DATE)
-    FROM
-      {{ this }}
-  )
-{% endif %}
+  daily_tvl_with_lags d
+  LEFT JOIN {{ ref('bronze__defillama_protocols') }} p
+    ON p.protocol_id = d.protocol_id
+  LEFT JOIN {{ ref('silver__defillama_protocol_tvl') }} p2
+    ON p2.protocol_id = d.protocol_id
+    AND p2.chain = d.chain
+    AND p2.timestamp = d.timestamp
