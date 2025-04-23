@@ -4,9 +4,9 @@
         func = 'streamline.udf_bulk_rest_api_v2',
         target = "{{this.schema}}.{{this.identifier}}",
         params ={ "external_table" :"defillama_protocol_historical",
-        "sql_limit" :"10",
-        "producer_batch_size" :"1",
-        "worker_batch_size" :"1",
+        "sql_limit" :"100",
+        "producer_batch_size" :"100",
+        "worker_batch_size" :"100",
         "async_concurrent_requests" :"1",
         "sql_source" :"{{this.identifier}}" }
     ),
@@ -18,27 +18,25 @@ WITH base AS (
     SELECT
         protocol_slug,
         protocol_id,
-        'https://pro-api.llama.fi/{api_key}/api/hourly/' || protocol_slug as url,
+        'https://pro-api.llama.fi/{api_key}/api/protocol/' || protocol_slug as url,
         row_num
     FROM
         {{ ref('bronze__defillama_protocols') }}
     WHERE
-        {# protocol_id NOT IN (
+        protocol_id NOT IN (
             SELECT
                 protocol_id
             FROM
                 {{ ref('streamline__defillama_protocol_historical_complete') }}
             WHERE
                 protocol_id IS NOT NULL
-        ) #}
-        protocol_id = 3
+        )
     ORDER BY
         row_num ASC
-    LIMIT 5
+    LIMIT 100
 )
 SELECT
     protocol_id,
-    url,
     ROUND(
         protocol_id,
         -1
@@ -47,8 +45,8 @@ SELECT
         'GET',
         url,
         OBJECT_CONSTRUCT(
-            'Content-Type', 'application/json',
-            'Accept', 'application/json'
+            'Content-Type', 'text/plain',
+            'Accept', 'text/plain'
         ),
         {},
         'Vault/prod/external/defillama'
