@@ -1,6 +1,6 @@
 {{ config(
   materialized = 'incremental',
-  unique_key = ['defillama_tvl_id'],
+  unique_key = ['protocol_tvl_history_agg_id'],
   cluster_by = ['timestamp', 'protocol_id'],
   tags = ['defillama']
 ) }}
@@ -33,7 +33,7 @@ WITH daily_tvl AS (
 
 daily_tvl_with_lags AS (
   SELECT
-    date as timestamp,
+    date::DATE as timestamp,
     protocol_id,
     chain,
     chain_tvl,
@@ -52,15 +52,33 @@ daily_tvl_with_lags AS (
     _inserted_timestamp
   FROM
     daily_tvl
+),
+
+protocol_total_tvl AS (
+  SELECT
+    timestamp,
+    protocol_id,
+    SUM(chain_tvl) AS tvl,
+    SUM(chain_tvl_prev_day) AS tvl_prev_day,
+    SUM(chain_tvl_prev_week) AS tvl_prev_week,
+    SUM(chain_tvl_prev_month) AS tvl_prev_month
+  FROM
+    daily_tvl_with_lags
+  GROUP BY
+    timestamp, protocol_id
 )
 
 SELECT
   d.timestamp,
-  d.protocol_id,
+  p.protocol_id,
   p.category,
   p.protocol,
-  p2.market_cap,
+  NULL AS market_cap,
   p.symbol,
+  pt.tvl,
+  pt.tvl_prev_day,
+  pt.tvl_prev_week,
+  pt.tvl_prev_month,
   d.chain,
   d.chain_tvl,
   d.chain_tvl_prev_day,
@@ -77,7 +95,10 @@ FROM
   daily_tvl_with_lags d
   LEFT JOIN {{ ref('bronze__defillama_protocols') }} p
     ON p.protocol_id = d.protocol_id
-  LEFT JOIN {{ ref('silver__defillama_protocol_tvl') }} p2
-    ON p2.protocol_id = d.protocol_id
-    AND p2.chain = d.chain
-    AND p2.timestamp = d.timestamp
+  LEFT JOIN protocol_total_tvl pt
+    ON pt.protocol_id = d.protocol_id
+    AND pt.timestamp = d.timestamp
+QUALIFY ROW_NUMBER() OVER (
+  PARTITION BY d.timestamp, d.protocol_id, d.chain
+  ORDER BY d._inserted_timestamp DESC
+) = 1

@@ -56,10 +56,14 @@ SELECT
     total_liquidity_usd :: INT AS total_liquidity_usd,
     {{ dbt_utils.generate_surrogate_key(
         ['protocol_id','chain','date']
-    ) }} AS silver_defillama_protocol_tvl_history_id,
+    ) }} AS defillama_protocol_tvl_history_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
     _inserted_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
     lat_flat2
+qualify(ROW_NUMBER() over (PARTITION BY protocol_id, chain, date
+ORDER BY
+    _inserted_timestamp DESC
+)) = 1
