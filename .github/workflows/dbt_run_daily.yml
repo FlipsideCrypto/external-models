@@ -45,3 +45,10 @@ jobs:
       - name: Run DBT Jobs
         run: |
           dbt run -m external_models,tag:defillama external_models,tag:deepnftvalue external_models,tag:core external_models,tag:blast external_models,tag:polymarket external_models,tag:bitquery external_models,tag:oklink external_models,tag:artemis --exclude models/defillama/bronze/bronze__defillama_stablecoin_supply.sql+
+
+  notify-failure:
+    needs: [run_dbt_jobs]
+    if: failure()
+    uses: ./.github/workflows/slack_notify.yml
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
