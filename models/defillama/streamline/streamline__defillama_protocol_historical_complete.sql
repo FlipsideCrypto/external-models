@@ -17,7 +17,7 @@ WITH complete_data AS (
 {% if is_incremental() %}
 {{ ref('bronze__defillama_protocol_historical') }}
 WHERE
-    _inserted_timestamp >= (
+    _inserted_timestamp > (
         SELECT
             max(_inserted_timestamp)
         FROM

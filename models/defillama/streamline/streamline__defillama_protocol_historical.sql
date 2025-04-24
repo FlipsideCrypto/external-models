@@ -37,10 +37,7 @@ WITH base AS (
 )
 SELECT
     protocol_id,
-    ROUND(
-        protocol_id,
-        -1
-    ) AS partition_key,
+    FLOOR(protocol_id / 10) * 10 AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
         url,

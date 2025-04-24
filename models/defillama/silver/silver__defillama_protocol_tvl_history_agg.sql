@@ -52,20 +52,6 @@ daily_tvl_with_lags AS (
     _inserted_timestamp
   FROM
     daily_tvl
-),
-
-protocol_total_tvl AS (
-  SELECT
-    timestamp,
-    protocol_id,
-    SUM(chain_tvl) AS tvl,
-    SUM(chain_tvl_prev_day) AS tvl_prev_day,
-    SUM(chain_tvl_prev_week) AS tvl_prev_week,
-    SUM(chain_tvl_prev_month) AS tvl_prev_month
-  FROM
-    daily_tvl_with_lags
-  GROUP BY
-    timestamp, protocol_id
 )
 
 SELECT
@@ -75,10 +61,10 @@ SELECT
   p.protocol,
   NULL AS market_cap,
   p.symbol,
-  pt.tvl,
-  pt.tvl_prev_day,
-  pt.tvl_prev_week,
-  pt.tvl_prev_month,
+  NULL AS tvl,
+  NULL AS tvl_prev_day,
+  NULL AS tvl_prev_week,
+  NULL AS tvl_prev_month,
   d.chain,
   d.chain_tvl,
   d.chain_tvl_prev_day,
@@ -95,9 +81,6 @@ FROM
   daily_tvl_with_lags d
   LEFT JOIN {{ ref('bronze__defillama_protocols') }} p
     ON p.protocol_id = d.protocol_id
-  LEFT JOIN protocol_total_tvl pt
-    ON pt.protocol_id = d.protocol_id
-    AND pt.timestamp = d.timestamp
 QUALIFY ROW_NUMBER() OVER (
   PARTITION BY d.timestamp, d.protocol_id, d.chain
   ORDER BY d._inserted_timestamp DESC
