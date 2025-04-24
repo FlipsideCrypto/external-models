@@ -3,24 +3,31 @@ version: 2
 models:
   - name: silver__defillama_protocol_tvl_history
     columns:
-      - name: date
+      - name: timestamp
         tests:
           - not_null
-      - name: protocol_slug
+      - name: protocol_id
         tests:
           - not_null
+      - name: category
+      - name: protocol
+      - name: symbol
       - name: chain
         tests:
           - not_null
-      - name: current_tvl
+      - name: chain_tvl
         tests:
           - not_null
-      - name: day_ago_tvl
-      - name: week_ago_tvl
-      - name: month_ago_tvl
-      - name: day_change_pct
-      - name: week_change_pct
-      - name: month_change_pct
+      - name: chain_tvl_prev_day
+      - name: chain_tvl_prev_week
+      - name: chain_tvl_prev_month
+      - name: defillama_protocol_tvl_history_id
+        tests:
+          - unique
+          - not_null
       - name: _inserted_timestamp
         tests:
           - not_null
+      - name: inserted_timestamp
+      - name: modified_timestamp
+      - name: _invocation_id

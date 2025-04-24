@@ -1,4 +1,4 @@
--- depends_on: {{ ref('silver__defillama_protocol_tvl_history_agg') }}
+-- depends_on: {{ ref('silver__defillama_protocol_tvl_history') }}
 {{ config(
     materialized = 'incremental',
     unique_key = ['defillama_tvl_id'],
@@ -48,26 +48,26 @@ historical_heal as(
         protocol_id,
         category,
         protocol,
-        market_cap,
+        NULL AS market_cap,
         symbol,
-        tvl,
-        tvl_prev_day,
-        tvl_prev_week,
-        tvl_prev_month,
+        NULL AS tvl,
+        NULL AS tvl_prev_day,
+        NULL AS tvl_prev_week,
+        NULL AS tvl_prev_month,
         chain,
         chain_tvl,
         chain_tvl_prev_day,
         chain_tvl_prev_week,
         chain_tvl_prev_month,
         _inserted_timestamp,
-        protocol_tvl_history_agg_id as defillama_tvl_id,
+        defillama_protocol_tvl_history_id as defillama_tvl_id,
         inserted_timestamp,
         modified_timestamp,
         '{{ invocation_id }}' AS _invocation_id
     FROM
-        {{ ref('silver__defillama_protocol_tvl_history_agg') }}
+        {{ ref('silver__defillama_protocol_tvl_history') }}
     WHERE
-        protocol_tvl_history_agg_id not in (
+        defillama_protocol_tvl_history_id not in (
             select 
                 distinct defillama_tvl_id 
             FROM

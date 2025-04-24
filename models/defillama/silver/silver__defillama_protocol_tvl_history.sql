@@ -1,12 +1,11 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = ['protocol_id', 'chain', 'date'],
-    cluster_by = ['chain'],
+    unique_key = ['protocol_id', 'chain', 'timestamp'],
+    cluster_by = ['timestamp', 'protocol_id', 'chain'],
     tags = ['defillama']
 ) }}
 
-WITH lat_flat AS (
-
+WITH tvl_history AS (
     SELECT
         protocol_id,
         category,
@@ -16,17 +15,18 @@ WITH lat_flat AS (
     FROM
         {{ ref('bronze__defillama_protocol_tvl_history') }},
         LATERAL FLATTEN (response) AS r
-{% if is_incremental() %}
-WHERE
-    _inserted_timestamp >= (
-        SELECT
-            max(_inserted_timestamp)
-        FROM
-            {{ this }}
-        )
-{% endif %}
+    {% if is_incremental() %}
+    WHERE
+        _inserted_timestamp >= (
+            SELECT
+                max(_inserted_timestamp)
+            FROM
+                {{ this }}
+            )
+    {% endif %}
 ),
-lat_flat2 AS (
+
+daily_tvl_data AS (
     SELECT
         protocol_id,
         category,
@@ -39,31 +39,67 @@ lat_flat2 AS (
                 r.value :date :: INT,
                 '1970-01-01' :: timestamp_ntz
             )
-        ) AS converted_date,
-        r.value :totalLiquidityUSD AS total_liquidity_usd,
+        )::DATE AS timestamp,
+        r.value :totalLiquidityUSD AS chain_tvl,
         _inserted_timestamp
     FROM
-        lat_flat,
+        tvl_history,
         LATERAL FLATTEN (
             VALUE :tvl
         ) AS r
+),
+
+daily_tvl_with_lags AS (
+    SELECT
+        timestamp,
+        protocol_id,
+        category,
+        chain,
+        chain_tvl,
+        LAG(chain_tvl, 1) OVER (
+          PARTITION BY protocol_id, chain
+          ORDER BY timestamp
+        ) AS chain_tvl_prev_day,
+        LAG(chain_tvl, 7) OVER (
+          PARTITION BY protocol_id, chain
+          ORDER BY timestamp
+        ) AS chain_tvl_prev_week,
+        LAG(chain_tvl, 30) OVER (
+          PARTITION BY protocol_id, chain
+          ORDER BY timestamp
+        ) AS chain_tvl_prev_month,
+        _inserted_timestamp
+    FROM
+        daily_tvl_data
+    QUALIFY ROW_NUMBER() OVER (
+      PARTITION BY timestamp, protocol_id, chain
+      ORDER BY _inserted_timestamp DESC
+    ) = 1
 )
+
 SELECT
-    converted_date AS DATE,
-    protocol_id,
-    category,
-    chain,
-    total_liquidity_usd :: INT AS total_liquidity_usd,
+    d.timestamp,
+    d.protocol_id,
+    d.category,
+    p.protocol,
+    p.symbol,
+    d.chain,
+    d.chain_tvl,
+    d.chain_tvl_prev_day,
+    d.chain_tvl_prev_week,
+    d.chain_tvl_prev_month,
+    d._inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
-        ['protocol_id','chain','date']
+        ['d.protocol_id','d.chain','d.timestamp']
     ) }} AS defillama_protocol_tvl_history_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
-    _inserted_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM
-    lat_flat2
-qualify(ROW_NUMBER() over (PARTITION BY protocol_id, chain, date
-ORDER BY
-    _inserted_timestamp DESC
-)) = 1
+    daily_tvl_with_lags d
+    LEFT JOIN {{ ref('bronze__defillama_protocols') }} p
+      ON p.protocol_id = d.protocol_id
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY d.timestamp, d.protocol_id, d.chain
+    ORDER BY d._inserted_timestamp DESC
+) = 1

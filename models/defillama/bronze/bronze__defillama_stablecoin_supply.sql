@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'table',
     unique_key = ['stablecoin_id','timestamp'],
-    tags = ['defillama']
+    tags = ['stale']
 ) }}
 
 WITH stablecoin_base AS ({% for item in range(50) %}
@@ -13,9 +13,9 @@ WITH stablecoin_base AS ({% for item in range(50) %}
         symbol, 
         live.udf_api(
             'GET', 
-            CONCAT('https://pro-api.llama.fi/{api_key}/stablecoins/stablecoin/', stablecoin_id),
-            {},{},
-            'Vault/prod/external/defillama'
+            CONCAT('https://stablecoins.llama.fi/stablecoin/', stablecoin_id),
+            {},
+            {}
         ) AS READ, 
         SYSDATE() AS _inserted_timestamp,
     FROM
