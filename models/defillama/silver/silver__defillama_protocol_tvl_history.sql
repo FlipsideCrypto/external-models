@@ -2,7 +2,7 @@
     materialized = 'incremental',
     unique_key = ['protocol_id', 'chain', 'timestamp'],
     cluster_by = ['timestamp', 'protocol_id', 'chain'],
-    tags = ['defillama']
+    tags = ['defillama_history']
 ) }}
 
 WITH tvl_history AS (

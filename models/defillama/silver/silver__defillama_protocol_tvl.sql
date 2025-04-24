@@ -40,7 +40,7 @@ WHERE
     )
 {% endif %}
 )
-{% if is_incremental() %}
+{% if is_incremental() and var('HEAL', false) %}
 ,
 historical_heal as(
     SELECT
@@ -85,7 +85,7 @@ SELECT
     '{{ invocation_id }}' AS _invocation_id
 FROM
     FINAL
-{% if is_incremental() %}
+{% if is_incremental() and var('HEAL', false) %}
 UNION ALL
 SELECT
     *

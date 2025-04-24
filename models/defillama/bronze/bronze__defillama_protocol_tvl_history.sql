@@ -4,7 +4,7 @@
     materialized = 'incremental',
     unique_key = ['protocol_id', '_inserted_timestamp'],
     cluster_by = ['partition_key'],
-    tags = ['defillama']
+    tags = ['defillama_history']
 ) }}
 
 WITH protocol_base AS (
