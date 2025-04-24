@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: silver__artemis
+    description: "Parsed Artemis blockchain metrics data"
+    columns:
+      - name: metric_date
+        description: "The date of the metric measurement"
+        tests:
+          - not_null
+              
+      - name: blockchain
+        description: "Blockchain name"
+        tests:
+          - not_null
+              
+      - name: metric_value
+        description: "Reported metric value"
+              
+      - name: artemis_id
+        description: "Unique identifier for each metric data point"
+        tests:
+          - unique
+          - not_null
+          
+      - name: _inserted_timestamp
+        description: "Timestamp when record was inserted into the bronze layer"
+        tests:
+          - not_null

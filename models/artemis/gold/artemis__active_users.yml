@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: artemis__active_users
+    description: "This model returns the number of active users for each blockchain and block date"
+      
+    columns:
+      - name: BLOCKCHAIN
+        description: "The blockchain where active users are counted from."
+        tests:
+          - not_null
+      - name: METRIC
+        description: "The metric name is always set as 'active_users'"
+      - name: DESCRIPTION
+        description: "The metric description"
+      - name: BLOCK_DATE
+        description: "The date as of which the active users are counted."
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 3
+      - name: ACTIVE_USERS
+        description: "The number of active users for the given blockchain and as of date."
+        tests:
+          - not_null
+      - name: ACTIVE_USERS_ID
+        description: "The surrogate key for the tx count."
+        tests:
+          - unique
