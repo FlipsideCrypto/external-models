@@ -40,7 +40,7 @@ daily_tvl_data AS (
                 '1970-01-01' :: timestamp_ntz
             )
         )::DATE AS timestamp,
-        r.value :totalLiquidityUSD AS chain_tvl,
+        r.value :totalLiquidityUSD::INT AS chain_tvl,
         _inserted_timestamp
     FROM
         tvl_history,
