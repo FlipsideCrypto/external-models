@@ -8,6 +8,8 @@ sources:
       - name: bitquery
       - name: oklink
       - name: artemis
+      - name: defillama_protocol_historical
+      - name: valuations_parquet
   - name: tokenflow_eth
     database: flipside_prod_db
     schema: tokenflow_eth
@@ -37,11 +39,6 @@ sources:
     schema: silver
     tables:
       - name: nft_transfers
-  - name: bronze_streamline
-    database: streamline
-    schema: external
-    tables: 
-      - name: valuations_parquet
   - name: starknet_snapshot
     database: tokenflow
     schema: starknet

@@ -10,7 +10,7 @@
         "async_concurrent_requests" :"1",
         "sql_source" :"{{this.identifier}}" }
     ),
-    tags = ['streamline_defillama']
+    tags = ['defillama_history']
 ) }}
 
 WITH base AS (

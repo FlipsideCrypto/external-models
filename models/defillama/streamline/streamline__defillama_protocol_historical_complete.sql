@@ -4,7 +4,7 @@
     materialized = "incremental",
     unique_key = ['protocol_id','_inserted_timestamp'],
     merge_exclude_columns = ["inserted_timestamp"],
-    tags = ['streamline_realtime']
+    tags = ['defillama_history']
 ) }}
 
 WITH complete_data AS (
