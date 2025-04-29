@@ -5,8 +5,8 @@
         target = "{{this.schema}}.{{this.identifier}}",
         params ={ "external_table" :"defillama_protocol_historical",
         "sql_limit" :"200",
-        "producer_batch_size" :"100",
-        "worker_batch_size" :"100",
+        "producer_batch_size" :"200",
+        "worker_batch_size" :"200",
         "async_concurrent_requests" :"1",
         "sql_source" :"{{this.identifier}}" }
     ),
@@ -18,7 +18,6 @@ WITH base AS (
     SELECT
         protocol_slug,
         protocol_id,
-        'https://pro-api.llama.fi/{api_key}/api/protocol/' || protocol_slug as url,
         row_num
     FROM
         {{ ref('bronze__defillama_protocols') }}
@@ -31,6 +30,16 @@ WITH base AS (
             WHERE
                 protocol_id IS NOT NULL
         )
+        AND protocol_id IN (
+            SELECT
+                PROTOCOL_ID
+            FROM
+                {{ ref('bronze__defillama_protocol_tvl_historical_response_sizes') }}
+            WHERE
+                size_mb < 15
+            AND
+                status_code = 200
+        )
     ORDER BY
         row_num ASC
     LIMIT 200
@@ -40,7 +49,7 @@ SELECT
     FLOOR(protocol_id / 10) * 10 AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
-        url,
+        'https://pro-api.llama.fi/{api_key}/api/protocol/' || protocol_slug,
         OBJECT_CONSTRUCT(
             'Content-Type', 'text/plain',
             'Accept', 'text/plain'
