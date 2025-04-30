@@ -2,7 +2,7 @@
     materialized = 'table',
     enabled = false,
     unique_key = ['stablecoin_id','timestamp'],
-    tags = ['defillama']
+    tags = ['stale']
 ) }}
 
 WITH stablecoin_base AS ({% for item in range(50) %}

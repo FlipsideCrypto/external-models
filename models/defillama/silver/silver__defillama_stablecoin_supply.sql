@@ -2,7 +2,7 @@
     materialized = 'table',
     enabled = false,
     unique_key = 'defillama_stablecoin_supply_id',
-    tags = ['defillama']
+    tags = ['stale']
 ) }}
 
 WITH expand_flatten AS (

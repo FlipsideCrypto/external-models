@@ -16,6 +16,7 @@ SELECT
 SELECT
     VALUE:id::STRING AS protocol_id,
     VALUE:slug::STRING AS protocol_slug,
+    REGEXP_REPLACE(VALUE:parentProtocol::STRING, '^parent#', '') AS parent_protocol,
     VALUE:name::STRING AS protocol,
     CASE 
         WHEN VALUE:address::STRING = '-' THEN NULL 
@@ -33,6 +34,10 @@ SELECT
     VALUE:chains AS chains,
     VALUE:url::STRING AS url,
     VALUE:logo::STRING AS logo,
+    ROW_NUMBER() over (
+        ORDER BY 
+            protocol_id::int
+    ) AS row_num,
     _inserted_timestamp
 FROM protocol_base,
     LATERAL FLATTEN (input=> read:data)

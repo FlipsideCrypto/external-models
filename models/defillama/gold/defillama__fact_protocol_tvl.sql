@@ -20,7 +20,7 @@ SELECT
     protocol,
     market_cap,
     symbol,
-    chain_tvl,
+    chain_tvl,  
     chain_tvl_prev_day,
     chain_tvl_prev_week,
     chain_tvl_prev_month

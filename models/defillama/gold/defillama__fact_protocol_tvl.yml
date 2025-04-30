@@ -13,7 +13,7 @@ models:
       - name: CATEGORY
         description: The category the protocol belongs to.
       - name: MARKET_CAP
-        description: The total market cap of the protocol.
+        description: The total market cap of the protocol. This is not available for all dates as the historical API does not provide this information.
       - name: SYMBOL
         description: The symbol of the token associated with the protocol.
       - name: CHAIN_TVL
