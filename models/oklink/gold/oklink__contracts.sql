@@ -2,7 +2,8 @@
 {{ config(
     materialized = 'incremental',
     unique_key = ['as_of_date', 'blockchain'],
-    tags = ['oklink']
+    tags = ['oklink'],
+    enabled = false
 ) }}
 
 WITH source AS (
