@@ -13,7 +13,7 @@ WITH stablecoin_base AS ({% for item in range(50) %}
         symbol, 
         live.udf_api(
             'GET', 
-            'https://stablecoins.llama.fi/stablecoin/'|| stablecoin_id,
+            'https://stablecoins.llama.fi/stablecoin/' || stablecoin_id,
             {},
             {},
             'Vault/prod/external/defillama'
