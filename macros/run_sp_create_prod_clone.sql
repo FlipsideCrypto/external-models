@@ -3,7 +3,7 @@
     call external._internal.create_prod_clone(
         'external',
         'external_dev',
-        'external_dev_owner'
+        'internal_dev'
     );
 {% endset %}
     {% do run_query(clone_query) %}
