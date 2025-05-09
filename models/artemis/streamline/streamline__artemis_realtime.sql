@@ -70,7 +70,7 @@ SELECT
     TO_NUMBER(TO_CHAR(SYSDATE(), 'YYYYMMDD')) AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
-        url || encoded_endpoints || '?APIKey={Authentication}' || '&artemisIds=' || encoded_ids || '&startDate=' || min_start_date || '&endDate=' || max_end_date, {}, {},
+        url || encoded_endpoints || '?APIKey={Authentication}' || '&symbols=' || encoded_ids || '&startDate=' || min_start_date || '&endDate=' || max_end_date, {}, {},
         'Vault/prod/external/artemis'
     ) AS request
 FROM
