@@ -43,7 +43,10 @@ parsed_data AS (
     FROM
         source_data s,
         LATERAL FLATTEN(
-            input => raw_data :data :artemis_ids
+            input => COALESCE(
+                raw_data :data :artemis_ids,
+                raw_data :data :symbols
+            )
         ) AS blockchain_flat,
         LATERAL FLATTEN(
             input => blockchain_flat.value
@@ -52,7 +55,10 @@ parsed_data AS (
             input => metric_flat.value
         ) AS metrics
     WHERE
-        raw_data :data :artemis_ids IS NOT NULL
+        COALESCE(
+            raw_data :data :artemis_ids,
+            raw_data :data :symbols
+        ) IS NOT NULL
 )
 SELECT
     TO_DATE(metric_date) AS metric_date,
