@@ -1,0 +1,42 @@
+version: 2
+models:
+  - name: silver__defillama_bridge_volume_by_chain
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - defillama_bridge_vol_by_chain_id
+    
+    columns:
+      - name: BRIDGE_ID
+        tests:
+          - not_null
+      - name: BRIDGE
+        tests:
+          - not_null
+      - name: CHAIN
+        tests:
+          - not_null
+      - name: DATE
+        tests:
+          - not_null
+      - name: DEPOSIT_TXS
+        tests:
+          - not_null
+      - name: DEPOSIT_USD
+        tests:
+          - not_null
+      - name: WITHDRAW_TXS
+        tests:
+          - not_null
+      - name: WITHDRAW_USD
+        tests:
+          - not_null
+      - name: INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2

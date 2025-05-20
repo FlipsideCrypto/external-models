@@ -34,6 +34,7 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [defillama__dim_protocols](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__dim_protocols)
 - [defillama__dim_stablecoins](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__dim_stablecoins)
 - [defillama__fact_bridge_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_bridge_volume)
+- [defillama__fact_bridge_volume_by_chain](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_bridge_volume_by_chain)
 - [defillama__fact_chain_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_chain_tvl)
 - [defillama__fact_dex_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_dex_volume)
 - [defillama__fact_options_volume](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_options_volume)
