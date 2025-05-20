@@ -34,6 +34,11 @@ sources:
     schema: core
     tables:
       - name: dim_dates
+  - name: crosschain_defi
+    database: crosschain
+    schema: defi
+    tables:
+      - name: ez_bridge_activity
   - name: ethereum_silver
     database: ethereum
     schema: silver
