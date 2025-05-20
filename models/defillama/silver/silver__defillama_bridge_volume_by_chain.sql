@@ -3,6 +3,7 @@
     unique_key = 'defillama_bridge_vol_by_chain_id',
     tags = ['defillama']
 ) }}
+-- need to add full refresh false 
 
 WITH list_of_bridges AS (
 
@@ -104,3 +105,4 @@ FROM
     LATERAL FLATTEN (
         input => READ :data
     )
+    WHERE deposit_txs IS NOT NULL 
