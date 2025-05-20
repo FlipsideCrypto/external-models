@@ -1,9 +1,9 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_bridge_vol_by_chain_id',
+    full_refresh = false,
     tags = ['defillama']
 ) }}
--- need to add full refresh false 
 
 WITH list_of_bridges AS (
 
@@ -54,7 +54,7 @@ FROM
     (
 SELECT
     bridge_id_chain,
-    MAX(TIMESTAMP :: DATE) AS max_timestamp
+    MAX(DATE) AS max_timestamp
 FROM
     {{ this }}
 GROUP BY 
@@ -92,10 +92,10 @@ SELECT
     TO_TIMESTAMP(
         VALUE :date :: INTEGER
     )::DATE AS date,
-    VALUE :depositTxs :: INTEGER AS deposit_txs,
-    VALUE :depositUSD :: INTEGER AS deposit_usd,
-    VALUE :withdrawTxs :: INTEGER AS withdraw_txs,
-    VALUE :withdrawUSD :: INTEGER AS withdraw_usd,
+    coalesce(VALUE :depositTxs :: INTEGER, 0) AS deposit_txs,
+    coalesce(VALUE :depositUSD :: INTEGER, 0) AS deposit_usd,
+    coalesce(VALUE :withdrawTxs :: INTEGER, 0) AS withdraw_txs,
+    coalesce(VALUE :withdrawUSD :: INTEGER, 0) AS withdraw_usd,
     SYSDATE() as inserted_timestamp,
     SYSDATE() as modified_timestamp,
     {{ dbt_utils.generate_surrogate_key(['bridge_id_chain', 'date']) }} AS defillama_bridge_vol_by_chain_id,
@@ -105,4 +105,4 @@ FROM
     LATERAL FLATTEN (
         input => READ :data
     )
-    WHERE deposit_txs IS NOT NULL 
+    WHERE VALUE :depositTxs IS NOT NULL or VALUE :withdrawTxs IS NOT NULL
