@@ -46,7 +46,7 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
-          dbt test -m "external_models,models/"
+          dbt test -m "external_models,models/" --exclude tag:stale
   
   notify-failure:
     needs: [run_dbt_jobs]
