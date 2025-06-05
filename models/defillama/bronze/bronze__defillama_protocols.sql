@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'protocol_id',
-    tags = ['stale']
+    tags = ['defillama']
 ) }}
 
 WITH protocol_base AS (
