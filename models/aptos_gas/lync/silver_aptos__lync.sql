@@ -29,7 +29,7 @@ SELECT
     b.value :count :: bigint AS metric_count,
     b.value :amount :: FLOAT AS metric_amount,
     b.value :amountInUSD :: FLOAT AS metric_amount_in_usd,
-    {{ dbt_utils.generate_surrogate_key([ 'metric', 'metric_date']) }} AS artemis_id,
+    {{ dbt_utils.generate_surrogate_key([ 'metric', 'metric_date']) }} AS lync_id,
     SYSDATE() AS inserted_timestamp,
     SYSDATE() AS modified_timestamp,
     '{{ invocation_id }}' AS _invocation_id

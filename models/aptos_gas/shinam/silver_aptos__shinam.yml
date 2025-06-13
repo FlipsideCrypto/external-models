@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: silver_aptos__shinam
+    description: "Shinam  data"
+    columns:
+              
+      - name: metric_date
+        description: "The date of the metric measurement"
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+              
+      - name: fund_name
+        description: "Then the of the fund"
+              
+      - name: workspace_name
+        description: "The name of the workspace"
+      
+      
+      - name: contact_email
+        description: "The contact email of the fund"
+      
+      - name: fund_balance_remaining
+        description: "The fund balance remaining"
+         
+      - name: total_sponsorships
+        description: "The total sponsorships"
+
+      - name: total_fees
+        description: "The total fees paid by the fund"
+
+        
