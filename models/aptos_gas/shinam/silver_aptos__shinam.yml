@@ -2,12 +2,8 @@ version: 2
 
 models:
   - name: silver_aptos__shinam
-    description: "Lyncwold paymaster data"
+    description: "Shinam  data"
     columns:
-      - name: metric
-        description: "The metric name"
-        tests:
-          - not_null
               
       - name: metric_date
         description: "The date of the metric measurement"
@@ -17,21 +13,23 @@ models:
               datepart: day
               interval: 2
               
-      - name: metric_count
-        description: "Reported metric count"
-        tests:
-          - not_null:
-              where: metric <> 'Total Gas Consumed'
+      - name: fund_name
+        description: "Then the of the fund"
               
-      - name: metric_amount
-        description: "Reported metric amount"
-        tests:
-          - not_null:
-              where: metric = 'Total Gas Consumed'
+      - name: workspace_name
+        description: "The name of the workspace"
       
-      - name: metric_amount_in_usd
-        description: "Reported metric amount in USD"
-        tests:
-          - not_null:
-              where: metric = 'Total Gas Consumed'
-          
+      
+      - name: contact_email
+        description: "The contact email of the fund"
+      
+      - name: fund_balance_remaining
+        description: "The fund balance remaining"
+         
+      - name: total_sponsorships
+        description: "The total sponsorships"
+
+      - name: total_fees
+        description: "The total fees paid by the fund"
+
+        
