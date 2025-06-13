@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: silver_aptos__shinam
+    description: "Lyncwold paymaster data"
+    columns:
+      - name: metric
+        description: "The metric name"
+        tests:
+          - not_null
+              
+      - name: metric_date
+        description: "The date of the metric measurement"
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+              
+      - name: metric_count
+        description: "Reported metric count"
+        tests:
+          - not_null:
+              where: metric <> 'Total Gas Consumed'
+              
+      - name: metric_amount
+        description: "Reported metric amount"
+        tests:
+          - not_null:
+              where: metric = 'Total Gas Consumed'
+      
+      - name: metric_amount_in_usd
+        description: "Reported metric amount in USD"
+        tests:
+          - not_null:
+              where: metric = 'Total Gas Consumed'
+          
