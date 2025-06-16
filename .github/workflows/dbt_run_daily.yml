@@ -44,6 +44,7 @@ jobs:
           dbt deps
       - name: Run DBT Jobs
         run: |
+          dbt run-operation run_sp_refresh_external_tables_aptos
           dbt run -m external_models,tag:defillama external_models,tag:deepnftvalue external_models,tag:core external_models,tag:blast external_models,tag:polymarket external_models,tag:bitquery external_models,tag:oklink external_models,tag:artemis external_models,tag:aptos_gas --exclude models/defillama/bronze/bronze__defillama_stablecoin_supply.sql+
 
   notify-failure:

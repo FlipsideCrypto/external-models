@@ -85,6 +85,7 @@ sources:
       - name: farcaster_channel_follows
       - name: farcaster_profile_with_addresses
       - name: farcaster_warpcast_power_users
+      - name: aptos_shinam
   - name: avalanche_share
     database: ava_labs_share
     schema: primary
