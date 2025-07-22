@@ -1,6 +1,5 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key = ['investor'],
+    materialized = 'table',
     tags = ['defillama']
 ) }}
 
@@ -115,15 +114,6 @@ SELECT
     _inserted_timestamp,
     '{{ invocation_id }}' AS _invocation_id
 FROM investor_metrics
-
-{% if is_incremental() %}
-WHERE _inserted_timestamp > (
-    SELECT
-        MAX(_inserted_timestamp)
-    FROM
-        {{ this }}
-)
-{% endif %}
 
 QUALIFY(
     ROW_NUMBER() OVER (PARTITION BY investor ORDER BY _inserted_timestamp DESC)
