@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: silver__defillama_investors
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - INVESTOR
+    columns:
+      - name: INVESTOR
+        tests:
+          - not_null
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null
