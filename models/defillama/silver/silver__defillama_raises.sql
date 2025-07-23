@@ -8,7 +8,7 @@ SELECT
     funding_date,
     project_name,
     funding_round,
-    amount_raised,
+    amount_raised * 1000000 AS amount_raised,
     chains,
     sector,
     category,

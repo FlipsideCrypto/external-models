@@ -9,9 +9,9 @@ models:
       - name: DEALS
         description: Total number of funding deals the investor has participated in.
       - name: TOTAL_AMOUNT
-        description: Total amount invested across all deals (in millions USD).
+        description: Total amount invested across all deals (in USD).
       - name: MEDIAN_AMOUNT
-        description: Median investment amount per deal (in millions USD).
+        description: Median investment amount per deal (in USD).
       - name: CHAINS
         description: Array of blockchain networks the investor has invested in.
       - name: TOP_PROJECT_CATEGORY

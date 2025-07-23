@@ -15,7 +15,7 @@ WITH investor_deals AS (
         category,
         raise_id,
         _inserted_timestamp
-    FROM {{ ref('bronze__defillama_raises') }} r,
+    FROM {{ ref('silver__defillama_raises') }} r,
     LATERAL FLATTEN(input => r.lead_investors) AS lead_investor
     WHERE investor IS NOT NULL 
     AND investor != ''
@@ -33,7 +33,7 @@ WITH investor_deals AS (
         category,
         raise_id,
         _inserted_timestamp
-    FROM {{ ref('bronze__defillama_raises') }} r,
+    FROM {{ ref('silver__defillama_raises') }} r,
     LATERAL FLATTEN(input => r.other_investors) AS other_investor
     WHERE investor IS NOT NULL 
     AND investor != ''
