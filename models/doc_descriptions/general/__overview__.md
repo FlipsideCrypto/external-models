@@ -43,6 +43,8 @@ Note: These tables ceased updating on Feburary 4th, 2024.
 - [defillama__fact_protocol_tvl](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_tvl)
 - [defillama__fact_pool_yields](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_pool_yields)
 - [defillama__fact_protocol_fees_revenue](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_protocol_fees_revenue) 
+- [defillama__fact_raises](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__fact_raises)
+- [defillama__ez_investors](https://flipsidecrypto.github.io/external-models/#!/model/model.external_models.defillama__ez_investors)
 
 **DeepNFTValue**
 

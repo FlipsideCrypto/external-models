@@ -1,0 +1,32 @@
+version: 2
+models:
+  - name: defillama__ez_investors
+    description: This table contains aggregated information about investors, sourced from Defillama's Raises data, providing easy-to-use metrics.
+
+    columns:
+      - name: INVESTOR
+        description: Name of the investor or investment firm.
+      - name: DEALS
+        description: Total number of funding deals the investor has participated in.
+      - name: TOTAL_AMOUNT
+        description: Total amount invested across all deals (in USD).
+      - name: MEDIAN_AMOUNT
+        description: Median investment amount per deal (in USD).
+      - name: CHAINS
+        description: Array of blockchain networks the investor has invested in.
+      - name: TOP_PROJECT_CATEGORY
+        description: Category of the project representing the investor's largest investment.
+      - name: TOP_ROUND_TYPE
+        description: Type of funding round for the investor's largest investment.
+      - name: PROJECTS
+        description: Array of project names the investor has invested in.
+      - name: DEFILLAMA_INVESTORS_ID
+        description: Generated surrogate key for the table.
+      - name: INSERTED_TIMESTAMP
+        description: Timestamp when the record was first inserted.
+      - name: MODIFIED_TIMESTAMP
+        description: Timestamp when the record was last modified.
+      - name: _INSERTED_TIMESTAMP
+        description: Internal timestamp for data pipeline tracking.
+      - name: _INVOCATION_ID
+        description: DBT invocation identifier for lineage tracking. 
