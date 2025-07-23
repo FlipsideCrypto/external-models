@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: silver__defillama_raises
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - RAISE_ID
+    
+    columns:
+      - name: RAISE_ID
+        tests: 
+          - not_null
+      - name: PROJECT_NAME
+        tests: 
+          - not_null
+      - name: FUNDING_DATE
+        tests: 
+          - not_null
+      - name: _INSERTED_TIMESTAMP
+        tests:
+          - not_null

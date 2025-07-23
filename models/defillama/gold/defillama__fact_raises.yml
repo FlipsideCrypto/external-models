@@ -1,0 +1,44 @@
+version: 2
+models:
+  - name: defillama__fact_raises
+    description: This table contains fact-based information about funding raises for projects tracked by Defillama.
+
+    columns:
+      - name: FUNDING_DATE
+        description: Date when the funding round occurred.
+      - name: PROJECT_NAME
+        description: Name of the project that received funding.
+      - name: FUNDING_ROUND
+        description: Type of funding round (e.g., Series A, Seed, Private, etc.).
+      - name: AMOUNT_RAISED
+        description: Amount of money raised in the funding round (in USD).
+      - name: CHAINS
+        description: Array of blockchain networks that the project operates on.
+      - name: SECTOR
+        description: Industry sector classification of the project.
+      - name: CATEGORY
+        description: Specific category classification of the project.
+      - name: CATEGORY_GROUP
+        description: Higher-level category grouping for the project.
+      - name: SOURCE
+        description: Source of the funding information.
+      - name: LEAD_INVESTORS
+        description: Array of lead investors in the funding round.
+      - name: OTHER_INVESTORS
+        description: Array of other participating investors in the funding round.
+      - name: VALUATION
+        description: Company valuation at the time of the funding round (in USD).
+      - name: DEFILLAMA_ID
+        description: DeFiLlama's unique identifier for the project.
+      - name: RAISE_ID
+        description: Unique identifier for the specific funding round.
+      - name: DEFILLAMA_RAISES_ID
+        description: Generated surrogate key for the table.
+      - name: INSERTED_TIMESTAMP
+        description: Timestamp when the record was first inserted.
+      - name: MODIFIED_TIMESTAMP
+        description: Timestamp when the record was last modified.
+      - name: _INSERTED_TIMESTAMP
+        description: Internal timestamp for data pipeline tracking.
+      - name: _INVOCATION_ID
+        description: DBT invocation identifier for lineage tracking. 
