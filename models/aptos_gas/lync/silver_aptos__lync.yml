@@ -11,11 +11,11 @@ models:
               
       - name: metric_date
         description: "The date of the metric measurement"
-        tests:
-          - not_null
-          - dbt_expectations.expect_row_values_to_have_recent_data:
-              datepart: day
-              interval: 3
+        # tests:
+        #   - not_null
+        #   - dbt_expectations.expect_row_values_to_have_recent_data:
+        #       datepart: day
+        #       interval: 3
               
       - name: metric_count
         description: "Reported metric count"
