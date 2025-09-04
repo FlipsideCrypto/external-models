@@ -1,7 +1,7 @@
 {{ config(
     materialized = 'incremental',
     unique_key = ['chain', 'stablecoin_id','_inserted_timestamp'],
-    tags = ['defillama']
+    tags = ['stale']
 ) }}
 
 WITH usdt_supply AS (

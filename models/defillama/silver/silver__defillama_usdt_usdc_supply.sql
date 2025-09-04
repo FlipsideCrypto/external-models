@@ -2,7 +2,7 @@
     materialized = 'incremental',
     cluster_by = 'chain',
     unique_key = 'defillama_usdc_usdt_supply_id',
-    tags = ['defillama']
+    tags = ['stale']
 ) }}
 
 WITH base AS (
