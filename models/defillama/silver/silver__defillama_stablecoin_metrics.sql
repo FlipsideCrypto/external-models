@@ -1,3 +1,4 @@
+-- depends_on: {{ ref('bronze__defillama_stablecoin_metrics') }}
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_stablecoin_metrics_id',

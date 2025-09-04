@@ -27,6 +27,9 @@ with base as (
     where modified_timestamp > (
         select coalesce(max(modified_timestamp), '2025-01-01') from {{ this }}
     )
+    and date_day >= (
+        select coalesce(max(date_day), '1970-01-01') from {{ this }}
+    )
     {% endif %}
 ),
 latest_records as (
