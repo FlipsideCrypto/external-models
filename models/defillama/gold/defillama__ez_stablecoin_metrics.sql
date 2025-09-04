@@ -24,7 +24,10 @@ with base as (
     {{ ref('silver__defillama_stablecoin_metrics') }} s
     left join {{ ref('bronze__defillama_stablecoins') }} sc using (stablecoin_id)
     {% if is_incremental() %}
-    left join {{ this }} t using (chain, date_day, stablecoin_id)
+    left join {{ this }} t 
+    on t.chain = replace(lower(s.chain), ' ', '_') 
+    and t.date_day = s.date_day 
+    and t.stablecoin_id = s.stablecoin_id
     {% endif %}
 
     {% if is_incremental() %}
