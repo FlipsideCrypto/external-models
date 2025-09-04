@@ -1,0 +1,139 @@
+version: 2
+models:
+  - name: defillama__ez_stablecoin_metrics
+    description: |
+      This table provides comprehensive, easy-to-use stablecoin metrics aggregated from Defillama's stablecoin data. 
+      It combines stablecoin metadata (name, symbol, peg type, mechanism) with daily metrics (circulating supply, 
+      minted amount, bridged amounts) across different blockchain networks. The model deduplicates data by selecting 
+      the latest record for each stablecoin-chain-date combination and provides a clean interface for analyzing 
+      stablecoin performance and adoption across various networks.
+      
+      **Key Features:**
+      - Incremental processing for efficient data updates
+      - Deduplication of multiple API calls per day
+      - Cross-chain stablecoin analysis capabilities
+      - Peg type and mechanism classification
+      - USD-denominated metrics for easy comparison
+      
+      **Use Cases:**
+      - Stablecoin market analysis and trends
+      - Cross-chain stablecoin adoption tracking
+      - DeFi protocol stablecoin usage analysis
+      - Regulatory reporting on stablecoin circulation
+      - Risk assessment of different peg mechanisms
+
+    columns:
+      - name: chain
+        description: |
+          The blockchain network where the stablecoin metrics are measured. Values are normalized to lowercase 
+          with spaces replaced by underscores (e.g., 'ethereum', 'hyperliquid_l1', 'polygon'). This field 
+          enables cross-chain analysis of stablecoin adoption and usage patterns.
+        tests:
+          - not_null
+      
+      - name: date_day
+        description: |
+          The date for which the stablecoin metrics are reported. Stored as a DATE type, this field enables 
+          time-series analysis of stablecoin performance, including daily trends, seasonal patterns, and 
+          long-term growth analysis.
+        tests:
+          - not_null
+      
+      - name: stablecoin_id
+        description: |
+          Unique identifier for the stablecoin as defined by Defillama. This is the primary key used to link 
+          stablecoin metadata with daily metrics. Used for joining with stablecoin reference data to get 
+          additional attributes like name, symbol, and peg mechanism.
+        tests:
+          - not_null
+      
+      - name: stablecoin
+        description: |
+          The full name of the stablecoin (e.g., 'Tether USD', 'USD Coin', 'Dai'). This human-readable name 
+          is useful for reporting and analysis purposes, providing context for the metrics being analyzed.
+        tests:
+          - not_null
+      
+      - name: symbol
+        description: |
+          The ticker symbol for the stablecoin (e.g., 'USDT', 'USDC', 'DAI'). This short identifier is 
+          commonly used in trading pairs and financial reporting, making it easier to reference specific 
+          stablecoins in analysis.
+        tests:
+          - not_null
+      
+      - name: peg_type
+        description: |
+          The type of peg mechanism used by the stablecoin. Common values include 'peggedUSD', 'peggedEUR', 'peggedCNY', etc. 
+          This classification helps analyze the target currency of the stablecoin and its intended use case 
+          in global markets.
+        tests:
+          - not_null
+      
+      - name: peg_mechanism
+        description: |
+          The technical mechanism used to maintain the stablecoin's peg. Options include 'algorithmic', 
+          'crypto-backed', 'fiat-backed'. This field is crucial for risk assessment as different mechanisms 
+          have varying levels of stability and failure modes.
+        tests:
+          - not_null
+      
+      - name: total_circulating_usd
+        description: |
+          The total circulating supply of the stablecoin denominated in USD. This represents the actual 
+          amount of the stablecoin available in the market for trading and use in DeFi protocols. 
+      
+      - name: total_minted_usd
+        description: |
+          The total amount of the stablecoin that has been minted (created) denominated in USD. This 
+          represents the maximum supply that has been generated, which may be different from the circulating 
+          supply due to burning or other mechanisms.
+      
+      - name: total_circulating
+        description: |
+          The total circulating supply of the stablecoin in its native units (not USD denominated). This 
+          provides the raw token count that is available in the market, useful for understanding the 
+          actual token distribution and for calculations that require native units. See peg_type for the 
+          unit of the total_circulating.
+      
+      - name: total_bridged_to_usd
+        description: |
+          The total amount of the stablecoin that has been bridged to other networks, denominated in USD. 
+          This metric is particularly important for cross-chain analysis as it shows how much of the 
+          stablecoin supply is available on different blockchain networks through bridging protocols.
+      
+      - name: total_unreleased
+        description: |
+          The total amount of the stablecoin that has been minted but not yet released to the market, 
+          denominated in its native unit. This represents tokens that are held in reserve or locked in contracts, 
+          providing insight into the stablecoin issuer's reserve management strategy. See peg_type for the 
+          unit of the total_unreleased.
+      
+      - name: defillama_ez_stablecoin_metrics_id
+        description: |
+          A unique surrogate key generated from the combination of chain, date_day, and stablecoin_id. 
+          This serves as the primary key for the table and ensures uniqueness across the combination of 
+          these three critical dimensions. Generated using dbt_utils.generate_surrogate_key().
+        tests:
+          - unique
+          - not_null
+      
+      - name: inserted_timestamp
+        description: |
+          Timestamp when the record was inserted into this table. This is set to the current system time 
+          (SYSDATE()) when the record is created, providing an audit trail of when data was loaded.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      
+      - name: modified_timestamp
+        description: |
+          Timestamp when the record was last modified. Currently set to SYSDATE() on each run, this field 
+          can be used for incremental processing and to track when data was last updated.
+        tests:
+          - not_null
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2

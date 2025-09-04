@@ -10,6 +10,7 @@ sources:
       - name: artemis
       - name: defillama_protocol_historical
       - name: valuations_parquet
+      - name: defillama_stablecoin_metrics
   - name: tokenflow_eth
     database: flipside_prod_db
     schema: tokenflow_eth

@@ -2,7 +2,7 @@
         model,
         partition_function,
         partition_name,
-        other_cols
+        other_cols=''
 ) %}
 WITH meta AS (
     SELECT
@@ -17,7 +17,7 @@ WITH meta AS (
             ) A
 )
 SELECT
-    {{ other_cols }},
+    {% if other_cols != '' %}{{ other_cols }},{% endif %}
     DATA,
     _inserted_timestamp,
     s.{{ partition_name }},
@@ -44,7 +44,7 @@ WHERE
         model,
         partition_function,
         partition_name,
-        other_cols
+        other_cols=''
 ) %}
 WITH meta AS (
     SELECT
@@ -59,7 +59,7 @@ WITH meta AS (
         ) A
 )
 SELECT
-    {{ other_cols }},
+    {% if other_cols != '' %}{{ other_cols }},{% endif %}
     DATA,
     _inserted_timestamp,
     s.{{ partition_name }},
