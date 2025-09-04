@@ -2,7 +2,7 @@
     materialized = 'view',
     persist_docs ={ "relation": true,
     "columns": true },
-    tags = ['defillama'],
+    tags = ['stale'],
     meta={
         'database_tags':{
             'table': {
