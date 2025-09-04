@@ -26,7 +26,7 @@ with base as (
         select coalesce(max(_inserted_timestamp), '2025-01-01') from {{ this }}
     )
     {% else %}
-    {{ ref('bronze__defillama_stablecoin_metrics_FR') }}
+    {{ ref('bronze__defillama_stablecoin_metrics_fr') }}
     {% endif %}
 )
 select 
