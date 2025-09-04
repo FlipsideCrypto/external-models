@@ -1,6 +1,5 @@
 {{ config(
-    materialized = 'incremental',
-    unique_key = 'stablecoin_id',
+    materialized = 'table',
     tags = ['defillama']
 ) }}
 
@@ -28,39 +27,6 @@ FINAL AS (
         LATERAL FLATTEN (
             input => READ :data :peggedAssets
         )
-
-{% if is_incremental() %}
-WHERE
-    stablecoin_id NOT IN (
-        SELECT
-            DISTINCT stablecoin_id
-        FROM
-            {{ this }}
-    )
-)
-SELECT
-    stablecoin_id,
-    stablecoin,
-    symbol,
-    peg_type,
-    peg_mechanism,
-    price_source,
-    chains,
-    m.row_num + ROW_NUMBER() over (
-        ORDER BY
-            stablecoin
-    ) AS row_num,
-    _inserted_timestamp
-FROM
-    FINAL
-    JOIN (
-        SELECT
-            MAX(row_num) AS row_num
-        FROM
-            {{ this }}
-    ) m
-    ON 1 = 1
-{% else %}
 )
 SELECT
     stablecoin_id,
@@ -74,7 +40,9 @@ SELECT
         ORDER BY
             stablecoin
     ) AS row_num,
-    _inserted_timestamp
+    _inserted_timestamp,
+    sysdate() as inserted_timestamp,
+    sysdate() as modified_timestamp,
+    '{{ invocation_id }}' as _invocation_id
 FROM
     FINAL
-{% endif %}
