@@ -21,15 +21,20 @@ with base as (
     GET_PATH(total_unreleased, peg_type)::float as total_unreleased,
     run_timestamp
     from 
-    {{ ref('silver__defillama_stablecoin_metrics') }}
-    left join {{ ref('bronze__defillama_stablecoins') }} using (stablecoin_id)
+    {{ ref('silver__defillama_stablecoin_metrics') }} s
+    left join {{ ref('bronze__defillama_stablecoins') }} sc using (stablecoin_id)
     {% if is_incremental() %}
-    where modified_timestamp > (
+    left join {{ this }} t 
+    on t.chain = replace(lower(s.chain), ' ', '_') 
+    and t.date_day = s.date_day 
+    and t.stablecoin_id = s.stablecoin_id
+    {% endif %}
+
+    {% if is_incremental() %}
+    where s.modified_timestamp > (
         select coalesce(max(modified_timestamp), '2025-01-01') from {{ this }}
     )
-    and date_day >= (
-        select coalesce(max(date_day), '1970-01-01') from {{ this }}
-    )
+    and t.defillama_ez_stablecoin_metrics_id is null -- this is to avoid reloading the same data
     {% endif %}
 ),
 latest_records as (
