@@ -7,18 +7,18 @@
 
 with base as (
     select 
-    replace(lower(chain), ' ', '_') as chain,
-    date_day,
-    stablecoin_id,
-    stablecoin,
-    symbol,
-    peg_type,
-    peg_mechanism,
-    GET_PATH(total_circulating_usd, peg_type)::float as total_circulating_usd,
-    GET_PATH(total_minted_usd, peg_type)::float as total_minted_usd,
-    GET_PATH(total_circulating, peg_type)::float as total_circulating,
-    GET_PATH(total_bridged_to_usd, peg_type)::float as total_bridged_to_usd,
-    GET_PATH(total_unreleased, peg_type)::float as total_unreleased,
+    replace(lower(s.chain), ' ', '_') as chain,
+    s.date_day,
+    s.stablecoin_id,
+    sc.stablecoin,
+    sc.symbol,
+    sc.peg_type,
+    sc.peg_mechanism,
+    GET_PATH(s.total_circulating_usd, sc.peg_type)::float as total_circulating_usd,
+    GET_PATH(s.total_minted_usd, sc.peg_type)::float as total_minted_usd,
+    GET_PATH(s.total_circulating, sc.peg_type)::float as total_circulating,
+    GET_PATH(s.total_bridged_to_usd, sc.peg_type)::float as total_bridged_to_usd,
+    GET_PATH(s.total_unreleased, sc.peg_type)::float as total_unreleased,
     run_timestamp
     from 
     {{ ref('silver__defillama_stablecoin_metrics') }} s
@@ -57,7 +57,7 @@ select
     total_unreleased,
     {{ dbt_utils.generate_surrogate_key(
         ['chain','date_day','stablecoin_id']
-    ) }} as defillama_ez_stablecoin_metrics_id,
+    ) }} as ez_stablecoin_metrics_id,
     sysdate() as inserted_timestamp,
     sysdate() as modified_timestamp
 from latest_records
