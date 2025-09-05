@@ -109,7 +109,7 @@ models:
           providing insight into the stablecoin issuer's reserve management strategy. See peg_type for the 
           unit of the total_unreleased.
       
-      - name: defillama_ez_stablecoin_metrics_id
+      - name: ez_stablecoin_metrics_id
         description: |
           A unique surrogate key generated from the combination of chain, date_day, and stablecoin_id. 
           This serves as the primary key for the table and ensures uniqueness across the combination of 

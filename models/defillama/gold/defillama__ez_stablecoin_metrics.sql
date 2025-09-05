@@ -57,7 +57,7 @@ select
     total_unreleased,
     {{ dbt_utils.generate_surrogate_key(
         ['chain','date_day','stablecoin_id']
-    ) }} as defillama_ez_stablecoin_metrics_id,
+    ) }} as ez_stablecoin_metrics_id,
     sysdate() as inserted_timestamp,
     sysdate() as modified_timestamp
 from latest_records
