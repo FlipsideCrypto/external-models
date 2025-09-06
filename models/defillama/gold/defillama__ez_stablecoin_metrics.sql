@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'defillama_ez_stablecoin_metrics_id',
+    unique_key = 'ez_stablecoin_metrics_id',
     cluster_by = ['date_day','chain'],
     tags = ['defillama']
 ) }}
