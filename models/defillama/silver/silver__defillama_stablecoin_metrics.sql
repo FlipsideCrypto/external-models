@@ -48,4 +48,5 @@ sysdate() as inserted_timestamp,
 sysdate() as modified_timestamp,
 '{{ invocation_id }}' as _invocation_id
 from base 
+where date_day is not null
 qualify row_number() over (partition by defillama_stablecoin_metrics_id order by _inserted_timestamp desc) = 1
