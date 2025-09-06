@@ -34,7 +34,7 @@ with base as (
     where s.modified_timestamp > (
         select coalesce(max(modified_timestamp), '2025-01-01') from {{ this }}
     )
-    and t.defillama_ez_stablecoin_metrics_id is null -- this is to avoid reloading the same data
+    and t.ez_stablecoin_metrics_id is null -- this is to avoid reloading the same data
     {% endif %}
 ),
 latest_records as (
