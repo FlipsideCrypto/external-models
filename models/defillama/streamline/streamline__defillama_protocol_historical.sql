@@ -17,10 +17,9 @@ WITH base AS (
 
     SELECT
         protocol_slug,
-        protocol_id,
-        row_num
+        protocol_id
     FROM
-        {{ ref('bronze__defillama_protocols') }}
+        {{ ref('defillama__dim_protocols') }}
     WHERE
         protocol_id NOT IN (
             SELECT
@@ -41,12 +40,12 @@ WITH base AS (
                 status_code = 200
         )
     ORDER BY
-        row_num ASC
+        protocol_id ASC
     LIMIT 200
 )
 SELECT
     protocol_id,
-    FLOOR(protocol_id / 10) * 10 AS partition_key,
+    date_part('epoch_second', sysdate()::DATE) AS partition_key,
     {{ target.database }}.live.udf_api(
         'GET',
         'https://pro-api.llama.fi/{api_key}/api/protocol/' || protocol_slug,
@@ -60,4 +59,4 @@ SELECT
 FROM
     base
 ORDER BY
-    row_num ASC
+    protocol_id ASC

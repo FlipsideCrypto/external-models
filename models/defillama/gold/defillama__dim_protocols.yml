@@ -26,3 +26,25 @@ models:
         description: Number of audits the protocol has undergone.
       - name: AUDIT_NOTE
         description: Notes on the audits of the protocol.
+      - name: TVL
+        description: Total value locked of the protocol as of the last run.
+      - name: CHAIN_TVLS
+        description: Total value locked of the protocol on each chain as of the last run.
+      - name: MODIFIED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2
+      - name: INSERTED_TIMESTAMP
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 2

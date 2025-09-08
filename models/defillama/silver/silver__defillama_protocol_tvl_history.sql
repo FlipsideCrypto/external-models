@@ -97,7 +97,7 @@ SELECT
     '{{ invocation_id }}' AS _invocation_id
 FROM
     daily_tvl_with_lags d
-    LEFT JOIN {{ ref('bronze__defillama_protocols') }} p
+    LEFT JOIN {{ ref('defillama__dim_protocols') }} p
       ON p.protocol_id = d.protocol_id
 QUALIFY ROW_NUMBER() OVER (
     PARTITION BY d.timestamp, d.protocol_id, d.chain
