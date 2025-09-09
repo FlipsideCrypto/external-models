@@ -61,3 +61,4 @@ select
     sysdate() as inserted_timestamp,
     sysdate() as modified_timestamp
 from latest_records
+where date_day is not null
