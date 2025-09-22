@@ -16,8 +16,9 @@ WITH calls AS ({% for item in range(5) %}
     FROM
         {{ ref('bronze__verified_tokenlist_seed') }}
     WHERE
-        row_num BETWEEN {{ item * 10 + 1 }}
-        AND {{(item + 1) * 10 }}
+        is_enabled
+        AND (row_num BETWEEN {{ item * 10 + 1 }}
+        AND {{(item + 1) * 10 }})
 
 ) {% if not loop.last %}
 UNION ALL
@@ -39,3 +40,4 @@ SELECT
     SYSDATE() AS modified_timestamp
 FROM
     calls
+WHERE list_name IS NOT NULL

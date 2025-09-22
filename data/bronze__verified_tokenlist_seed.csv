@@ -1,35 +1,35 @@
-index,token_list,api_url
-1,1inch,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokens.1inch.eth.link
-2,Aave Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.aave.eth.link
-3,Agora dataFi Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://datafi.theagora.eth.link
-4,BA ERC20 SEC Action,https://raw.githubusercontent.com/The-Blockchain-Association/sec-notice-list/master/ba-sec-list.json
-5,CMC DeFi,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://defi.cmc.eth.link
-6,CMC Stablecoin,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://stablecoin.cmc.eth.link
-7,CMC200 ERC20,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://erc20.cmc.eth.link
-8,8CompliFi Originals,https://compli.fi/complifi.tokenlist.json
-9,CoinGecko,https://tokens.coingecko.com/uniswap/all.json
-10,CoinGecko DeFi 100,https://www.coingecko.com/tokens_list/uniswap/defi_100/v_0_0_0.json
-11,Compound,https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json
-12,Defiprime,https://defiprime.com/defiprime.tokenlist.json
-13,DFO Flexible Org,https://raw.githubusercontent.com/b-u-i-d-l/bazar-tokens-list/master/dist/decentralizedFlexibleOrganizations.json
-14,Dharma Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.dharma.eth.link
-15,Furucombo,https://cdn.furucombo.app/furucombo.tokenlist.json
-16,Gemini Token List,https://www.gemini.com/uniswap/manifest.json
-17,Kleros Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://t2crtokens.eth.link
-18,Kyber,https://api.kyber.network/tokenlist
-19,Messari Verified,https://messari.io/tokenlist/messari-verified
-20,MyCrypto Token List,https://uniswap.mycryptoapi.com/
-21,Opyn Token List,https://raw.githubusercontent.com/opynfinance/opyn-tokenlist/master/opyn-v1.tokenlist.json
-22,Superchain Token List,https://static.optimism.io/optimism.tokenlist.json
-23,Roll Social Money,https://app.tryroll.com/tokens.json
-24,Set,https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json
-25,Synthetix,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://synths.snx.eth.link
-26,Testnet Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://testnet.tokenlist.eth.link
-27,Token Name Service,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://list.tkn.eth.link
-28,Uniswap Default List,https://gateway.ipfs.io/ipns/tokens.uniswap.org
-29,Uniswap Token Pairs,https://raw.githubusercontent.com/jab416171/uniswap-pairtokens/master/uniswap_pair_tokens.json
-30,UMA,https://umaproject.org/uma.tokenlist.json
-31,Wrapped Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://wrapped.tokensoft.eth.link
-32,Yearn,https://yearn.science/static/tokenlist.json
-33,Zapper Token List,https://zapper.fi/api/token-list
-34,Zerion,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.zerion.eth.link
+index,token_list,api_url,is_enabled
+1,1inch,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokens.1inch.eth.link,TRUE
+2,Aave Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.aave.eth.link,TRUE
+3,Agora dataFi Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://datafi.theagora.eth.link,TRUE
+4,BA ERC20 SEC Action,https://raw.githubusercontent.com/The-Blockchain-Association/sec-notice-list/master/ba-sec-list.json,TRUE
+5,CMC DeFi,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://defi.cmc.eth.link,TRUE
+6,CMC Stablecoin,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://stablecoin.cmc.eth.link,TRUE
+7,CMC200 ERC20,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://erc20.cmc.eth.link,TRUE
+8,CompliFi Originals,https://compli.fi/complifi.tokenlist.json,FALSE
+9,CoinGecko,https://tokens.coingecko.com/uniswap/all.json,TRUE
+10,CoinGecko DeFi 100,https://www.coingecko.com/tokens_list/uniswap/defi_100/v_0_0_0.json,TRUE
+11,Compound,https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json,TRUE
+12,Defiprime,https://defiprime.com/defiprime.tokenlist.json,TRUE
+13,DFO Flexible Org,https://raw.githubusercontent.com/b-u-i-d-l/bazar-tokens-list/master/dist/decentralizedFlexibleOrganizations.json,TRUE
+14,Dharma Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.dharma.eth.link,TRUE
+15,Furucombo,https://cdn.furucombo.app/furucombo.tokenlist.json,TRUE
+16,Gemini Token List,https://www.gemini.com/uniswap/manifest.json,TRUE
+17,Kleros Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://t2crtokens.eth.link,TRUE
+18,Kyber,https://api.kyber.network/tokenlist,TRUE
+19,Messari Verified,https://messari.io/tokenlist/messari-verified,TRUE
+20,MyCrypto Token List,https://uniswap.mycryptoapi.com/,TRUE
+21,Opyn Token List,https://raw.githubusercontent.com/opynfinance/opyn-tokenlist/master/opyn-v1.tokenlist.json,TRUE
+22,Superchain Token List,https://static.optimism.io/optimism.tokenlist.json,TRUE
+23,Roll Social Money,https://app.tryroll.com/tokens.json,TRUE
+24,Set,https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json,TRUE
+25,Synthetix,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://synths.snx.eth.link,TRUE
+26,Testnet Token List,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://testnet.tokenlist.eth.link,TRUE
+27,Token Name Service,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://list.tkn.eth.link,TRUE
+28,Uniswap Default List,https://gateway.ipfs.io/ipns/tokens.uniswap.org,TRUE
+29,Uniswap Token Pairs,https://raw.githubusercontent.com/jab416171/uniswap-pairtokens/master/uniswap_pair_tokens.json,TRUE
+30,UMA,https://umaproject.org/uma.tokenlist.json,TRUE
+31,Wrapped Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://wrapped.tokensoft.eth.link,TRUE
+32,Yearn,https://yearn.science/static/tokenlist.json,TRUE
+33,Zapper Token List,https://zapper.fi/api/token-list,TRUE
+34,Zerion,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://tokenlist.zerion.eth.link,TRUE
