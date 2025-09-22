@@ -6,7 +6,6 @@ index,token_list,api_url
 5,CMC DeFi,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://defi.cmc.eth.link
 6,CMC Stablecoin,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://stablecoin.cmc.eth.link
 7,CMC200 ERC20,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://erc20.cmc.eth.link
-8,8CompliFi Originals,https://compli.fi/complifi.tokenlist.json
 9,CoinGecko,https://tokens.coingecko.com/uniswap/all.json
 10,CoinGecko DeFi 100,https://www.coingecko.com/tokens_list/uniswap/defi_100/v_0_0_0.json
 11,Compound,https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json
