@@ -40,3 +40,4 @@ SELECT
     SYSDATE() AS modified_timestamp
 FROM
     calls
+WHERE list_name IS NOT NULL
