@@ -17,8 +17,8 @@ WITH calls AS ({% for item in range(5) %}
         {{ ref('bronze__verified_tokenlist_seed') }}
     WHERE
         is_enabled
-        AND row_num BETWEEN {{ item * 10 + 1 }}
-        AND {{(item + 1) * 10 }}
+        AND (row_num BETWEEN {{ item * 10 + 1 }}
+        AND {{(item + 1) * 10 }})
 
 ) {% if not loop.last %}
 UNION ALL
