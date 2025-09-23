@@ -12,6 +12,7 @@ sources:
       - name: valuations_parquet
       - name: defillama_stablecoin_metrics
       - name: defillama_protocols
+      - name: defillama_perp_metrics
   - name: tokenflow_eth
     database: flipside_prod_db
     schema: tokenflow_eth
