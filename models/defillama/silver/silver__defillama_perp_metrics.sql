@@ -22,7 +22,7 @@ with base_raw as (
 ),
 base as (
     select 
-    SYSDATE() :: DATE AS timestamp,
+    _inserted_timestamp :: DATE AS timestamp,
     DATA :defillamaId :: STRING AS protocol_id,
     DATA :category :: STRING AS category,
     DATA :name :: STRING AS name,
@@ -47,6 +47,7 @@ base as (
     from base_raw
 )
 select 
+    timestamp,
     protocol_id,
     category,
     name,
@@ -58,7 +59,7 @@ select
     methodology_url,
     methodology,
     parent_protocol,
-    slug,
+    slug as protocol_slug,
     linked_protocols,
     total_24h,
     total_48h_to_24h,
@@ -67,7 +68,6 @@ select
     total_all_time,
     change_1d,
     total_data_chart_breakdown,
-    timestamp,
     _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['protocol_id','timestamp']

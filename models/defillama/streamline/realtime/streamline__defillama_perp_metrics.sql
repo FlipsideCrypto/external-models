@@ -8,7 +8,8 @@
         "producer_batch_size" :"10",
         "worker_batch_size" :"1",
         "async_concurrent_requests" :"1",
-        "sql_source" :"{{this.identifier}}"
+        "sql_source" :"{{this.identifier}}",
+        "exploded_key": tojson(['data'])
         }
     ),
     tags = ['defillama_streamline']
