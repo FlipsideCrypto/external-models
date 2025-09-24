@@ -79,6 +79,9 @@ SELECT
     methodology,
     parent_protocol,
     linked_protocols,
-    _inserted_timestamp
+    _inserted_timestamp,
+    sysdate() as inserted_timestamp,
+    sysdate() as modified_timestamp,
+    '{{ invocation_id }}' as _invocation_id
 FROM
     protocol_expand
