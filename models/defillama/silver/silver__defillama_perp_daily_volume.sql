@@ -2,14 +2,14 @@
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_perp_daily_volume_id',
-    cluster_by = ['date','blockchain','protocol_id'],
+    cluster_by = ['date','chain','protocol_id'],
     tags = ['defillama']
 ) }}
 
 with base as (
     select 
         protocol_id,
-        slug as protocol_slug,
+        protocol_slug,
         name,
         display_name,
         total_data_chart_breakdown,
@@ -55,7 +55,7 @@ chain_volume_flattened as (
         ddf.date_day,
         ddf.date_timestamp,
         ddf.day_index,
-        chain_breakdown.key as blockchain,
+        chain_breakdown.key as chain,
         chain_breakdown.value as protocol_volumes
     from daily_data_flattened ddf,
     lateral flatten(input => ddf.chain_breakdown_object) as chain_breakdown
@@ -65,7 +65,7 @@ chain_volume_flattened as (
 final as (
     select 
         cvf.date_day as date,
-        cvf.blockchain,
+        cvf.chain,
         cvf.protocol_id,
         cvf.protocol_slug,
         cvf.name as protocol,
@@ -73,7 +73,7 @@ final as (
         cvf._inserted_timestamp,
         cvf.defillama_perp_metrics_id,
         {{ dbt_utils.generate_surrogate_key(
-            ['cvf.protocol_id','cvf.date_day','cvf.blockchain']
+            ['cvf.protocol_id','cvf.date_day','cvf.chain']
         ) }} as defillama_perp_daily_volume_id,
         sysdate() as inserted_timestamp,
         sysdate() as modified_timestamp,
@@ -82,5 +82,18 @@ final as (
     lateral flatten(input => cvf.protocol_volumes) as protocol_vol
 )
 
-select * from final
-qualify row_number() over (partition by defillama_perp_daily_volume_id order by _inserted_timestamp desc) = 1
+select 
+    date,
+    chain,
+    protocol_id,
+    protocol_slug,
+    protocol,
+    volume,
+    defillama_perp_metrics_id,
+    defillama_perp_daily_volume_id,
+    _inserted_timestamp,
+    inserted_timestamp,
+    modified_timestamp,
+    _invocation_id
+from 
+    final qualify row_number() over (partition by defillama_perp_daily_volume_id order by _inserted_timestamp desc) = 1

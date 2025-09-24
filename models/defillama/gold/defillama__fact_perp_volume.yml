@@ -8,11 +8,11 @@ models:
         description: Date associated with the reported volume records.
       - name: chain
         description: The name of the blockchain where the volume occurred.
-      - name: protocol
-        description: The name of the protocol.
-      - name: protocol_slug
-        description: URL-friendly slug identifier for the protocol.
       - name: protocol_id
         description: Unique identifier of the protocol from Defillama.
+      - name: protocol_slug
+        description: URL-friendly slug identifier for the protocol.
+      - name: protocol
+        description: The name of the protocol.
       - name: volume
         description: The total volume driven by the protocol on a daily basis, denominated in USD.

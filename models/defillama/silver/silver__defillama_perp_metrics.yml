@@ -8,12 +8,6 @@ models:
               - timestamp
     
     columns:
-      - name: _inserted_timestamp
-        tests:
-          - not_null
-          - dbt_expectations.expect_column_values_to_be_in_type_list:
-              column_type_list:
-                - TIMESTAMP_NTZ
       - name: timestamp
         tests:
           - not_null
@@ -23,22 +17,48 @@ models:
       - name: protocol_id
         tests:
           - not_null
-      - name: name
+      - name: category
         tests:
           - not_null
-      - name: category
+      - name: name
         tests:
           - not_null
       - name: display_name
         tests:
           - not_null
-      - name: slug
+      - name: module
         tests:
           - not_null
-      - name: defillama_perp_metrics_id
+      - name: logo
+        tests:
+          - not_null
+      - name: chains
+        tests:
+          - not_null
+      - name: protocol_type
+        tests:
+          - not_null
+      - name: methodology_url
+        tests:
+          - not_null
+      - name: methodology
+        tests:
+          - not_null
+      - name: parent_protocol
+        tests:
+          - not_null
+      - name: protocol_slug
+        tests:
+          - not_null
+      - name: linked_protocols
         tests:
           - not_null
       - name: total_24h
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
+      - name: total_48h_to_24h
         tests:
           - dbt_expectations.expect_column_values_to_be_in_type_list:
               column_type_list:
@@ -53,8 +73,34 @@ models:
           - dbt_expectations.expect_column_values_to_be_in_type_list:
               column_type_list:
                 - FLOAT
+      - name: total_all_time
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
       - name: change_1d
         tests:
           - dbt_expectations.expect_column_values_to_be_in_type_list:
               column_type_list:
                 - FLOAT
+      - name: total_data_chart_breakdown
+        tests:
+          - not_null
+      - name: defillama_perp_metrics_id
+        tests:
+          - not_null
+      - name: _inserted_timestamp
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+      - name: inserted_timestamp
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+      - name: modified_timestamp
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ

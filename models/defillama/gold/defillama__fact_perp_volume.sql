@@ -14,10 +14,10 @@
 
 SELECT
     DATE,
-    blockchain as chain,
-    protocol,
-    protocol_slug,
+    chain,
     protocol_id,
+    protocol_slug,
+    protocol,
     volume
 FROM
     {{ ref('silver__defillama_perp_daily_volume') }} f

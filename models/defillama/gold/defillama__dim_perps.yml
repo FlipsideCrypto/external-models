@@ -10,25 +10,11 @@ models:
         description: URL-friendly slug identifier for the protocol.
       - name: category
         description: The category of protocol (e.g. Dexes, Options, Yield, Derivatives etc.).
-      - name: name
+      - name: protocol
         description: Name of the protocol.
-      - name: display_name
-        description: Display name of the protocol.
-      - name: module
-        description: Module identifier for the protocol.
-      - name: logo
-        description: URL to the protocol's logo.
       - name: chains
         description: Array of the various chains or networks that the protocol is deployed on.
-      - name: protocol_type
-        description: Type classification of the protocol.
-      - name: methodology_url
-        description: URL to the protocol's methodology documentation.
-      - name: methodology
-        description: Description of the protocol's methodology.
       - name: parent_protocol
         description: Parent protocol identifier if this is a sub-protocol.
       - name: linked_protocols
         description: Array of related or linked protocols.
-      - name: _inserted_timestamp
-        description: Timestamp when the record was inserted.

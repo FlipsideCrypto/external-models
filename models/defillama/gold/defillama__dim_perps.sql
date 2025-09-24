@@ -15,17 +15,10 @@
 SELECT
     protocol_id,
     protocol_slug,
+    NAME as protocol,
     category,
-    NAME,
-    display_name,
-    module,
-    logo,
     chains,
-    protocol_type,
-    methodology_url,
-    methodology,
     parent_protocol,
-    linked_protocols,
-    _inserted_timestamp
+    linked_protocols
 FROM
     {{ ref('bronze__defillama_perps') }}

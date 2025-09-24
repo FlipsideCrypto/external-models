@@ -5,13 +5,21 @@ models:
       - dbt_utils.unique_combination_of_columns:
             combination_of_columns:
               - protocol_id
-              - timestamp
     
     columns:
       - name: protocol_id
         tests: 
           - not_null
+      - name: protocol_slug
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - not_null
       - name: name
+        tests:
+          - not_null
+      - name: display_name
         tests:
           - not_null
       - name: _inserted_timestamp

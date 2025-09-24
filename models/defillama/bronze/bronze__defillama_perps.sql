@@ -42,20 +42,6 @@ protocol_expand AS (
         VALUE :parentProtocol :: STRING AS parent_protocol,
         VALUE :slug :: STRING AS slug,
         VALUE :linkedProtocols AS linked_protocols,
-        VALUE :total24h :: FLOAT AS total_24h,
-        VALUE :total48hto24h :: FLOAT AS total_48h_to_24h,
-        VALUE :total7d :: FLOAT AS total_7d,
-        VALUE :total14dto7d :: FLOAT AS total_14d_to_7d,
-        VALUE :total30d :: FLOAT AS total_30d,
-        VALUE :total60dto30d :: FLOAT AS total_60d_to_30d,
-        VALUE :total1y :: FLOAT AS total_1y,
-        VALUE :totalAllTime :: FLOAT AS total_all_time,
-        VALUE :average1y :: FLOAT AS average_1y,
-        VALUE :monthlyAverage1y :: FLOAT AS monthly_average_1y,
-        VALUE :total7DaysAgo :: FLOAT AS total_7_days_ago,
-        VALUE :total30DaysAgo :: FLOAT AS total_30_days_ago,
-        VALUE :breakdown24h AS breakdown_24h,
-        VALUE :breakdown30d AS breakdown_30d,
         _inserted_timestamp
     FROM
         lat_flat

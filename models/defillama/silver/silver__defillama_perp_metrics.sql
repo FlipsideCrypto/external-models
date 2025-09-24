@@ -68,10 +68,10 @@ select
     total_all_time,
     change_1d,
     total_data_chart_breakdown,
-    _inserted_timestamp,
     {{ dbt_utils.generate_surrogate_key(
         ['protocol_id','timestamp']
     ) }} as defillama_perp_metrics_id,
+    _inserted_timestamp,
     sysdate() as inserted_timestamp,
     sysdate() as modified_timestamp,
     '{{ invocation_id }}' as _invocation_id
