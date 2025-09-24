@@ -1,0 +1,60 @@
+version: 2
+models:
+  - name: silver__defillama_perp_metrics
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - protocol_id
+              - timestamp
+    
+    columns:
+      - name: _inserted_timestamp
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+      - name: timestamp
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - DATE
+      - name: protocol_id
+        tests:
+          - not_null
+      - name: name
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - not_null
+      - name: display_name
+        tests:
+          - not_null
+      - name: slug
+        tests:
+          - not_null
+      - name: defillama_perp_metrics_id
+        tests:
+          - not_null
+      - name: total_24h
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
+      - name: total_7d
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
+      - name: total_30d
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
+      - name: change_1d
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT

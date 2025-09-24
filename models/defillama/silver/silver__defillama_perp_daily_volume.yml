@@ -1,0 +1,46 @@
+version: 2
+models:
+  - name: silver__defillama_perp_daily_volume
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - protocol_id
+              - date
+              - blockchain
+    columns:
+      - name: _inserted_timestamp
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
+      - name: date
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - DATE
+      - name: blockchain
+        tests:
+          - not_null
+      - name: protocol_id
+        tests:
+          - not_null
+      - name: protocol_slug
+        tests:
+          - not_null
+      - name: protocol
+        tests:
+          - not_null
+      - name: volume
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - FLOAT
+      - name: defillama_perp_daily_volume_id
+        tests:
+          - not_null
+      - name: defillama_perp_metrics_id
+        tests:
+          - not_null

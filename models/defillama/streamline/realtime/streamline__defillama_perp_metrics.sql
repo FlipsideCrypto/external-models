@@ -3,13 +3,12 @@
     post_hook = fsc_utils.if_data_call_function_v2(
         func = 'streamline.udf_bulk_rest_api_v2',
         target = "{{this.schema}}.{{this.identifier}}",
-        params ={ "external_table" :"defillama_stablecoin_metrics",
+        params ={ "external_table" :"defillama_perp_metrics",
         "sql_limit" :"10000",
         "producer_batch_size" :"10",
         "worker_batch_size" :"1",
         "async_concurrent_requests" :"1",
-        "sql_source" :"{{this.identifier}}",
-        "exploded_key": tojson(['data'])
+        "sql_source" :"{{this.identifier}}"
         }
     ),
     tags = ['defillama_streamline']
@@ -18,7 +17,7 @@
 WITH perps as (
 
     select 
-        slug as protocol_slug,
+        protocol_slug,
         protocol_id
     from {{ ref('bronze__defillama_perps') }}
 )

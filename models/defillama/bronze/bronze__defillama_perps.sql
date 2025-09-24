@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = ['protocol_id','timestamp'],
+    unique_key = ['protocol_id'],
     cluster_by = ['protocol_id'],
     tags = ['defillama']
 ) }}
@@ -29,7 +29,6 @@ lat_flat AS (
 ),
 protocol_expand AS (
     SELECT
-        SYSDATE() :: DATE AS TIMESTAMP,
         VALUE :defillamaId :: STRING AS protocol_id,
         VALUE :category :: STRING AS category,
         VALUE :name :: STRING AS NAME,
@@ -60,10 +59,15 @@ protocol_expand AS (
         _inserted_timestamp
     FROM
         lat_flat
+    {% if is_incremental() %}
+    where VALUE :defillamaId :: STRING NOT IN (
+        select protocol_id from {{ this }}
+    )
+    {% endif %}
 )
 SELECT
-    timestamp,
     protocol_id,
+    slug as protocol_slug,
     category,
     NAME,
     display_name,
@@ -74,23 +78,7 @@ SELECT
     methodology_url,
     methodology,
     parent_protocol,
-    slug,
     linked_protocols,
-    total_24h,
-    total_48h_to_24h,
-    total_7d,
-    total_14d_to_7d,
-    total_30d,
-    total_60d_to_30d,
-    total_1y,
-    total_all_time,
-    average_1y,
-    monthly_average_1y,
-    total_7_days_ago,
-    total_30_days_ago,
-    r.key AS chain,
-    r.value AS chain_volume,
     _inserted_timestamp
 FROM
-    protocol_expand,
-    LATERAL FLATTEN (breakdown_24h) AS r
+    protocol_expand
