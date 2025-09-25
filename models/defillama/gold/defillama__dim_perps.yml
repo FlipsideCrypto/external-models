@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: defillama__dim_perps
+    description: This table contains dimensional information about the perpetual protocols listed on Defillama.
+
+    columns:
+      - name: protocol_id
+        description: Unique identifier of the protocol from Defillama.
+      - name: protocol_slug
+        description: URL-friendly slug identifier for the protocol.
+      - name: category
+        description: The category of protocol (e.g. Dexes, Options, Yield, Derivatives etc.).
+      - name: protocol
+        description: Name of the protocol.
+      - name: chains
+        description: Array of the various chains or networks that the protocol is deployed on.
+      - name: parent_protocol
+        description: Parent protocol identifier if this is a sub-protocol.
+      - name: linked_protocols
+        description: Array of related or linked protocols.

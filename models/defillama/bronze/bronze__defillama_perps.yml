@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: bronze__defillama_perps
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - protocol_id
+    
+    columns:
+      - name: protocol_id
+        tests: 
+          - not_null
+      - name: protocol_slug
+        tests:
+          - not_null
+      - name: category
+        tests:
+          - not_null
+      - name: name
+        tests:
+          - not_null
+      - name: display_name
+        tests:
+          - not_null
+      - name: _inserted_timestamp
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_in_type_list:
+              column_type_list:
+                - TIMESTAMP_NTZ
