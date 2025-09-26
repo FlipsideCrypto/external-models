@@ -28,6 +28,7 @@ SELECT
     DATA:category::STRING AS category,
     DATA:url::STRING AS url,
     DATA:logo::STRING AS logo,
+    DATA:twitter::STRING AS twitter,
     DATA:tvl::FLOAT AS tvl,
     DATA:chains AS chains,
     DATA:chainTvls AS chain_tvls,

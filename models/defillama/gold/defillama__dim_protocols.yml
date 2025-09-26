@@ -24,6 +24,9 @@ models:
         description: Category the protocol belongs to.
       - name: NUM_AUDITS
         description: Number of audits the protocol has undergone.
+      - name: TWITTER
+        description: Twitter handle of the protocol.
+        description: Number of audits the protocol has undergone.
       - name: AUDIT_NOTE
         description: Notes on the audits of the protocol.
       - name: TVL
