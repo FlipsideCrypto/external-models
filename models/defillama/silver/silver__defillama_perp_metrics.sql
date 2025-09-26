@@ -1,4 +1,4 @@
--- depends_on: {{ ref('bronze__defillama_perps') }}
+ -- depends_on: {{ ref('bronze__defillama_perp_metrics') }}
 {{ config(
     materialized = 'incremental',
     unique_key = 'defillama_perp_metrics_id',
