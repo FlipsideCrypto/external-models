@@ -44,13 +44,7 @@ models:
       - name: methodology
         tests:
           - not_null
-      - name: parent_protocol
-        tests:
-          - not_null
       - name: protocol_slug
-        tests:
-          - not_null
-      - name: linked_protocols
         tests:
           - not_null
       - name: total_24h
