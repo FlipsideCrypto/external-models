@@ -16,6 +16,7 @@ SELECT
     category,
     num_audits,
     audit_note,
+    twitter,
     tvl,
     chain_tvls,
     sysdate() as inserted_timestamp,
