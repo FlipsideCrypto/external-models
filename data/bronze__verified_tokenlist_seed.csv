@@ -18,7 +18,7 @@ index,token_list,api_url,is_enabled
 17,Kleros Tokens,https://wispy-bird-88a7.uniswap.workers.dev/?url=https://t2crtokens.eth.link,FALSE
 18,Kyber,https://api.kyber.network/tokenlist,FALSE
 19,Messari Verified,https://messari.io/tokenlist/messari-verified,FALSE
-20,MyCrypto Token List,https://uniswap.mycryptoapi.com/,FALSE
+20,MyCrypto Token List,https://uniswap.mycryptoapi.com/,TRUE
 21,Opyn Token List,https://raw.githubusercontent.com/opynfinance/opyn-tokenlist/master/opyn-v1.tokenlist.json,FALSE
 22,Superchain Token List,https://static.optimism.io/optimism.tokenlist.json,FALSE
 23,Roll Social Money,https://app.tryroll.com/tokens.json,FALSE
